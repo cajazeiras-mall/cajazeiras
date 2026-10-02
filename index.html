@@ -20,7 +20,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: #ffffff !important; /* Força todas as letras a ficarem 100% brancas */
+            color: #ffffff !important;
         }
 
         body {
@@ -48,7 +48,6 @@
             width: 100%;
         }
 
-        /* LOGO DO TOPO BEM AMPLIADA E NÍTIDA */
         .logo-img {
             height: auto;
             max-height: 280px;
@@ -59,7 +58,6 @@
             margin: 0 auto;
         }
 
-        /* BOTÃO DE INSTALAR APP SEM METÁLICO (FUNDO ESCURO E TEXTO BRANCO) */
         .install-bar {
             display: block;
             background: #18181b;
@@ -79,7 +77,6 @@
             cursor: pointer;
         }
 
-        /* NAVEGAÇÃO / FILTROS */
         .categories-nav {
             display: flex;
             gap: 8px;
@@ -157,7 +154,6 @@
             font-size: 1rem;
         }
 
-        /* FORMULÁRIO DE CADASTRO */
         .register-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -225,7 +221,6 @@
             margin-top: 10px;
         }
 
-        /* MODAL POP-UP DE BOAS-VINDAS (REFEITO, AMPLIAÇÃO MÁXIMA DA LOGO) */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -258,7 +253,6 @@
             border: 1px solid #3f3f46;
         }
 
-        /* LOGO DO POP-UP AUMENTADA BASTANTE */
         .modal-logo {
             width: 100%;
             max-width: 380px;
@@ -334,20 +328,21 @@
             <div class="register-title">Cadastre seu Comércio</div>
             <div class="register-subtitle">Participe gratuitamente do Cajazeira Mall e alcance novos clientes na nossa região!</div>
 
-            <form onsubmit="enviarCadastro(event)">
+            <!-- ENVIO DIRO PARA O E-MAIL CARLOSHABARRETO@GMAIL.COM VIA FORMSPREE -->
+            <form action="https://formspree.io/f/carloshabarreto@gmail.com" method="POST">
                 <div class="form-group">
                     <label for="comerciante-nome">Seu Nome:</label>
-                    <input type="text" id="comerciante-nome" placeholder="Ex: Carlos Barreto" required>
+                    <input type="text" name="Nome" id="comerciante-nome" placeholder="Ex: Carlos Barreto" required>
                 </div>
 
                 <div class="form-group">
                     <label for="loja-nome">Nome do Estabelecimento:</label>
-                    <input type="text" id="loja-nome" placeholder="Ex: Padaria Sabores da Vila" required>
+                    <input type="text" name="Estabelecimento" id="loja-nome" placeholder="Ex: Padaria Sabores da Vila" required>
                 </div>
 
                 <div class="form-group">
                     <label for="loja-categoria">Categoria:</label>
-                    <select id="loja-categoria" required>
+                    <select name="Categoria" id="loja-categoria" required>
                         <option value="">Selecione...</option>
                         <option value="Mercado">Mercado</option>
                         <option value="Padaria">Padaria</option>
@@ -362,25 +357,24 @@
 
                 <div class="form-group">
                     <label for="loja-whatsapp">WhatsApp do Estabelecimento:</label>
-                    <input type="tel" id="loja-whatsapp" placeholder="Ex: (85) 98635-7437" required>
+                    <input type="tel" name="WhatsApp" id="loja-whatsapp" placeholder="Ex: (85) 98635-7437" required>
                 </div>
 
                 <div class="form-group">
                     <label for="loja-endereco">Bairro / Endereço:</label>
-                    <input type="text" id="loja-endereco" placeholder="Ex: Cajazeiras, próx. à praça" required>
+                    <input type="text" name="Endereco" id="loja-endereco" placeholder="Ex: Cajazeiras, próx. à praça" required>
                 </div>
 
                 <div class="form-group">
                     <label for="loja-desc">Breve descrição dos produtos/serviços:</label>
-                    <textarea id="loja-desc" rows="3" placeholder="Ex: Produtos frescos, entregas em domicílio e atendimento rápido..." required></textarea>
+                    <textarea name="Descricao" id="loja-desc" rows="3" placeholder="Ex: Produtos frescos, entregas em domicílio e atendimento rápido..." required></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">Enviar Cadastro via WhatsApp</button>
+                <button type="submit" class="btn-submit">Enviar Cadastro</button>
             </form>
         </div>
     </div>
 
-    <!-- POP-UP REFEITO COM LOGO AUMENTADA E TEXTOS BRANCOS -->
     <div class="modal-overlay" id="welcome-modal">
         <div class="modal-body">
             <img src="cajazeira_mall_logo.png" alt="Cajazeira Mall" class="modal-logo">
@@ -432,29 +426,6 @@
         function filterCategory(category, btnElement) {
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
-        }
-
-        function enviarCadastro(event) {
-            event.preventDefault();
-
-            const nome = document.getElementById('comerciante-nome').value;
-            const loja = document.getElementById('loja-nome').value;
-            const categoria = document.getElementById('loja-categoria').value;
-            const whatsapp = document.getElementById('loja-whatsapp').value;
-            const endereco = document.getElementById('loja-endereco').value;
-            const descricao = document.getElementById('loja-desc').value;
-
-            let texto = `*NOVO CADASTRO - CAJAZEIRA MALL*\n\n`;
-            texto += `*Responsável:* ${nome}\n`;
-            texto += `*Estabelecimento:* ${loja}\n`;
-            texto += `*Categoria:* ${categoria}\n`;
-            texto += `*WhatsApp:* ${whatsapp}\n`;
-            texto += `*Endereço:* ${endereco}\n`;
-            texto += `*Descrição:* ${descricao}\n`;
-
-            const meuTelefone = "5585986357437";
-            const url = `https://api.whatsapp.com/send?phone=${meuTelefone}&text=${encodeURIComponent(texto)}`;
-            window.open(url, '_blank');
         }
     </script>
 </body>
