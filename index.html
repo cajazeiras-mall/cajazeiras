@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cajazeiras Mall - Comércio Local</title>
+    <title>Cajazeira Mall by Fortaleza - Comércio Local</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e3a8a">
+    <meta name="theme-color" content="#0a0a0a">
     <style>
         :root {
-            --primary: #1e3a8a;
-            --accent: #25d366;
-            --bg-light: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #0f172a;
-            --text-muted: #64748b;
+            --bg-main: #0a0a0a;
+            --card-bg: #141414;
+            --card-border: #2a2415;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --accent-green: #25d366;
+            --text-light: #f8fafc;
+            --text-muted: #a1a1aa;
         }
 
         * {
@@ -24,60 +27,86 @@
         }
 
         body {
-            background-color: var(--bg-light);
-            color: var(--text);
+            background-color: var(--bg-main);
+            color: var(--text-light);
             padding-bottom: 32px;
         }
 
         header {
-            background: var(--primary);
-            color: #ffffff;
-            padding: 24px 16px;
-            text-align: center;
+            background: #000000;
+            border-bottom: 1px solid var(--card-border);
+            padding: 16px;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
         }
 
-        header h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
+        .header-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
 
-        header p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-top: 4px;
+        .logo-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .brand-info {
+            text-align: left;
+        }
+
+        .brand-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .brand-subtitle {
+            font-size: 0.75rem;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-top: 2px;
         }
 
         /* BOTÃO DE INSTALAR APP */
         .install-bar {
             display: none;
-            background: #e0e7ff;
-            border-bottom: 1px solid #c7d2fe;
+            background: #18181b;
+            border-bottom: 1px solid var(--card-border);
             padding: 10px 16px;
             text-align: center;
         }
 
         .btn-install-app {
-            background: var(--primary);
-            color: #ffffff;
+            background: var(--gold-gradient);
+            color: #000000;
             border: none;
-            padding: 8px 18px;
+            padding: 10px 20px;
             border-radius: 20px;
             font-weight: bold;
             font-size: 0.9rem;
             cursor: pointer;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
         }
 
+        /* NAVEGAÇÃO / FILTROS */
         .categories-nav {
             display: flex;
             gap: 8px;
-            padding: 12px 16px;
+            padding: 14px 16px;
             overflow-x: auto;
-            background: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
+            background: #0f0f0f;
+            border-bottom: 1px solid #1f1f1f;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -86,21 +115,23 @@
         }
 
         .cat-btn {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            color: var(--text);
-            padding: 10px 16px;
+            background: #18181b;
+            border: 1px solid #27272a;
+            color: var(--text-muted);
+            padding: 10px 18px;
             border-radius: 20px;
             font-size: 0.95rem;
             font-weight: 600;
             white-space: nowrap;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .cat-btn.active {
-            background: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
+            background: var(--gold-gradient);
+            color: #000000;
+            border-color: var(--gold-primary);
+            font-weight: 700;
         }
 
         .container {
@@ -112,14 +143,17 @@
         .section-title {
             font-size: 1.2rem;
             margin: 16px 0 12px;
-            color: var(--primary);
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
         }
 
         .empty-state {
-            background: #ffffff;
-            border: 2px dashed #cbd5e1;
-            border-radius: 12px;
-            padding: 24px 16px;
+            background: var(--card-bg);
+            border: 1px dashed var(--card-border);
+            border-radius: 16px;
+            padding: 32px 16px;
             text-align: center;
             color: var(--text-muted);
             margin-bottom: 24px;
@@ -127,31 +161,32 @@
 
         .empty-state p {
             font-size: 0.95rem;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .btn-call-to-action {
             display: inline-block;
-            background-color: var(--primary);
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 20px;
+            background: var(--gold-gradient);
+            color: #000000;
+            padding: 12px 24px;
+            border-radius: 25px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
+        /* FORMULÁRIO DE CADASTRO */
         .register-card {
-            background: #ffffff;
-            border: 2px solid var(--primary);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.1);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 24px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .register-title {
             font-size: 1.3rem;
-            color: var(--primary);
+            color: var(--gold-primary);
             font-weight: bold;
             margin-bottom: 6px;
             text-align: center;
@@ -161,11 +196,12 @@
             font-size: 0.9rem;
             color: var(--text-muted);
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            line-height: 1.4;
         }
 
         .form-group {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
@@ -173,39 +209,47 @@
             font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 6px;
-            color: var(--text);
+            color: var(--gold-light);
         }
 
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
+            border: 1px solid #27272a;
+            border-radius: 10px;
             font-size: 1rem;
-            background: #f8fafc;
+            background: #09090b;
+            color: var(--text-light);
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-primary);
         }
 
         .btn-submit {
             width: 100%;
-            background-color: var(--accent);
+            background-color: var(--accent-green);
             color: #ffffff;
             border: none;
             padding: 14px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
         }
 
+        /* MODAL POP-UP DE BOAS-VINDAS */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -222,24 +266,27 @@
         }
 
         .modal-body {
-            background: #ffffff;
+            background: #141414;
             border-radius: 20px;
-            padding: 24px 20px;
+            padding: 28px 20px;
             max-width: 400px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            border: 2px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--card-border);
         }
 
-        .modal-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .modal-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin: 0 auto 12px;
+            border-radius: 16px;
         }
 
         .modal-title {
-            font-size: 1.4rem;
-            color: var(--primary);
+            font-size: 1.3rem;
+            color: var(--gold-primary);
             font-weight: bold;
             margin-bottom: 10px;
         }
@@ -252,8 +299,8 @@
         }
 
         .modal-btn {
-            background: var(--primary);
-            color: #ffffff;
+            background: var(--gold-gradient);
+            color: #000000;
             border: none;
             padding: 12px 24px;
             border-radius: 25px;
@@ -267,11 +314,15 @@
 <body>
 
     <header>
-        <h1>Cajazeiras Mall</h1>
-        <p>O Guia do Comércio da Nossa Região</p>
+        <div class="header-brand">
+            <img src="cajazeira_mall_logo.png" alt="Cajazeira Mall" class="logo-img">
+            <div class="brand-info">
+                <div class="brand-title">Cajazeira Mall</div>
+                <div class="brand-subtitle">by Fortaleza</div>
+            </div>
+        </div>
     </header>
 
-    <!-- BARRA FIXA DE INSTALAÇÃO -->
     <div class="install-bar" id="installContainer">
         <button class="btn-install-app" onclick="instalarApp()">📲 Baixar App no Celular</button>
     </div>
@@ -299,7 +350,7 @@
 
         <div class="register-card" id="cadastro-section">
             <div class="register-title">Cadastre seu Comércio</div>
-            <div class="register-subtitle">Participe gratuitamente do Cajazeiras Mall e alcance novos clientes no bairro!</div>
+            <div class="register-subtitle">Participe gratuitamente do Cajazeira Mall by Fortaleza e alcance novos clientes na nossa região!</div>
 
             <form onsubmit="enviarCadastro(event)">
                 <div class="form-group">
@@ -349,22 +400,20 @@
 
     <div class="modal-overlay" id="welcome-modal">
         <div class="modal-body">
-            <div class="modal-icon">🛍️</div>
+            <img src="cajazeira_mall_logo.png" alt="Cajazeira Mall" class="modal-logo">
             <div class="modal-title">Você é Comerciante na Região?</div>
             <div class="modal-text">
-                Divulgue seu negócio no <strong>Cajazeiras Mall</strong>! A participação é <strong>100% gratuita</strong> e ajuda você a conquistar novos clientes do nosso bairro.
+                Divulgue seu negócio no <strong>Cajazeira Mall by Fortaleza</strong>! A participação é <strong>100% gratuita</strong> e ajuda você a conquistar novos clientes do nosso bairro.
             </div>
             <button class="modal-btn" onclick="fecharModalECadastrar()">Quero Cadastrar Meu Negócio!</button>
         </div>
     </div>
 
     <script>
-        // Registro do Service Worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
         }
 
-        // Lógica para o botão de instalação (PWA)
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -410,7 +459,7 @@
             const endereco = document.getElementById('loja-endereco').value;
             const descricao = document.getElementById('loja-desc').value;
 
-            let texto = `*NOVO CADASTRO - CAJAZEIRAS MALL*\n\n`;
+            let texto = `*NOVO CADASTRO - CAJAZEIRA MALL BY FORTALEZA*\n\n`;
             texto += `*Responsável:* ${nome}\n`;
             texto += `*Estabelecimento:* ${loja}\n`;
             texto += `*Categoria:* ${categoria}\n`;
