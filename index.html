@@ -177,6 +177,7 @@
             color: var(--text-muted);
             margin-bottom: 12px;
             line-height: 1.4;
+            white-space: pre-line;
         }
 
         .store-address {
@@ -387,27 +388,77 @@
 
     <nav class="categories-nav">
         <button class="cat-btn active" onclick="filterCategory('todos', this)">Todos</button>
+        <button class="cat-btn" onclick="filterCategory('saude', this)">Saúde</button>
         <button class="cat-btn" onclick="filterCategory('reforco', this)">Reforço Escolar</button>
+        <button class="cat-btn" onclick="filterCategory('beleza', this)">Beleza</button>
+        <button class="cat-btn" onclick="filterCategory('alimentacao', this)">Alimentação</button>
         <button class="cat-btn" onclick="filterCategory('mercado', this)">Mercado</button>
         <button class="cat-btn" onclick="filterCategory('padaria', this)">Padaria</button>
         <button class="cat-btn" onclick="filterCategory('eletronicos', this)">Eletrônicos</button>
-        <button class="cat-btn" onclick="filterCategory('beleza', this)">Beleza</button>
         <button class="cat-btn" onclick="filterCategory('pet', this)">Pet Shop</button>
-        <button class="cat-btn" onclick="filterCategory('alimentacao', this)">Alimentação</button>
-        <button class="cat-btn" onclick="filterCategory('saude', this)">Saúde</button>
     </nav>
 
     <div class="container">
         <h2 class="section-title">Comércios Cadastrados</h2>
 
         <div id="stores-list">
-            <!-- ESTABELECIMENTO CADASTRADO -->
+            <!-- ESTABELECIMENTO 1 -->
             <div class="store-card" data-category="reforco">
                 <span class="store-tag">Reforço Escolar</span>
                 <h3 class="store-name">Reforço Escolar Tia Sandra</h3>
                 <p class="store-desc">Trabalho com reforço Escolar para educação infantil, fundamental I.</p>
                 <div class="store-address">📍 Avenida Deputado Paulino Rocha 50, rua B casa 46</div>
                 <a href="https://wa.me/5585997354638" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+            </div>
+
+            <!-- ESTABELECIMENTO 2 -->
+            <div class="store-card" data-category="beleza">
+                <span class="store-tag">Beleza</span>
+                <h3 class="store-name">Jamille Araújo espaço da beleza e do bronze</h3>
+                <p class="store-desc">Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua, bronze artificial na máquina e decapagem corporal.</p>
+                <div class="store-address">📍 Condominio solar das árvores. Cajazeiras. Rua dos solares 255</div>
+                <a href="https://wa.me/5585988961380" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+            </div>
+
+            <!-- ESTABELECIMENTO 3 -->
+            <div class="store-card" data-category="beleza">
+                <span class="store-tag">Beleza</span>
+                <h3 class="store-name">Salão de Beleza Nayanne Nascimento</h3>
+                <p class="store-desc">NAYANNE NASCIMENTO | SALÃO DE BELEZA ✨
+Seu cabelo merece um cuidado especial!
+Aqui você encontra beleza, cuidado e transformação em um só lugar. ✨
+🙋‍♀️ Nossos serviços:
+• Alisamentos e texturização
+• Loiros e mechas
+• Coloração
+• Corte e escova
+• Hidratação e tratamentos
+• Reconstrução e cuidados capilares
+• Finalizações e produção para ocasiões especiais
+Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a beleza e a personalidade de cada cliente. 🌷
+💫 Venha viver sua transformação!
+📲 Agende seu horário e permita-se ficar ainda mais linda.</p>
+                <div class="store-address">📍 Rua A 182 Cajazeiras</div>
+                <a href="https://wa.me/5585921490223" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+            </div>
+
+            <!-- ESTABELECIMENTO 4 -->
+            <div class="store-card" data-category="alimentacao">
+                <span class="store-tag">Alimentação</span>
+                <h3 class="store-name">Boomerang sanduíches</h3>
+                <p class="store-desc">Hamburgueria</p>
+                <div class="store-address">📍 Cajazeiras rua jacaranda. N 2</div>
+                <a href="https://wa.me/5585987012328" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+            </div>
+
+            <!-- ESTABELECIMENTO 5[cite: 8] -->
+            <div class="store-card" data-category="saude">
+                <span class="store-tag">Saúde</span>[cite: 8]
+                <h3 class="store-name">FARMÁCIA SUPER FARMA</h3>[cite: 8]
+                <p class="store-desc">Farmácia Super Farma
+O super cuidado para sua saúde!</p>[cite: 8]
+                <div class="store-address">📍 CAJAZEIRAS/ AVENIDA DEPUTADO PAULINO ROCHA, 49</div>[cite: 8]
+                <a href="https://wa.me/5585996656572" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>[cite: 8]
             </div>
 
             <div class="empty-state" id="empty-message">
@@ -438,14 +489,14 @@
                     <label for="loja-categoria">Categoria:</label>
                     <select name="Categoria" id="loja-categoria" required>
                         <option value="">Selecione...</option>
+                        <option value="Saúde">Saúde</option>
                         <option value="Reforço Escolar">Reforço Escolar</option>
+                        <option value="Beleza">Beleza</option>
+                        <option value="Alimentação">Alimentação</option>
                         <option value="Mercado">Mercado</option>
                         <option value="Padaria">Padaria</option>
                         <option value="Eletrônicos">Eletrônicos</option>
-                        <option value="Beleza">Beleza</option>
                         <option value="Pet Shop">Pet Shop</option>
-                        <option value="Alimentação">Alimentação</option>
-                        <option value="Saúde">Saúde</option>
                         <option value="Outros">Outros</option>
                     </select>
                 </div>
