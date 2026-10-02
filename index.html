@@ -5,37 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cajazeiras Mall by Fortaleza - Comércio Local</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0a0a0a">
+    <meta name="theme-color" content="#ffffff">
     <style>
         :root {
-            --bg-main: #0f0f11;
-            --card-bg: #18181b;
-            --card-border: #3f3f46;
-            --accent-green: #25d366;
-            --text-white: #ffffff;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --primary-color: #0f172a;
+            --accent-green: #10b981;
+            --accent-green-hover: #059669;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: #ffffff !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
             background-color: var(--bg-main);
-            color: #ffffff;
-            padding-bottom: 32px;
+            color: var(--text-dark);
+            padding-bottom: 40px;
+            line-height: 1.5;
         }
 
         header {
-            background: #000000;
+            background: #ffffff;
             border-bottom: 1px solid var(--card-border);
             padding: 16px;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,42 +53,46 @@
             text-align: center;
         }
 
-        /* Texto do cabeçalho sem imagem */
         .header-title {
             font-size: 1.4rem;
             font-weight: 800;
-            letter-spacing: 0.5px;
-            color: #ffffff !important;
+            letter-spacing: -0.5px;
+            color: var(--primary-color);
             line-height: 1.1;
         }
 
         .header-title span {
             display: block;
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: #a1a1aa !important;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-top: 3px;
+            margin-top: 4px;
         }
 
         .install-bar {
             display: block;
-            background: #18181b;
+            background: #ffffff;
             border-bottom: 1px solid var(--card-border);
             padding: 12px 16px;
             text-align: center;
         }
 
         .btn-install-app {
-            background: #27272a;
+            background: #f1f5f9;
             border: 1px solid var(--card-border);
-            color: #ffffff !important;
+            color: var(--primary-color);
             padding: 10px 22px;
             border-radius: 25px;
-            font-size: 0.95rem;
-            font-weight: bold;
+            font-size: 0.9rem;
+            font-weight: 700;
             cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-install-app:hover {
+            background: #e2e8f0;
         }
 
         .categories-nav {
@@ -92,7 +100,7 @@
             gap: 8px;
             padding: 14px 16px;
             overflow-x: auto;
-            background: #121215;
+            background: #ffffff;
             border-bottom: 1px solid var(--card-border);
             -webkit-overflow-scrolling: touch;
         }
@@ -102,12 +110,12 @@
         }
 
         .cat-btn {
-            background: #27272a;
-            border: 1px solid #3f3f46;
-            color: #ffffff !important;
-            padding: 10px 18px;
+            background: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-dark);
+            padding: 8px 18px;
             border-radius: 20px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             white-space: nowrap;
             cursor: pointer;
@@ -115,75 +123,76 @@
         }
 
         .cat-btn.active {
-            background: #3f3f46;
-            border-color: #ffffff;
-            font-weight: bold;
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
         }
 
         .container {
-            padding: 16px;
+            padding: 20px 16px;
             max-width: 600px;
             margin: 0 auto;
         }
 
         .section-title {
-            font-size: 1.3rem;
-            margin: 20px 0 14px;
-            color: #ffffff !important;
+            font-size: 1.2rem;
+            margin: 16px 0 14px;
+            color: var(--primary-color);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 800;
         }
 
         .empty-state {
             background: var(--card-bg);
-            border: 1px dashed var(--card-border);
+            border: 1px dashed #cbd5e1;
             border-radius: 16px;
-            padding: 32px 16px;
+            padding: 32px 20px;
             text-align: center;
-            color: #ffffff !important;
             margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .empty-state p {
-            font-size: 1rem;
+            font-size: 0.95rem;
             margin-bottom: 18px;
-            color: #ffffff !important;
+            color: var(--text-muted);
         }
 
         .btn-call-to-action {
             display: inline-block;
-            background: #27272a;
-            border: 1px solid var(--card-border);
-            color: #ffffff !important;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: var(--primary-color);
             padding: 12px 24px;
             border-radius: 25px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95rem;
+            font-weight: 700;
+            font-size: 0.9rem;
         }
 
         .register-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 24px 20px;
+            padding: 28px 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
         .register-title {
-            font-size: 1.4rem;
-            color: #ffffff !important;
-            font-weight: bold;
-            margin-bottom: 8px;
+            font-size: 1.35rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-bottom: 6px;
             text-align: center;
         }
 
         .register-subtitle {
-            font-size: 0.95rem;
-            color: #ffffff !important;
+            font-size: 0.9rem;
+            color: var(--text-muted);
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             line-height: 1.4;
         }
 
@@ -193,42 +202,51 @@
 
         .form-group label {
             display: block;
-            font-size: 0.95rem;
-            font-weight: 600;
+            font-size: 0.85rem;
+            font-weight: 700;
             margin-bottom: 6px;
-            color: #ffffff !important;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #3f3f46;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: #09090b;
-            color: #ffffff !important;
+            padding: 12px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            background: #ffffff;
+            color: var(--text-dark);
+            transition: border-color 0.2s;
         }
 
         .form-group input::placeholder, .form-group textarea::placeholder {
-            color: #a1a1aa !important;
+            color: #94a3b8;
         }
 
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             outline: none;
-            border-color: #ffffff;
+            border-color: var(--accent-green);
         }
 
         .btn-submit {
             width: 100%;
             background-color: var(--accent-green);
-            color: #ffffff !important;
+            color: #ffffff;
             border: none;
             padding: 16px;
             border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            font-size: 1.05rem;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 8px;
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-green-hover);
         }
 
         .modal-overlay {
@@ -237,7 +255,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -254,38 +273,38 @@
         }
 
         .modal-body {
-            background: #141417;
+            background: #ffffff;
             border-radius: 20px;
-            padding: 32px 20px;
-            max-width: 480px;
+            padding: 32px 24px;
+            max-width: 440px;
             width: 100%;
             text-align: center;
-            border: 1px solid #3f3f46;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         .modal-title {
-            font-size: 1.5rem;
-            color: #ffffff !important;
-            font-weight: bold;
-            margin-bottom: 14px;
+            font-size: 1.35rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-bottom: 12px;
             line-height: 1.3;
         }
 
         .modal-text {
-            font-size: 1rem;
-            color: #ffffff !important;
+            font-size: 0.95rem;
+            color: var(--text-muted);
             line-height: 1.5;
             margin-bottom: 24px;
         }
 
         .modal-btn {
-            background: #27272a;
-            border: 1px solid #ffffff;
-            color: #ffffff !important;
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
             padding: 14px 20px;
             border-radius: 30px;
-            font-size: 1rem;
-            font-weight: bold;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
             width: 100%;
         }
@@ -383,7 +402,7 @@
             <div class="modal-text">
                 Divulgue seu negócio no <strong>Cajazeiras Mall</strong>! A participação é <strong>100% gratuita</strong> e ajuda você a conquistar novos clientes do nosso bairro.
             </div>
-            <button class="modal-btn" onclick="fecharModalECadastrar()">Quero Cadastrar Meu Negócio!</button>
+            <button type="button" class="modal-btn" onclick="fecharModalECadastrar()">Quero Cadastrar Meu Negócio!</button>
         </div>
     </div>
 
