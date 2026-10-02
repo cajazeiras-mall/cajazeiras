@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cajazeiras Mall - Comércio Local</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e3a8a">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --accent: #25d366;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text);
+            padding-bottom: 32px;
+        }
+
+        header {
+            background: var(--primary);
+            color: #ffffff;
+            padding: 24px 16px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        /* BOTÃO DE INSTALAR APP */
+        .install-bar {
+            display: none;
+            background: #e0e7ff;
+            border-bottom: 1px solid #c7d2fe;
+            padding: 10px 16px;
+            text-align: center;
+        }
+
+        .btn-install-app {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .categories-nav {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            overflow-x: auto;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .categories-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-btn {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: var(--text);
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .cat-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .container {
+            padding: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            margin: 16px 0 12px;
+            color: var(--primary);
+        }
+
+        .empty-state {
+            background: #ffffff;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 24px 16px;
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .empty-state p {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .btn-call-to-action {
+            display: inline-block;
+            background-color: var(--primary);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .register-card {
+            background: #ffffff;
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.1);
+        }
+
+        .register-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .register-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #f8fafc;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-body {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 20px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 2px solid var(--primary);
+        }
+
+        .modal-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .modal-btn {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Cajazeiras Mall</h1>
+        <p>O Guia do Comércio da Nossa Região</p>
+    </header>
+
+    <!-- BARRA FIXA DE INSTALAÇÃO -->
+    <div class="install-bar" id="installContainer">
+        <button class="btn-install-app" onclick="instalarApp()">📲 Baixar App no Celular</button>
+    </div>
+
+    <nav class="categories-nav">
+        <button class="cat-btn active" onclick="filterCategory('todos', this)">Todos</button>
+        <button class="cat-btn" onclick="filterCategory('mercado', this)">Mercado</button>
+        <button class="cat-btn" onclick="filterCategory('padaria', this)">Padaria</button>
+        <button class="cat-btn" onclick="filterCategory('eletronicos', this)">Eletrônicos</button>
+        <button class="cat-btn" onclick="filterCategory('beleza', this)">Beleza</button>
+        <button class="cat-btn" onclick="filterCategory('pet', this)">Pet Shop</button>
+        <button class="cat-btn" onclick="filterCategory('alimentacao', this)">Alimentação</button>
+        <button class="cat-btn" onclick="filterCategory('saude', this)">Saúde</button>
+    </nav>
+
+    <div class="container">
+        <h2 class="section-title">Comércios Cadastrados</h2>
+
+        <div id="stores-list">
+            <div class="empty-state">
+                <p>Ainda não há estabelecimentos exibidos nesta categoria.</p>
+                <a href="#cadastro-section" class="btn-call-to-action">Seja o Primeiro a Cadastrar!</a>
+            </div>
+        </div>
+
+        <div class="register-card" id="cadastro-section">
+            <div class="register-title">Cadastre seu Comércio</div>
+            <div class="register-subtitle">Participe gratuitamente do Cajazeiras Mall e alcance novos clientes no bairro!</div>
+
+            <form onsubmit="enviarCadastro(event)">
+                <div class="form-group">
+                    <label for="comerciante-nome">Seu Nome:</label>
+                    <input type="text" id="comerciante-nome" placeholder="Ex: Carlos Barreto" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loja-nome">Nome do Estabelecimento:</label>
+                    <input type="text" id="loja-nome" placeholder="Ex: Padaria Sabores da Vila" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loja-categoria">Categoria:</label>
+                    <select id="loja-categoria" required>
+                        <option value="">Selecione...</option>
+                        <option value="Mercado">Mercado</option>
+                        <option value="Padaria">Padaria</option>
+                        <option value="Eletrônicos">Eletrônicos</option>
+                        <option value="Beleza">Beleza</option>
+                        <option value="Pet Shop">Pet Shop</option>
+                        <option value="Alimentação">Alimentação</option>
+                        <option value="Saúde">Saúde</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="loja-whatsapp">WhatsApp do Estabelecimento:</label>
+                    <input type="tel" id="loja-whatsapp" placeholder="Ex: (85) 98635-7437" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loja-endereco">Bairro / Endereço:</label>
+                    <input type="text" id="loja-endereco" placeholder="Ex: Cajazeiras, próx. à praça" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loja-desc">Breve descrição dos produtos/serviços:</label>
+                    <textarea id="loja-desc" rows="3" placeholder="Ex: Produtos frescos, entregas em domicílio e atendimento rápido..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Cadastro via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="welcome-modal">
+        <div class="modal-body">
+            <div class="modal-icon">🛍️</div>
+            <div class="modal-title">Você é Comerciante na Região?</div>
+            <div class="modal-text">
+                Divulgue seu negócio no <strong>Cajazeiras Mall</strong>! A participação é <strong>100% gratuita</strong> e ajuda você a conquistar novos clientes do nosso bairro.
+            </div>
+            <button class="modal-btn" onclick="fecharModalECadastrar()">Quero Cadastrar Meu Negócio!</button>
+        </div>
+    </div>
+
+    <script>
+        // Registro do Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
+        // Lógica para o botão de instalação (PWA)
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installContainer').style.display = 'block';
+        });
+
+        function instalarApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('installContainer').style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('welcome-modal').classList.add('active');
+            }, 400);
+        });
+
+        function fecharModalECadastrar() {
+            document.getElementById('welcome-modal').classList.remove('active');
+            document.getElementById('cadastro-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function filterCategory(category, btnElement) {
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+        }
+
+        function enviarCadastro(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('comerciante-nome').value;
+            const loja = document.getElementById('loja-nome').value;
+            const categoria = document.getElementById('loja-categoria').value;
+            const whatsapp = document.getElementById('loja-whatsapp').value;
+            const endereco = document.getElementById('loja-endereco').value;
+            const descricao = document.getElementById('loja-desc').value;
+
+            let texto = `*NOVO CADASTRO - CAJAZEIRAS MALL*\n\n`;
+            texto += `*Responsável:* ${nome}\n`;
+            texto += `*Estabelecimento:* ${loja}\n`;
+            texto += `*Categoria:* ${categoria}\n`;
+            texto += `*WhatsApp:* ${whatsapp}\n`;
+            texto += `*Endereço:* ${endereco}\n`;
+            texto += `*Descrição:* ${descricao}\n`;
+
+            const meuTelefone = "5585986357437";
+            const url = `https://api.whatsapp.com/send?phone=${meuTelefone}&text=${encodeURIComponent(texto)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
