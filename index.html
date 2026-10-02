@@ -11,7 +11,9 @@
             --bg-main: #0f0f11;
             --card-bg: #18181b;
             --card-border: #3f3f46;
-            --brand-yellow: #e5b80b;
+            --brand-gold-start: #ffe066;
+            --brand-gold-mid: #d4af37;
+            --brand-gold-end: #aa7c11;
             --accent-green: #25d366;
             --text-light: #ffffff;
             --text-muted: #d4d4d8;
@@ -33,7 +35,7 @@
         header {
             background: #000000;
             border-bottom: 1px solid var(--card-border);
-            padding: 16px;
+            padding: 20px 16px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -49,17 +51,34 @@
             width: 100%;
         }
 
+        /* Logo no topo aumentada e bem visível */
         .logo-img {
             height: auto;
-            max-height: 160px;
-            width: 90%;
-            max-width: 360px;
+            max-height: 220px;
+            width: 95%;
+            max-width: 450px;
             object-fit: contain;
             display: block;
             margin: 0 auto;
+            filter: drop-shadow(0px 4px 10px rgba(212, 175, 55, 0.25));
         }
 
-        /* BOTÃO DE INSTALAR APP */
+        /* GRADIENTE DOURADO METÁLICO */
+        .btn-gold-metallic {
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            color: #000000;
+            border: none;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.6);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-gold-metallic:active {
+            transform: scale(0.98);
+        }
+
+        /* BARRA DE INSTALAR APP */
         .install-bar {
             display: block;
             background: #18181b;
@@ -69,12 +88,8 @@
         }
 
         .btn-install-app {
-            background-color: var(--brand-yellow);
-            color: #000000;
-            border: none;
             padding: 12px 24px;
             border-radius: 20px;
-            font-weight: bold;
             font-size: 0.95rem;
             cursor: pointer;
         }
@@ -108,10 +123,10 @@
         }
 
         .cat-btn.active {
-            background-color: var(--brand-yellow);
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 30%, #b38728 70%, #aa771c 100%);
             color: #000000;
-            border-color: var(--brand-yellow);
-            font-weight: 700;
+            border-color: #fcf6ba;
+            font-weight: 800;
         }
 
         .container {
@@ -123,11 +138,13 @@
         .section-title {
             font-size: 1.2rem;
             margin: 16px 0 12px;
-            color: var(--brand-yellow);
+            background: linear-gradient(135deg, #fcf6ba 0%, #bf953f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-transform: uppercase;
             letter-spacing: 1px;
             text-align: center;
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .empty-state {
@@ -147,12 +164,9 @@
 
         .btn-call-to-action {
             display: inline-block;
-            background-color: var(--brand-yellow);
-            color: #000000;
             padding: 12px 24px;
             border-radius: 25px;
             text-decoration: none;
-            font-weight: bold;
             font-size: 0.95rem;
         }
 
@@ -166,8 +180,10 @@
 
         .register-title {
             font-size: 1.3rem;
-            color: var(--brand-yellow);
-            font-weight: bold;
+            background: linear-gradient(135deg, #fcf6ba 0%, #bf953f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
             margin-bottom: 6px;
             text-align: center;
         }
@@ -204,7 +220,7 @@
 
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             outline: none;
-            border-color: var(--brand-yellow);
+            border-color: #bf953f;
         }
 
         .btn-submit {
@@ -220,14 +236,14 @@
             margin-top: 10px;
         }
 
-        /* MODAL POP-UP DE BOAS-VINDAS */
+        /* MODAL POP-UP DE BOAS-VINDAS (AJUSTADO E AUMENTADO) */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.88);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -244,48 +260,49 @@
         }
 
         .modal-body {
-            background: #18181b;
-            border-radius: 16px;
-            padding: 28px 20px;
-            max-width: 400px;
+            background: #141417;
+            border-radius: 20px;
+            padding: 32px 24px;
+            max-width: 440px;
             width: 100%;
             text-align: center;
-            border: 1px solid var(--card-border);
+            border: 1px solid #3f3f46;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(191, 149, 63, 0.2);
         }
 
+        /* Logo do Pop-up muito maior e nítida */
         .modal-logo {
             width: 100%;
-            max-width: 280px;
+            max-width: 320px;
             height: auto;
-            max-height: 160px;
+            max-height: 200px;
             object-fit: contain;
-            margin: 0 auto 16px;
+            margin: 0 auto 20px;
             display: block;
+            filter: drop-shadow(0px 4px 12px rgba(0,0,0,0.8));
         }
 
         .modal-title {
-            font-size: 1.4rem;
-            color: var(--brand-yellow);
-            font-weight: bold;
-            margin-bottom: 12px;
+            font-size: 1.45rem;
+            background: linear-gradient(135deg, #fcf6ba 0%, #bf953f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            margin-bottom: 14px;
             line-height: 1.3;
         }
 
         .modal-text {
             font-size: 1rem;
-            color: var(--text-light);
+            color: #e4e4e7;
             line-height: 1.5;
-            margin-bottom: 24px;
+            margin-bottom: 26px;
         }
 
         .modal-btn {
-            background-color: var(--brand-yellow);
-            color: #000000;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 25px;
+            padding: 16px 24px;
+            border-radius: 30px;
             font-size: 1.05rem;
-            font-weight: bold;
             cursor: pointer;
             width: 100%;
         }
@@ -300,7 +317,7 @@
     </header>
 
     <div class="install-bar" id="installContainer">
-        <button class="btn-install-app" onclick="instalarApp()">📲 Baixar App no Celular</button>
+        <button class="btn-install-app btn-gold-metallic" onclick="instalarApp()">📲 Baixar App no Celular</button>
     </div>
 
     <nav class="categories-nav">
@@ -320,7 +337,7 @@
         <div id="stores-list">
             <div class="empty-state">
                 <p>Ainda não há estabelecimentos exibidos nesta categoria.</p>
-                <a href="#cadastro-section" class="btn-call-to-action">Seja o Primeiro a Cadastrar!</a>
+                <a href="#cadastro-section" class="btn-call-to-action btn-gold-metallic">Seja o Primeiro a Cadastrar!</a>
             </div>
         </div>
 
@@ -374,6 +391,7 @@
         </div>
     </div>
 
+    <!-- POP-UP COM LOGO BEM MAIOR E DOURADO METÁLICO NOS BOTÕES -->
     <div class="modal-overlay" id="welcome-modal">
         <div class="modal-body">
             <img src="cajazeira_mall_logo.png" alt="Cajazeira Mall" class="modal-logo">
@@ -381,7 +399,7 @@
             <div class="modal-text">
                 Divulgue seu negócio no <strong>Cajazeira Mall</strong>! A participação é <strong>100% gratuita</strong> e ajuda você a conquistar novos clientes do nosso bairro.
             </div>
-            <button class="modal-btn" onclick="fecharModalECadastrar()">Quero Cadastrar Meu Negócio!</button>
+            <button class="modal-btn btn-gold-metallic" onclick="fecharModalECadastrar()">Quero Cadastrar Meu Negócio!</button>
         </div>
     </div>
 
@@ -414,7 +432,7 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('welcome-modal').classList.add('active');
-            }, 400);
+            }, 300);
         });
 
         function fecharModalECadastrar() {
