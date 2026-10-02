@@ -350,7 +350,11 @@
             <div class="register-title">Cadastre seu Comércio</div>
             <div class="register-subtitle">Participe gratuitamente do Cajazeiras Mall e alcance novos clientes na nossa região!</div>
 
-            <form action="https://formspree.io/f/carloshabarreto@gmail.com" method="POST">
+            <!-- ENVIO VIA FORMSUBMIT DIRETAMENTE PARA O SEU E-MAIL -->
+            <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
+                <input type="hidden" name="_captcha" value="false">
+
                 <div class="form-group">
                     <label for="comerciante-nome">Seu Nome:</label>
                     <input type="text" name="Nome" id="comerciante-nome" placeholder="Ex: Carlos Barreto" required>
