@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cajazeira Mall by Fortaleza - Comércio Local</title>
+    <title>Cajazeiras Mall by Fortaleza - Comércio Local</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0a0a0a">
     <style>
@@ -32,7 +32,7 @@
         header {
             background: #000000;
             border-bottom: 1px solid var(--card-border);
-            padding: 12px 16px;
+            padding: 16px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -43,37 +43,29 @@
 
         .header-brand {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            text-align: center;
         }
 
-        /* Logótipo reduzido */
-        .logo-img {
-            height: 48px;
-            width: 48px;
-            object-fit: contain;
-            display: block;
-        }
-
-        /* Texto ao lado do logótipo */
+        /* Texto do cabeçalho sem imagem */
         .header-title {
-            font-size: 1.25rem;
-            font-weight: 700;
+            font-size: 1.4rem;
+            font-weight: 800;
             letter-spacing: 0.5px;
             color: #ffffff !important;
-            display: flex;
-            flex-direction: column;
             line-height: 1.1;
         }
 
         .header-title span {
-            font-size: 0.75rem;
+            display: block;
+            font-size: 0.8rem;
             font-weight: 400;
             color: #a1a1aa !important;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
         .install-bar {
@@ -271,16 +263,8 @@
             border: 1px solid #3f3f46;
         }
 
-        .modal-logo {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin: 0 auto 16px;
-            display: block;
-        }
-
         .modal-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #ffffff !important;
             font-weight: bold;
             margin-bottom: 14px;
@@ -311,7 +295,6 @@
 
     <header>
         <div class="header-brand">
-            <img src="cajazeira_mall_logo.png" alt="Cajazeiras Mall" class="logo-img">
             <div class="header-title">
                 Cajazeiras Mall
                 <span>by Fortaleza</span>
@@ -396,7 +379,6 @@
 
     <div class="modal-overlay" id="welcome-modal">
         <div class="modal-body">
-            <img src="cajazeira_mall_logo.png" alt="Cajazeiras Mall" class="modal-logo">
             <div class="modal-title">Você é Comerciante na Região?</div>
             <div class="modal-text">
                 Divulgue seu negócio no <strong>Cajazeiras Mall</strong>! A participação é <strong>100% gratuita</strong> e ajuda você a conquistar novos clientes do nosso bairro.
