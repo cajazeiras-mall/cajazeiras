@@ -144,6 +144,68 @@
             font-weight: 800;
         }
 
+        .store-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .store-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .store-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .store-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .store-address {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-whatsapp {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-green);
+            color: #ffffff;
+            text-align: center;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--accent-green-hover);
+        }
+
         .empty-state {
             background: var(--card-bg);
             border: 1px dashed #cbd5e1;
@@ -152,6 +214,7 @@
             text-align: center;
             margin-bottom: 24px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: none;
         }
 
         .empty-state p {
@@ -178,6 +241,7 @@
             border-radius: 16px;
             padding: 28px 20px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-top: 24px;
         }
 
         .register-title {
@@ -323,6 +387,7 @@
 
     <nav class="categories-nav">
         <button class="cat-btn active" onclick="filterCategory('todos', this)">Todos</button>
+        <button class="cat-btn" onclick="filterCategory('reforco', this)">Reforço Escolar</button>
         <button class="cat-btn" onclick="filterCategory('mercado', this)">Mercado</button>
         <button class="cat-btn" onclick="filterCategory('padaria', this)">Padaria</button>
         <button class="cat-btn" onclick="filterCategory('eletronicos', this)">Eletrônicos</button>
@@ -336,9 +401,18 @@
         <h2 class="section-title">Comércios Cadastrados</h2>
 
         <div id="stores-list">
-            <div class="empty-state">
-                <p>Ainda não há estabelecimentos exibidos nesta categoria.</p>
-                <a href="#cadastro-section" class="btn-call-to-action">Seja o Primeiro a Cadastrar!</a>
+            <!-- ESTABELECIMENTO CADASTRADO -->
+            <div class="store-card" data-category="reforco">
+                <span class="store-tag">Reforço Escolar</span>
+                <h3 class="store-name">Reforço Escolar Tia Sandra</h3>
+                <p class="store-desc">Trabalho com reforço Escolar para educação infantil, fundamental I.</p>
+                <div class="store-address">📍 Avenida Deputado Paulino Rocha 50, rua B casa 46</div>
+                <a href="https://wa.me/5585997354638" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+            </div>
+
+            <div class="empty-state" id="empty-message">
+                <p>Nenhum estabelecimento encontrado nesta categoria.</p>
+                <a href="#cadastro-section" class="btn-call-to-action">Cadastrar Novo Comércio</a>
             </div>
         </div>
 
@@ -364,6 +438,7 @@
                     <label for="loja-categoria">Categoria:</label>
                     <select name="Categoria" id="loja-categoria" required>
                         <option value="">Selecione...</option>
+                        <option value="Reforço Escolar">Reforço Escolar</option>
                         <option value="Mercado">Mercado</option>
                         <option value="Padaria">Padaria</option>
                         <option value="Eletrônicos">Eletrônicos</option>
@@ -445,6 +520,25 @@
         function filterCategory(category, btnElement) {
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
+
+            const stores = document.querySelectorAll('.store-card');
+            let visibleCount = 0;
+
+            stores.forEach(store => {
+                if (category === 'todos' || store.getAttribute('data-category') === category) {
+                    store.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    store.style.display = 'none';
+                }
+            });
+
+            const emptyMsg = document.getElementById('empty-message');
+            if (visibleCount === 0) {
+                emptyMsg.style.display = 'block';
+            } else {
+                emptyMsg.style.display = 'none';
+            }
         }
     </script>
 </body>
