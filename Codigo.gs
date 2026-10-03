@@ -1,151 +1,194 @@
-// ===== Cajazeiras Mall: servidor (Google Apps Script) =====
-var SENHA = '#Lis2019'; // fica só aqui, nunca vai para a página dos visitantes
+// ==========================================
+// CONFIGURAÇÕES GERAIS
+// ==========================================
+var SENHA = '#Lis2019'; // Altere sua senha de admin aqui se desejar
+var ID_PLANILHA = SpreadsheetApp.getActiveSpreadsheet().getId();
 
-var CATEGORIAS_INICIAIS = ['Alimentação','Beleza','Eletrônicos','Mercado','Moda','Padaria','Pet Shop','Reforço Escolar','Saúde'];
-var COMERCIOS_INICIAIS = [
-  ['Reforço Escolar Tia Sandra','Reforço Escolar','85997354638','Trabalho com reforço escolar para educação infantil e ensino fundamental I.'],
-  ['Jamille Araújo Espaço da Beleza e do Bronze','Beleza','85988961380','Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua e bronze.'],
-  ['Nayanne Nascimento Salão de Beleza','Beleza','85921490223','Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados.'],
-  ['Boomerang Sanduíches','Alimentação','85987012328','Hamburgueria com opções de sanduíches e lanches.'],
-  ['Farmácia Super Farma','Saúde','85996656572','O super cuidado para sua saúde!'],
-  ['Barfruta','Alimentação','85988408564','Polpas de frutas de diversos sabores e morango congelado.'],
-  ['Alemão e Cléa Espetaria e Pratinhos','Alimentação','85996277402','Espetos variados e pratinhos tradicionais.'],
-  ['Amadas Artigos Femininos, Fardamentos e Acessórios','Moda','85996482898','• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios']
-];
 var FEEDS = [
-  {tag:'Cultura & Arte Local', fonte:'Diário do Nordeste (Verso)', url:'https://diariodonordeste.verdesmares.com.br/cetv-verso-rss'},
-  {tag:'Cidade & Vida Urbana', fonte:'Diário do Nordeste', url:'https://diariodonordeste.verdesmares.com.br/ceara-rss'},
-  {tag:'Turismo & Gastronomia', fonte:'O POVO (Vida & Arte)', url:'https://www.opovo.com.br/rss/vidaearte'}
+  { tag: 'Ceará', fonte: 'Diário do Nordeste', url: 'https://diariodonordeste.verdesmares.com.br/corta-fogo/rss' },
+  { tag: 'Fortaleza', fonte: 'O POVO', url: 'https://www.opovo.com.br/rss' }
 ];
-var PROIBIDOS = ['crime','preso','morte','matou','tiro','polícia','pf','stf','eleição','eleições','candidato','assassino','roubo','assalto','bomba','incêndio','droga'];
 
-function aba_(nome, cabecalho) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var a = ss.getSheetByName(nome);
-  if (!a) { a = ss.insertSheet(nome); a.appendRow(cabecalho); }
-  return a;
-}
-function seguro_(v) {
-  v = String(v == null ? '' : v);
-  return /^[=+\-@]/.test(v) ? "'" + v : v;
-}
-function preparar_() {
-  var c = aba_('Categorias', ['nome']);
-  if (c.getLastRow() < 2) CATEGORIAS_INICIAIS.forEach(function (n) { c.appendRow([n]); });
-  var m = aba_('Comercios', ['id','nome','categoria','whatsapp','desc']);
-  if (m.getLastRow() < 2) COMERCIOS_INICIAIS.forEach(function (x) { m.appendRow([Utilities.getUuid(), x[0], x[1], "'" + x[2], x[3]]); });
-}
-function estado_() {
-  preparar_();
-  var cats = aba_('Categorias', ['nome']).getDataRange().getValues().slice(1)
-    .map(function (r) { return String(r[0]); }).filter(String)
-    .sort(function (a, b) { return a.localeCompare(b, 'pt-BR'); });
-  var coms = aba_('Comercios', ['id','nome','categoria','whatsapp','desc']).getDataRange().getValues().slice(1)
-    .filter(function (r) { return r[0]; })
-    .map(function (r) { return {id:String(r[0]), nome:String(r[1]), categoria:String(r[2]), whatsapp:String(r[3]).replace(/\D/g,''), desc:String(r[4])}; });
-  return {ok:true, categorias:cats, comercios:coms};
-}
-function json_(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
+var PROIBIDOS = ['crime', 'assassino', 'homicidio', 'chacina', 'morto', 'morte', 'preso', 'faccao', 'tiroteio', 'assalto', 'roubo'];
 
+// ==========================================
+// PONTO DE ENTRADA HTTP (GET)
+// ==========================================
+function doGet(e) {
+  var acao = (e && e.parameter && e.parameter.acao) ? e.parameter.acao : 'comercios';
+  var resultado = {};
+
+  try {
+    if (acao === 'comercios') {
+      resultado = comercios_();
+    } else if (acao === 'noticias') {
+      resultado = noticias_();
+    } else {
+      resultado = { ok: false, erro: 'Ação inválida' };
+    }
+  } catch (err) {
+    resultado = { ok: false, erro: err.toString() };
+  }
+
+  return ContentService
+    .createTextOutput(JSON.stringify(resultado))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ==========================================
+// PONTO DE ENTRADA HTTP (POST)
+// ==========================================
+function doPost(e) {
+  var resultado = {};
+  try {
+    var dados = JSON.parse(e.postData.contents);
+    if (dados.senha !== SENHA) {
+      resultado = { ok: false, erro: 'Senha incorreta' };
+    } else if (dados.acao === 'salvarComercio') {
+      resultado = salvarComercio_(dados.comercio);
+    } else if (dados.acao === 'excluirComercio') {
+      resultado = excluirComercio_(dados.id);
+    } else {
+      resultado = { ok: false, erro: 'Ação POST inválida' };
+    }
+  } catch (err) {
+    resultado = { ok: false, erro: err.toString() };
+  }
+
+  return ContentService
+    .createTextOutput(JSON.stringify(resultado))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ==========================================
+// BUSCAR COMÉRCIOS
+// ==========================================
+function comercios_() {
+  var aba = SpreadsheetApp.openById(ID_PLANILHA).getSheetByName('Comercios');
+  if (!aba) return { ok: true, comercios: [] };
+  
+  var dados = aba.getDataRange().getValues();
+  if (dados.length <= 1) return { ok: true, comercios: [] };
+
+  var cabecalho = dados[0];
+  var lista = [];
+
+  for (var i = 1; i < dados.length; i++) {
+    var linha = dados[i];
+    if (!linha[0]) continue; // Pula se ID estiver vazio
+    var obj = {};
+    for (var j = 0; j < cabecalho.length; j++) {
+      obj[cabecalho[j]] = linha[j];
+    }
+    lista.push(obj);
+  }
+
+  return { ok: true, comercios: lista };
+}
+
+// ==========================================
+// BUSCAR NOTÍCIAS (CORRIGIDO E ROBUSTO)
+// ==========================================
 function noticias_() {
   var cache = CacheService.getScriptCache();
-  var guardado = cache.get('noticias_v1');
+  var guardado = cache.get('noticias_v2');
   if (guardado) return JSON.parse(guardado);
+  
   var saida = FEEDS.map(function (f) {
     var itens = [];
     try {
-      var xml = UrlFetchApp.fetch(f.url, {muteHttpExceptions:true}).getContentText();
-      var canal = XmlService.parse(xml).getRootElement().getChild('channel');
-      canal.getChildren('item').forEach(function (it) {
-        if (itens.length >= 5) return;
-        var titulo = it.getChildText('title') || '';
-        var resumo = (it.getChildText('description') || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-        var texto = (titulo + ' ' + resumo).toLowerCase();
-        var ruim = PROIBIDOS.some(function (t) { return texto.indexOf(t) > -1; });
-        if (!ruim && titulo) itens.push({titulo:titulo, link:it.getChildText('link') || '', data:it.getChildText('pubDate') || '', resumo:resumo.substring(0, 110)});
+      var resp = UrlFetchApp.fetch(f.url, {
+        muteHttpExceptions: true,
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
       });
-    } catch (e) {}
-    return {tag:f.tag, fonte:f.fonte, itens:itens};
+      
+      if (resp.getResponseCode() === 200) {
+        var xml = resp.getContentText();
+        var doc = XmlService.parse(xml);
+        var root = doc.getRootElement();
+        var channel = root.getChild('channel') || root;
+        var items = channel.getChildren('item');
+        
+        for (var i = 0; i < items.length; i++) {
+          if (itens.length >= 5) break;
+          var it = items[i];
+          var titulo = it.getChildText('title') || '';
+          var desc = it.getChildText('description') || '';
+          var link = it.getChildText('link') || '';
+          var pubDate = it.getChildText('pubDate') || '';
+          
+          var resumo = desc.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+          var texto = (titulo + ' ' + resumo).toLowerCase();
+          
+          var ruim = PROIBIDOS.some(function (t) { return texto.indexOf(t) > -1; });
+          
+          if (!ruim && titulo) {
+            itens.push({
+              titulo: titulo,
+              link: link,
+              data: pubDate,
+              resumo: resumo.substring(0, 120)
+            });
+          }
+        }
+      }
+    } catch (e) {
+      // Caso um feed específico falhe, segue para o próximo sem derrubar a API
+    }
+    return { tag: f.tag, fonte: f.fonte, itens: itens };
   });
-  var res = {ok:true, noticias:saida};
-  cache.put('noticias_v1', JSON.stringify(res), 1800);
+  
+  var res = { ok: true, noticias: saida };
+  cache.put('noticias_v2', JSON.stringify(res), 1800); // Cache por 30 min
   return res;
 }
 
-function doGet(e) {
-  var acao = (e && e.parameter && e.parameter.acao) || 'listar';
-  if (acao === 'noticias') return json_(noticias_());
-  return json_(estado_());
+// ==========================================
+// SALVAR OU EDITAR COMÉRCIO
+// ==========================================
+function salvarComercio_(c) {
+  var aba = SpreadsheetApp.openById(ID_PLANILHA).getSheetByName('Comercios');
+  if (!aba) {
+    aba = SpreadsheetApp.openById(ID_PLANILHA).insertSheet('Comercios');
+    aba.appendRow(['id', 'nome', 'categoria', 'descricao', 'whatsapp', 'instagram', 'endereco', 'foto']);
+  }
+
+  var dados = aba.getDataRange().getValues();
+  var id = c.id || 'id_' + new Date().getTime();
+  var linhaExistente = -1;
+
+  for (var i = 1; i < dados.length; i++) {
+    if (dados[i][0] == id) {
+      linhaExistente = i + 1;
+      break;
+    }
+  }
+
+  var novaLinha = [id, c.nome, c.categoria, c.descricao, c.whatsapp, c.instagram, c.endereco, c.foto];
+
+  if (linhaExistente > 0) {
+    aba.getRange(linhaExistente, 1, 1, novaLinha.length).setValues([novaLinha]);
+  } else {
+    aba.appendRow(novaLinha);
+  }
+
+  return { ok: true, id: id };
 }
 
-function doPost(e) {
-  var lock = LockService.getScriptLock();
-  lock.waitLock(15000);
-  try {
-    var p = JSON.parse(e.postData.contents);
-    var cache = CacheService.getScriptCache();
-    var falhas = parseInt(cache.get('falhas') || '0', 10);
-    if (falhas >= 5) return json_({ok:false, erro:'Muitas tentativas. Aguarde 10 minutos.'});
-    if (p.senha !== SENHA) {
-      cache.put('falhas', String(falhas + 1), 600);
-      return json_({ok:false, erro:'Senha incorreta.'});
-    }
-    cache.remove('falhas');
-    preparar_();
-    var m = aba_('Comercios', ['id','nome','categoria','whatsapp','desc']);
-    var c = aba_('Categorias', ['nome']);
-    var acao = p.acao;
+// ==========================================
+// EXCLUIR COMÉRCIO
+// ==========================================
+function excluirComercio_(id) {
+  var aba = SpreadsheetApp.openById(ID_PLANILHA).getSheetByName('Comercios');
+  if (!aba) return { ok: false, erro: 'Aba não encontrada' };
 
-    if (acao === 'login') return json_(estado_());
-
-    if (acao === 'salvar') {
-      var x = p.comercio || {};
-      var nome = String(x.nome || '').trim().substring(0, 90);
-      var cat = String(x.categoria || '').trim();
-      var zap = String(x.whatsapp || '').replace(/\D/g, '');
-      var desc = String(x.desc || '').trim().substring(0, 500);
-      var cats = estado_().categorias;
-      if (!nome || !desc) return json_({ok:false, erro:'Preencha nome e descrição.'});
-      if (cats.indexOf(cat) < 0) return json_({ok:false, erro:'Categoria inválida.'});
-      if (zap.length < 10 || zap.length > 13) return json_({ok:false, erro:'WhatsApp inválido.'});
-      var linha = [x.id || Utilities.getUuid(), seguro_(nome), cat, "'" + zap, seguro_(desc)];
-      var dados = m.getDataRange().getValues();
-      var achou = 0;
-      if (x.id) for (var i = 1; i < dados.length; i++) if (String(dados[i][0]) === String(x.id)) { achou = i + 1; break; }
-      if (achou) m.getRange(achou, 1, 1, 5).setValues([linha]); else m.appendRow(linha);
-      return json_(estado_());
+  var dados = aba.getDataRange().getValues();
+  for (var i = 1; i < dados.length; i++) {
+    if (dados[i][0] == id) {
+      aba.deleteRow(i + 1);
+      return { ok: true };
     }
-    if (acao === 'excluir') {
-      var d2 = m.getDataRange().getValues();
-      for (var j = d2.length - 1; j >= 1; j--) if (String(d2[j][0]) === String(p.id)) m.deleteRow(j + 1);
-      return json_(estado_());
-    }
-    if (acao === 'cat_add') {
-      var n = String(p.nome || '').trim().substring(0, 40);
-      if (!n) return json_({ok:false, erro:'Digite o nome.'});
-      if (estado_().categorias.some(function (k) { return k.toLowerCase() === n.toLowerCase(); })) return json_({ok:false, erro:'Essa categoria já existe.'});
-      c.appendRow([seguro_(n)]);
-      return json_(estado_());
-    }
-    if (acao === 'cat_ren') {
-      var para = String(p.para || '').trim().substring(0, 40);
-      if (!para) return json_({ok:false, erro:'Digite o novo nome.'});
-      var dc = c.getDataRange().getValues();
-      for (var a = 1; a < dc.length; a++) if (String(dc[a][0]) === p.de) c.getRange(a + 1, 1).setValue(seguro_(para));
-      var dm = m.getDataRange().getValues();
-      for (var b = 1; b < dm.length; b++) if (String(dm[b][2]) === p.de) m.getRange(b + 1, 3).setValue(seguro_(para));
-      return json_(estado_());
-    }
-    if (acao === 'cat_del') {
-      if (estado_().comercios.some(function (k) { return k.categoria === p.nome; })) return json_({ok:false, erro:'Há comércios nessa categoria. Mude ou exclua antes.'});
-      var d3 = c.getDataRange().getValues();
-      for (var q = d3.length - 1; q >= 1; q--) if (String(d3[q][0]) === p.nome) c.deleteRow(q + 1);
-      return json_(estado_());
-    }
-    return json_({ok:false, erro:'Ação desconhecida.'});
-  } catch (err) {
-    return json_({ok:false, erro:'Erro no servidor.'});
-  } finally {
-    lock.releaseLock();
   }
+
+  return { ok: false, erro: 'ID não encontrado' };
 }
