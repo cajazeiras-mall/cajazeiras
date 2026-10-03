@@ -166,11 +166,30 @@
             margin-bottom: 8px;
         }
 
+        .news-tag.female {
+            background: #fce7f3;
+            color: #be185d;
+        }
+
+        .news-tag.male {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
         .news-title {
             font-size: 1.15rem;
             font-weight: 800;
             color: var(--primary-color);
             margin-bottom: 6px;
+        }
+
+        .news-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .news-title a:hover {
+            text-decoration: underline;
         }
 
         .news-date {
@@ -437,22 +456,24 @@
         <h2 class="section-title" id="main-section-title">Informativo Local</h2>
 
         <div id="content-list">
-            <!-- NOTÍCIAS (EXIBIDAS POR PADRÃO NA TELA INICIAL) -->
-            <div class="news-card" data-category="noticias">
-                <span class="news-tag">Bairro</span>
-                <h3 class="news-title">Seja bem-vindo ao portal Cajazeiras Mall</h3>
-                <div class="news-date">Atualizado hoje</div>
-                <p class="news-desc">Nosso espaço foi criado para fortalecer o comércio do bairro e conectar moradores aos serviços locais. Utilize o menu acima para navegar pelas categorias e encontrar o que precisa.</p>
+            <!-- CONTAINER DINÂMICO PARA AS NOTÍCIAS CARREGADAS VIA API -->
+            <div id="news-container">
+                <div class="news-card" data-category="noticias">
+                    <span class="news-tag female">Estilo de Vida & Saúde</span>
+                    <h3 class="news-title" id="news-female-title">Carregando notícia...</h3>
+                    <div class="news-date" id="news-female-date">Atualizando...</div>
+                    <p class="news-desc" id="news-female-desc">Buscando as últimas informações sobre saúde e bem-estar...</p>
+                </div>
+
+                <div class="news-card" data-category="noticias">
+                    <span class="news-tag male">Tecnologia & Esportes</span>
+                    <h3 class="news-title" id="news-male-title">Carregando notícia...</h3>
+                    <div class="news-date" id="news-male-date">Atualizando...</div>
+                    <p class="news-desc" id="news-male-desc">Buscando as últimas informações sobre inovação e esportes...</p>
+                </div>
             </div>
 
-            <div class="news-card" data-category="noticias">
-                <span class="news-tag">Comércio Local</span>
-                <h3 class="news-title">Apoie os empreendedores da nossa região</h3>
-                <div class="news-date">Informativo</div>
-                <p class="news-desc">Comprar no comércio local ajuda a movimentar a economia do nosso bairro. Se você tem um negócio em Cajazeiras, faça seu cadastro gratuito no formulário abaixo.</p>
-            </div>
-
-            <!-- ESTABELECIMENTOS (OCULTOS NA TELA INICIAL, EXIBIDOS AO CLICAR NA CATEGORIA) -->
+            <!-- ESTABELECIMENTOS -->
             <div class="store-card" data-category="reforco">
                 <span class="store-tag">Reforço Escolar</span>
                 <h3 class="store-name">Reforço Escolar Tia Sandra</h3>
@@ -608,6 +629,7 @@ Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a
             setTimeout(() => {
                 document.getElementById('welcome-modal').classList.add('active');
             }, 300);
+            carregarNoticiasReais();
         });
 
         function fecharModalECadastrar() {
@@ -619,7 +641,7 @@ Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
 
-            const newsCards = document.querySelectorAll('.news-card');
+            const newsContainer = document.getElementById('news-container');
             const storeCards = document.querySelectorAll('.store-card');
             const sectionTitle = document.getElementById('main-section-title');
             const emptyMsg = document.getElementById('empty-message');
@@ -628,12 +650,12 @@ Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a
 
             if (category === 'noticias') {
                 sectionTitle.textContent = 'Informativo Local';
-                newsCards.forEach(card => card.style.display = 'block');
+                newsContainer.style.display = 'block';
                 storeCards.forEach(card => card.style.display = 'none');
                 emptyMsg.style.display = 'none';
             } else {
                 sectionTitle.textContent = 'Comércios Cadastrados';
-                newsCards.forEach(card => card.style.display = 'none');
+                newsContainer.style.display = 'none';
                 
                 storeCards.forEach(card => {
                     if (card.getAttribute('data-category') === category) {
@@ -649,6 +671,39 @@ Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a
                 } else {
                     emptyMsg.style.display = 'none';
                 }
+            }
+        }
+
+        async function carregarNoticiasReais() {
+            const feedSaude = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fg1.globo.com%2Frss%2Fg1%2Fbemestar%2F';
+            const feedTecnologia = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fg1.globo.com%2Frss%2Fg1%2Ftecnologia%2F';
+
+            try {
+                const resSaude = await fetch(feedSaude);
+                const dataSaude = await resSaude.json();
+                if (dataSaude.items && dataSaude.items.length > 0) {
+                    const item = dataSaude.items[0];
+                    document.getElementById('news-female-title').innerHTML = `<a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>`;
+                    document.getElementById('news-female-date').textContent = 'Fonte: G1 Bem Estar - ' + new Date(item.pubDate).toLocaleDateString('pt-BR');
+                    document.getElementById('news-female-desc').textContent = item.description.replace(/<[^>]*>?/gm, '').substring(0, 180) + '...';
+                }
+            } catch (e) {
+                document.getElementById('news-female-title').textContent = 'Dicas de Saúde e Bem-Estar';
+                document.getElementById('news-female-desc').textContent = 'Acompanhe as atualizações diárias sobre saúde e qualidade de vida.';
+            }
+
+            try {
+                const resTec = await fetch(feedTecnologia);
+                const dataTec = await resTec.json();
+                if (dataTec.items && dataTec.items.length > 0) {
+                    const item = dataTec.items[0];
+                    document.getElementById('news-male-title').innerHTML = `<a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>`;
+                    document.getElementById('news-male-date').textContent = 'Fonte: G1 Tecnologia - ' + new Date(item.pubDate).toLocaleDateString('pt-BR');
+                    document.getElementById('news-male-desc').textContent = item.description.replace(/<[^>]*>?/gm, '').substring(0, 180) + '...';
+                }
+            } catch (e) {
+                document.getElementById('news-male-title').textContent = 'Inovação e Tecnologia';
+                document.getElementById('news-male-desc').textContent = 'Confira as últimas novidades sobre tecnologia e negócios.';
             }
         }
     </script>
