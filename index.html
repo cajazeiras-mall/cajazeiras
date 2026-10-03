@@ -268,36 +268,6 @@
             cursor: pointer;
         }
 
-        .empty-state {
-            background: var(--card-bg);
-            border: 1px dashed #cbd5e1;
-            border-radius: 16px;
-            padding: 32px 20px;
-            text-align: center;
-            margin-bottom: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            display: none;
-        }
-
-        .empty-state p {
-            font-size: 0.95rem;
-            margin-bottom: 18px;
-            color: var(--text-muted);
-        }
-
-        .btn-call-to-action {
-            display: inline-block;
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            color: var(--primary-color);
-            padding: 12px 24px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-
         /* CARTÃO DE CHAMADA PARA CADASTRO */
         .register-banner-card {
             background: var(--card-bg);
@@ -499,7 +469,7 @@
 
     <!-- NAVEGAÇÃO POR CATEGORIAS -->
     <nav class="categories-nav" id="categories-nav-container">
-        <!-- Gerado via JavaScript -->
+        <!-- Gerado via JavaScript (apenas categorias com comércio) -->
     </nav>
 
     <div class="container">
@@ -582,11 +552,6 @@
                     <a href="https://wa.me/5585996482898" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
                 </div>
             </div>
-
-            <div class="empty-state" id="empty-message">
-                <p>Nenhum estabelecimento encontrado nesta categoria.</p>
-                <button onclick="abrirModalCadastroPublico()" class="btn-call-to-action">Cadastrar Novo Comércio</button>
-            </div>
         </div>
 
         <!-- CARTÃO DE CHAMADA PARA CADASTRO -->
@@ -655,7 +620,7 @@
                 <div class="form-group" style="text-align: left;">
                     <label>➕ Criar Nova Categoria:</label>
                     <div style="display: flex; gap: 8px;">
-                        <input type="text" id="admin-nova-categoria-nome" placeholder="Ex: Farmácia, Oficina..." required style="margin-bottom:0;">
+                        <input type="text" id="admin-nova-categoria-nome" placeholder="Ex: Oficina, Farmácia..." required style="margin-bottom:0;">
                         <button type="submit" class="btn-submit" style="width: auto; margin-top:0; padding: 0 16px; white-space: nowrap;">Criar</button>
                     </div>
                 </div>
@@ -726,7 +691,7 @@
             }
         }
 
-        // CATEGORIAS PADRÃO
+        // BASE DE CATEGORIAS CONHECIDAS
         const categoriasPadrao = [
             { id: 'alimentacao', nome: 'Alimentação' },
             { id: 'beleza', nome: 'Beleza' },
@@ -734,7 +699,7 @@
             { id: 'mercado', nome: 'Mercado' },
             { id: 'moda', nome: 'Moda' },
             { id: 'padaria', nome: 'Padaria' },
-            { id: 'pet', id_alt: 'pet', nome: 'Pet Shop' },
+            { id: 'pet', nome: 'Pet Shop' },
             { id: 'reforco', nome: 'Reforço Escolar' },
             { id: 'saude', nome: 'Saúde' }
         ];
@@ -744,12 +709,10 @@
         function obterTodasCategoriasOrdenadas() {
             let categoriasCustom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
             
-            // Unir padrão + customizadas garantindo não duplicar por ID
             let mapa = new Map();
             categoriasPadrao.forEach(c => mapa.set(c.id, c.nome));
             categoriasCustom.forEach(c => mapa.set(c.id, c.nome));
 
-            // Converter para Array e ordenar alfabeticamente pelo nome em PT-BR
             let lista = [];
             mapa.forEach((nome, id) => lista.push({ id, nome }));
             lista.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
@@ -757,14 +720,28 @@
             return lista;
         }
 
+        // Retorna apenas as categorias que possuem pelo menos 1 estabelecimento cadastrado na DOM
+        function obterCategoriasComComercio() {
+            const todas = obterTodasCategoriasOrdenadas();
+            const storeCards = document.querySelectorAll('.store-card');
+            
+            const categoriasUsadas = new Set();
+            storeCards.forEach(card => {
+                const cat = card.getAttribute('data-category');
+                if (cat) categoriasUsadas.add(cat);
+            });
+
+            return todas.filter(c => categoriasUsadas.has(c.id));
+        }
+
         function renderizarBarraCategorias() {
             const nav = document.getElementById('categories-nav-container');
-            const listaOrdenada = obterTodasCategoriasOrdenadas();
+            const listaComComercio = obterCategoriasComComercio();
 
             // Sempre 'Notícias' em primeiro lugar
             let html = `<button class="cat-btn ${currentCategory === 'noticias' ? 'active' : ''}" onclick="filterCategory('noticias', this)">Notícias</button>`;
 
-            listaOrdenada.forEach(cat => {
+            listaComComercio.forEach(cat => {
                 const activeClass = currentCategory === cat.id ? 'active' : '';
                 html += `<button class="cat-btn ${activeClass}" onclick="filterCategory('${cat.id}', this)">${cat.nome}</button>`;
             });
@@ -797,7 +774,6 @@
 
             if (!nomeCategoria) return;
 
-            // Criar ID simplificado sem acentos/espaços
             const idCategoria = nomeCategoria.toLowerCase()
                 .normalize('NFD')
                 .replace(/[\u0300-\u036f]/g, '')
@@ -805,7 +781,6 @@
 
             let categoriasCustom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
             
-            // Verificar se já existe
             const existe = obterTodasCategoriasOrdenadas().some(c => c.id === idCategoria || c.nome.toLowerCase() === nomeCategoria.toLowerCase());
             
             if (existe) {
@@ -817,14 +792,14 @@
             localStorage.setItem('categorias_customizadas', JSON.stringify(categoriasCustom));
 
             input.value = '';
-            renderizarBarraCategorias();
-            alert(`Categoria "${nomeCategoria}" criada com sucesso!`);
+            atualizarSelectsCategorias();
+            alert(`Categoria "${nomeCategoria}" criada com sucesso! Ela aparecerá na barra superior assim que o primeiro comércio for cadastrado nela.`);
         }
 
         window.addEventListener('load', () => {
+            carregarComerciosSalvos();
             renderizarBarraCategorias();
             carregarNoticiasReais();
-            carregarComerciosSalvos();
         });
 
         function abrirModalCadastroPublico() {
@@ -841,7 +816,6 @@
             if (btnElement) {
                 btnElement.classList.add('active');
             } else {
-                // Tenta encontrar pelo clique direto se o botão não for passado
                 const btns = document.querySelectorAll('.cat-btn');
                 btns.forEach(b => {
                     if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${category}'`)) {
@@ -853,15 +827,11 @@
             const newsContainer = document.getElementById('news-container');
             const storeCards = document.querySelectorAll('.store-card');
             const sectionTitle = document.getElementById('main-section-title');
-            const emptyMsg = document.getElementById('empty-message');
-
-            let visibleCount = 0;
 
             if (category === 'noticias') {
                 sectionTitle.textContent = 'Informativo Local';
                 newsContainer.style.display = 'block';
                 storeCards.forEach(card => card.style.display = 'none');
-                emptyMsg.style.display = 'none';
             } else {
                 sectionTitle.textContent = 'Comércios Cadastrados';
                 newsContainer.style.display = 'none';
@@ -869,17 +839,10 @@
                 storeCards.forEach(card => {
                     if (card.getAttribute('data-category') === category) {
                         card.style.display = 'block';
-                        visibleCount++;
                     } else {
                         card.style.display = 'none';
                     }
                 });
-
-                if (visibleCount === 0) {
-                    emptyMsg.style.display = 'block';
-                } else {
-                    emptyMsg.style.display = 'none';
-                }
             }
         }
 
@@ -956,6 +919,7 @@
             localStorage.setItem('comercios_customizados', JSON.stringify(comercios));
 
             renderizarCardComercio(novoComercio, true);
+            renderizarBarraCategorias();
 
             document.getElementById('admin-form').reset();
             fecharPainelAdmin();
@@ -995,10 +959,6 @@
             `;
 
             container.appendChild(card);
-            
-            if(currentCategory !== 'noticias') {
-                filterCategory(currentCategory);
-            }
         }
 
         function removerComercioCustom(id, btnElement) {
@@ -1007,6 +967,9 @@
                 comercios = comercios.filter(item => item.id !== id);
                 localStorage.setItem('comercios_customizados', JSON.stringify(comercios));
                 btnElement.closest('.store-card').remove();
+                
+                renderizarBarraCategorias();
+                filterCategory('noticias');
             }
         }
     </script>
