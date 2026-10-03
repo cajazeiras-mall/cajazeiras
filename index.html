@@ -144,6 +144,49 @@
             font-weight: 800;
         }
 
+        /* CARD DE NOTÍCIAS */
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .news-tag {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .news-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 6px;
+        }
+
+        .news-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .news-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* CARD DE COMÉRCIOS */
         .store-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -151,6 +194,7 @@
             padding: 20px;
             margin-bottom: 16px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            display: none;
         }
 
         .store-tag {
@@ -378,7 +422,7 @@
     </div>
 
     <nav class="categories-nav">
-        <button class="cat-btn active" onclick="filterCategory('todos', this)">Todos</button>
+        <button class="cat-btn active" onclick="filterCategory('noticias', this)">Notícias</button>
         <button class="cat-btn" onclick="filterCategory('saude', this)">Saúde</button>
         <button class="cat-btn" onclick="filterCategory('reforco', this)">Reforço Escolar</button>
         <button class="cat-btn" onclick="filterCategory('beleza', this)">Beleza</button>
@@ -390,33 +434,45 @@
     </nav>
 
     <div class="container">
-        <h2 class="section-title">Comércios Cadastrados</h2>
+        <h2 class="section-title" id="main-section-title">Informativo Local</h2>
 
-        <div id="stores-list">
-            <!-- ESTABELECIMENTO 1 -->
+        <div id="content-list">
+            <!-- NOTÍCIAS (EXIBIDAS POR PADRÃO NA TELA INICIAL) -->
+            <div class="news-card" data-category="noticias">
+                <span class="news-tag">Bairro</span>
+                <h3 class="news-title">Seja bem-vindo ao portal Cajazeiras Mall</h3>
+                <div class="news-date">Atualizado hoje</div>
+                <p class="news-desc">Nosso espaço foi criado para fortalecer o comércio do bairro e conectar moradores aos serviços locais. Utilize o menu acima para navegar pelas categorias e encontrar o que precisa.</p>
+            </div>
+
+            <div class="news-card" data-category="noticias">
+                <span class="news-tag">Comércio Local</span>
+                <h3 class="news-title">Apoie os empreendedores da nossa região</h3>
+                <div class="news-date">Informativo</div>
+                <p class="news-desc">Comprar no comércio local ajuda a movimentar a economia do nosso bairro. Se você tem um negócio em Cajazeiras, faça seu cadastro gratuito no formulário abaixo.</p>
+            </div>
+
+            <!-- ESTABELECIMENTOS (OCULTOS NA TELA INICIAL, EXIBIDOS AO CLICAR NA CATEGORIA) -->
             <div class="store-card" data-category="reforco">
                 <span class="store-tag">Reforço Escolar</span>
                 <h3 class="store-name">Reforço Escolar Tia Sandra</h3>
-                <p class="store-desc">Trabalho com reforço Escolar para educação infantil, fundamental I.</p>
+                <p class="store-desc">Trabalho com reforço escolar para educação infantil e ensino fundamental I.</p>
                 <a href="https://wa.me/5585997354638" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
             </div>
 
-            <!-- ESTABELECIMENTO 2 -->
             <div class="store-card" data-category="beleza">
                 <span class="store-tag">Beleza</span>
-                <h3 class="store-name">Jamille Araújo espaço da beleza e do bronze</h3>
+                <h3 class="store-name">Jamille Araújo Espaço da Beleza e do Bronze</h3>
                 <p class="store-desc">Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua, bronze artificial na máquina e decapagem corporal.</p>
                 <a href="https://wa.me/5585988961380" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
             </div>
 
-            <!-- ESTABELECIMENTO 3 -->
             <div class="store-card" data-category="beleza">
                 <span class="store-tag">Beleza</span>
-                <h3 class="store-name">Salão de Beleza Nayanne Nascimento</h3>
-                <p class="store-desc">NAYANNE NASCIMENTO | SALÃO DE BELEZA ✨
-Seu cabelo merece um cuidado especial!
-Aqui você encontra beleza, cuidado e transformação em um só lugar. ✨
-🙋‍♀️ Nossos serviços:
+                <h3 class="store-name">Nayanne Nascimento Salão de Beleza</h3>
+                <p class="store-desc">Seu cabelo merece um cuidado especial! Aqui você encontra beleza, cuidado e transformação em um só lugar.
+
+Nossos serviços:
 • Alisamentos e texturização
 • Loiros e mechas
 • Coloração
@@ -424,27 +480,37 @@ Aqui você encontra beleza, cuidado e transformação em um só lugar. ✨
 • Hidratação e tratamentos
 • Reconstrução e cuidados capilares
 • Finalizações e produção para ocasiões especiais
-Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a beleza e a personalidade de cada cliente. 🌷
-💫 Venha viver sua transformação!
-📲 Agende seu horário e permita-se ficar ainda mais linda.</p>
+
+Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a beleza e a personalidade de cada cliente. Venha viver sua transformação! Agende seu horário e permita-se ficar ainda mais linda.</p>
                 <a href="https://wa.me/5585921490223" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
             </div>
 
-            <!-- ESTABELECIMENTO 4 -->
             <div class="store-card" data-category="alimentacao">
                 <span class="store-tag">Alimentação</span>
-                <h3 class="store-name">Boomerang sanduíches</h3>
-                <p class="store-desc">Hamburgueria</p>
+                <h3 class="store-name">Boomerang Sanduíches</h3>
+                <p class="store-desc">Hamburgueria com opções de sanduíches e lanches.</p>
                 <a href="https://wa.me/5585987012328" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
             </div>
 
-            <!-- ESTABELECIMENTO 5 -->
             <div class="store-card" data-category="saude">
                 <span class="store-tag">Saúde</span>
-                <h3 class="store-name">FARMÁCIA SUPER FARMA</h3>
-                <p class="store-desc">Farmácia Super Farma
-O super cuidado para sua saúde!</p>
+                <h3 class="store-name">Farmácia Super Farma</h3>
+                <p class="store-desc">O super cuidado para sua saúde!</p>
                 <a href="https://wa.me/5585996656572" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+            </div>
+
+            <div class="store-card" data-category="alimentacao">
+                <span class="store-tag">Alimentação</span>
+                <h3 class="store-name">Barfruta</h3>
+                <p class="store-desc">Trabalhamos com polpas de frutas de diversos sabores, produzidas com qualidade e praticidade, além de morango congelado. Produtos ideais para sucos, vitaminas, sobremesas e preparos em geral.</p>
+                <a href="https://wa.me/5585988408564" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+            </div>
+
+            <div class="store-card" data-category="alimentacao">
+                <span class="store-tag">Alimentação</span>
+                <h3 class="store-name">Alemão e Cléa Espetaria e Pratinhos</h3>
+                <p class="store-desc">Espetos variados e pratinhos tradicionais.</p>
+                <a href="https://wa.me/5585996277402" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
             </div>
 
             <div class="empty-state" id="empty-message">
@@ -553,23 +619,36 @@ O super cuidado para sua saúde!</p>
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
 
-            const stores = document.querySelectorAll('.store-card');
+            const newsCards = document.querySelectorAll('.news-card');
+            const storeCards = document.querySelectorAll('.store-card');
+            const sectionTitle = document.getElementById('main-section-title');
+            const emptyMsg = document.getElementById('empty-message');
+
             let visibleCount = 0;
 
-            stores.forEach(store => {
-                if (category === 'todos' || store.getAttribute('data-category') === category) {
-                    store.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    store.style.display = 'none';
-                }
-            });
-
-            const emptyMsg = document.getElementById('empty-message');
-            if (visibleCount === 0) {
-                emptyMsg.style.display = 'block';
-            } else {
+            if (category === 'noticias') {
+                sectionTitle.textContent = 'Informativo Local';
+                newsCards.forEach(card => card.style.display = 'block');
+                storeCards.forEach(card => card.style.display = 'none');
                 emptyMsg.style.display = 'none';
+            } else {
+                sectionTitle.textContent = 'Comércios Cadastrados';
+                newsCards.forEach(card => card.style.display = 'none');
+                
+                storeCards.forEach(card => {
+                    if (card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (visibleCount === 0) {
+                    emptyMsg.style.display = 'block';
+                } else {
+                    emptyMsg.style.display = 'none';
+                }
             }
         }
     </script>
