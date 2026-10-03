@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cajazeiras-mall-v7';
+const CACHE_NAME = 'cajazeiras-mall-v5';
 const ARQUIVOS = ['./', './index.html', './manifest.json', './config.js', './icon-192.png', './icon-512.png', './icon-maskable-512.png'];
 
 self.addEventListener('install', (event) => {
