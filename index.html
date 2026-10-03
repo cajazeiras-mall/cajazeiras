@@ -1,690 +1,360 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cajazeiras Mall by Fortaleza</title>
-<link rel="manifest" href="manifest.json?v=6">
-<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
-<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
-<meta name="theme-color" content="#ffffff">
-<meta name="background-color" content="#ffffff">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="CajazeirasMall">
-
-<style>
-        :root {
-            --bg-main: #f8fafc;
-            --card-bg: #ffffff;
-            --card-border: #e2e8f0;
-            --primary-color: #0f172a;
-            --brand-blue: #2563eb;
-            --brand-blue-hover: #1d4ed8;
-            --accent-green: #25d366;
-            --accent-green-hover: #128c7e;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        html, body {
-            min-height: 100vh;
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-
-        header {
-            background: #ffffff;
-            border-bottom: 1px solid var(--card-border);
-            padding: 12px 16px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-align: left;
-        }
-
-        .app-logo-header {
-            width: 42px;
-            height: 42px;
-            flex-shrink: 0;
-        }
-
-        .header-title {
-            font-size: 1.15rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--primary-color);
-            line-height: 1.1;
-        }
-
-        .header-title span {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-top: 2px;
-        }
-
-        .btn-header-whatsapp {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--accent-green);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(37, 211, 102, 0.3);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .btn-header-whatsapp:active {
-            transform: scale(0.95);
-        }
-
-        .btn-header-whatsapp-content {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 800;
-            font-size: 0.8rem;
-            line-height: 1;
-        }
-
-        .btn-header-whatsapp-sub {
-            font-size: 0.6rem;
-            font-weight: 600;
-            opacity: 0.95;
-            margin-top: 2px;
-            letter-spacing: 0.2px;
-            text-transform: uppercase;
-        }
-
-        .install-bar {
-            display: block;
-            background: #ffffff;
-            border-bottom: 1px solid var(--card-border);
-            padding: 8px 16px;
-            text-align: center;
-        }
-
-        .btn-install-app {
-            background: #f1f5f9;
-            border: 1px solid var(--card-border);
-            color: var(--primary-color);
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .phone-icon {
-            color: var(--brand-blue);
-            font-size: 1rem;
-            display: inline-block;
-        }
-
-        .container {
-            flex: 1;
-            padding: 16px;
-            max-width: 600px;
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .section-title {
-            font-size: 0.95rem;
-            margin-bottom: 12px;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-align: center;
-            font-weight: 800;
-        }
-
-        #content-list {
-            flex: 1;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .cat-grid-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-            transition: transform 0.1s ease, border-color 0.2s ease;
-        }
-
-        .cat-grid-card:active {
-            transform: scale(0.98);
-        }
-
-        .cat-grid-card.active {
-            border-color: var(--brand-blue);
-            background-color: #eff6ff;
-        }
-
-        .cat-grid-icon {
-            font-size: 2rem;
-        }
-
-        .cat-grid-title {
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            text-align: center;
-        }
-
-        .btn-voltar-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #f1f5f9;
-            border: 1px solid var(--card-border);
-            color: var(--primary-color);
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-bottom: 12px;
-        }
-
-        .store-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 12px;
-            display: block;
-            position: relative;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        }
-
-        .store-tag {
-            display: inline-block;
-            background: #f1f5f9;
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        .store-name {
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 4px;
-        }
-
-        .store-desc {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            line-height: 1.35;
-            white-space: pre-line;
-        }
-
-        .btn-whatsapp {
-            display: block;
-            width: 100%;
-            background-color: var(--accent-green);
-            color: #ffffff;
-            text-align: center;
-            padding: 10px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.88rem;
-        }
-
-        .register-banner-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px;
-            margin-top: 12px;
-            text-align: center;
-        }
-
-        .btn-open-register {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            width: 100%;
-            background-color: var(--brand-blue);
-            color: #ffffff;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.92rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-open-register:hover {
-            background-color: var(--brand-blue-hover);
-        }
-
-        footer {
-            text-align: center;
-            padding: 16px 12px 24px 12px;
-            background: var(--bg-main);
-            border-top: 1px solid var(--card-border);
-            margin-top: auto;
-        }
-
-        .btn-admin-trigger {
-            background: transparent;
-            border: none;
-            color: #94a3b8;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.78rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: var(--primary-color);
-            text-transform: uppercase;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 0.88rem;
-            background: #ffffff;
-            color: var(--text-dark);
-        }
-
-        .btn-submit {
-            width: 100%;
-            background-color: var(--accent-green);
-            color: #ffffff;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 16px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-body {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px 20px;
-            max-width: 440px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .modal-header-branding {
-            text-align: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--card-border);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .modal-header-branding img {
-            width: 48px;
-            height: 48px;
-        }
-
-        .modal-title {
-            font-size: 1.25rem;
-            color: var(--primary-color);
-            font-weight: 800;
-            margin-bottom: 6px;
-            text-align: center;
-            letter-spacing: -0.3px;
-        }
-
-        .modal-text {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            text-align: center;
-            line-height: 1.4;
-        }
-
-        .install-features {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 12px 14px;
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            text-align: left;
-        }
-
-        .install-feature-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .install-feature-item span {
-            font-size: 1rem;
-        }
-
-        .modal-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .modal-btn-install {
-            background: var(--brand-blue);
-            color: #ffffff;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            font-weight: 800;
-            cursor: pointer;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
-            transition: background-color 0.2s ease, transform 0.1s ease;
-        }
-
-        .modal-btn-install:active {
-            transform: scale(0.98);
-            background-color: var(--brand-blue-hover);
-        }
-
-        .modal-btn-cancel {
-            background: transparent;
-            color: var(--text-muted);
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .modal-btn-cancel:hover {
-            color: var(--primary-color);
-            background: #f1f5f9;
-        }
-
-        .admin-section-divider {
-            border-top: 1px dashed var(--card-border);
-            margin: 14px 0;
-            padding-top: 12px;
-        }
-
-        .login-error-msg {
-            color: #ef4444;
-            font-size: 0.78rem;
-            font-weight: 700;
-            text-align: center;
-            margin-top: 8px;
-            display: none;
-        }
-
-        .category-manage-list {
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 6px;
-            margin-top: 8px;
-            background: #f8fafc;
-        }
-
-        .category-manage-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 6px 8px;
-            background: #ffffff;
-            border: 1px solid var(--card-border);
-            border-radius: 6px;
-            margin-bottom: 4px;
-            font-size: 0.82rem;
-            font-weight: 600;
-        }
-
-        .category-manage-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .cat-item-actions {
-            display: flex;
-            gap: 4px;
-        }
-
-        .btn-cat-edit {
-            background: #fef3c7;
-            color: #b45309;
-            border: none;
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .btn-cat-delete {
-            background: #fee2e2;
-            color: #ef4444;
-            border: none;
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .custom-dialog-btns {
-            display: flex;
-            gap: 8px;
-            margin-top: 14px;
-        }
-
-        .btn-dialog-cancel {
-            background: #e2e8f0;
-            color: var(--text-dark);
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .btn-dialog-confirm {
-            background: var(--brand-blue);
-            color: #ffffff;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .btn-dialog-danger {
-            background: #ef4444;
-            color: #ffffff;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .admin-tabs-title {
-            font-size: .78rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--primary-color);
-            margin: 6px 0;
-        }
-
-        .carregando {
-            text-align: center;
-            color: var(--text-muted);
-            padding: 20px;
-            font-size: .9rem;
-        }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cajazeiras Mall by Fortaleza</title>
+  
+  <link rel="manifest" href="./manifest.json?v=6">
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="background-color" content="#ffffff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="CajazeirasMall">
+
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --primary-color: #0f172a;
+      --brand-blue: #2563eb;
+      --brand-blue-hover: #1d4ed8;
+      --accent-green: #25d366;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .app-logo-header {
+      width: 42px;
+      height: 42px;
+    }
+
+    .header-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      line-height: 1.1;
+    }
+
+    .header-title span {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .btn-header-whatsapp {
+      background-color: var(--accent-green);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .install-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--card-border);
+      padding: 8px 16px;
+      text-align: center;
+    }
+
+    .btn-install-app {
+      background: #f1f5f9;
+      border: 1px solid var(--card-border);
+      color: var(--primary-color);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .container {
+      flex: 1;
+      padding: 16px;
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .cat-grid-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-open-register {
+      width: 100%;
+      background-color: var(--brand-blue);
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    /* MODAL DE INSTALAÇÃO ESTILIZADO */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-body {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 24px 20px;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .modal-app-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 12px;
+      background: #ffffff;
+      padding: 4px;
+      border: 1px solid var(--card-border);
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .modal-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .modal-features {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 20px;
+      text-align: left;
+      font-size: 0.82rem;
+      color: var(--primary-color);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .modal-btn-install {
+      background: var(--brand-blue);
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+    }
+
+    .modal-btn-cancel {
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      padding: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 6px;
+    }
+  </style>
 </head>
 <body>
-<header>
-  <div class="header-brand">
-    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" class="app-logo-header">
-    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
-  </div>
-  <a href="https://wa.me/5585996461047" target="_blank" rel="noopener" class="btn-header-whatsapp">
-    <div class="btn-header-whatsapp-content">💬 WhatsApp</div>
-    <div class="btn-header-whatsapp-sub">Atendimento ao cliente</div>
-  </a>
-</header>
 
-<div class="install-bar" id="installContainer"><button class="btn-install-app" onclick="instalarApp()"><span class="phone-icon">📲</span> Baixar App no Celular</button></div>
+  <header>
+    <div class="header-brand">
+      <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" class="app-logo-header">
+      <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
+    </div>
+    <a href="https://wa.me/5585996461047" target="_blank" class="btn-header-whatsapp">WhatsApp</a>
+  </header>
 
-<div class="container">
-  <div id="btn-voltar-container" style="display:none">
-    <button class="btn-voltar-home" onclick="voltarParaCategorias()">⬅ Ver todas as categorias</button>
-  </div>
-  <h2 class="section-title" id="main-section-title">Categorias</h2>
-  
-  <div id="categories-grid-container" class="categories-grid"></div>
-
-  <div id="content-list">
-    <div id="stores-container"></div>
+  <div class="install-bar">
+    <button class="btn-install-app" id="btn-show-install">📲 Baixar App no Celular</button>
   </div>
 
-  <div class="register-banner-card"><button type="button" class="btn-open-register" onclick="abrirCadastro()">📝 Cadastre Seu Comércio Aqui</button></div>
-</div>
-
-<footer><button class="btn-admin-trigger" onclick="abrirLogin()">⚙ Painel do Administrador</button></footer>
-
-<div class="modal-overlay" id="user-register-modal"><div class="modal-body">
-  <div class="modal-header-branding">
-    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo">
-    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
+  <div class="container">
+    <h2 class="section-title">Categorias</h2>
+    <div class="categories-grid">
+      <div class="cat-grid-card">
+        <span style="font-size:2rem">🍔</span>
+        <strong>Alimentação</strong>
+      </div>
+      <div class="cat-grid-card">
+        <span style="font-size:2rem">🎨</span>
+        <strong>Artesanato</strong>
+      </div>
+    </div>
+    <button class="btn-open-register">📝 Cadastre Seu Comércio Aqui</button>
   </div>
-  <div class="modal-title">Cadastre seu Comércio</div>
-  <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
-  <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
-    <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
-    <input type="hidden" name="_captcha" value="false">
-    <div class="form-group"><label for="comerciante-nome">Seu Nome:</label><input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo"></div>
-    <div class="form-group"><label for="loja-nome">Nome do Estabelecimento:</label><input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da loja/serviço"></div>
-    <div class="form-group"><label for="loja-categoria">Categoria:</label><select name="Categoria" id="loja-categoria" required></select></div>
-    <div class="form-group"><label for="loja-whatsapp">WhatsApp:</label><input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX"></div>
-    <div class="form-group"><label for="loja-desc">Descrição:</label><textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea></div>
-    <button type="submit" class="btn-submit">Enviar Cadastro</button>
-    <button type="button" class="modal-btn-cancel" style="margin-top:8px" onclick="fechar('user-register-modal')">Cancelar</button>
-  </form>
-</div></div>
 
-<div class="modal-overlay" id="admin-login-modal"><div class="modal-body">
-  <div class="modal-header-branding">
-    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" altEntendido. Todos os códigos serão fornecidos inteiramente completos, prontos para uso, sem cortes ou omissões.
+  <!-- CAIXA DE INSTALAÇÃO BONITA E PERSONALIZADA -->
+  <div class="modal-overlay" id="pwa-install-modal">
+    <div class="modal-body">
+      <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" class="modal-app-icon">
+      <div class="modal-title">Instalar Cajazeiras Mall</div>
+      <div class="modal-text">Instale o aplicativo na sua tela inicial para um acesso mais rápido e direto.</div>
+      
+      <div class="modal-features">
+        <div>⚡ Acesso rápido com 1 clique</div>
+        <div>📱 Funciona como app nativo</div>
+        <div>🚫 Sem marca d'água do navegador</div>
+      </div>
+
+      <button class="modal-btn-install" id="btn-confirm-install">Instalar Agora</button>
+      <button class="modal-btn-cancel" id="btn-close-install">Agora não</button>
+    </div>
+  </div>
+
+  <script>
+    let deferredPrompt;
+    const installModal = document.getElementById('pwa-install-modal');
+    const btnShowInstall = document.getElementById('btn-show-install');
+    const btnConfirmInstall = document.getElementById('btn-confirm-install');
+    const btnCloseInstall = document.getElementById('btn-close-install');
+
+    // Captura o evento nativo sem abrir a caixa preta do Chrome direto
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+
+    // Clique no botão do topo abre o Modal Bonito
+    btnShowInstall.addEventListener('click', () => {
+      installModal.classList.add('active');
+    });
+
+    // Fechar Modal
+    btnCloseInstall.addEventListener('click', () => {
+      installModal.classList.remove('active');
+    });
+
+    // Confirmar instalação pelo Modal
+    btnConfirmInstall.addEventListener('click', () => {
+      installModal.classList.remove('active');
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          deferredPrompt = null;
+        });
+      }
+    });
+
+    // Registro do Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then((reg) => {
+          reg.onupdatefound = () => {
+            const installingWorker = reg.installing;
+            installingWorker.onstatechange = () => {
+              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                window.location.reload();
+              }
+            };
+          };
+        });
+      });
+    }
+  </script>
+</body>
+</html>
