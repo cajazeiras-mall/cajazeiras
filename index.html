@@ -129,7 +129,6 @@
             flex: 1;
         }
 
-        /* GRADE DE CATEGORIAS */
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -525,7 +524,7 @@
 
 <div class="container">
   <div id="btn-voltar-container" style="display:none">
-    <button class="btn-voltar-home" onclick="selecionarCategoria(null)">⬅ Ver todas as categorias</button>
+    <button class="btn-voltar-home" onclick="voltarParaCategorias()">⬅ Ver todas as categorias</button>
   </div>
   <h2 class="section-title" id="main-section-title">Categorias</h2>
   
@@ -733,6 +732,10 @@ function chamar(obj){
 }
 
 function carregar(){
+  if (!history.state || !history.state.home) {
+    history.replaceState({ home: true, categoria: null }, "", window.location.pathname);
+  }
+
   var cache=null;try{cache=JSON.parse(localStorage.getItem("cm_dados"))}catch(e){}
   DATA=cache||(apiOn()?{categorias:[],comercios:[],carregando:true}:PADRAO);
   desenhar();
@@ -747,16 +750,34 @@ function categoriasComComercio(){
   return DATA.categorias.filter(function(n){return usadas[n]});
 }
 
-function selecionarCategoria(cat){
+function selecionarCategoria(cat, registrarHistorico = true){
   CAT_ATUAL = cat;
+  if(registrarHistorico && cat){
+    history.pushState({ home: false, categoria: cat }, "", "#cat=" + encodeURIComponent(cat));
+  }
   desenhar();
   window.scrollTo(0,0);
 }
 
+function voltarParaCategorias(){
+  if(CAT_ATUAL){
+    history.back();
+  }
+}
+
+window.addEventListener("popstate", function(event) {
+  if (event.state && event.state.categoria) {
+    CAT_ATUAL = event.state.categoria;
+  } else {
+    CAT_ATUAL = null;
+  }
+  desenhar();
+  window.scrollTo(0,0);
+});
+
 function desenhar(){
   var cats = categoriasComComercio();
   
-  // Opções para cadastros e modais
   var opts='<option value="">Selecione...</option>',optsA='';
   DATA.categorias.forEach(function(n){opts+='<option value="'+esc(n)+'">'+esc(n)+'</option>';optsA+='<option value="'+esc(n)+'">'+esc(n)+'</option>'});
   $("loja-categoria").innerHTML=opts;
@@ -768,7 +789,6 @@ function desenhar(){
   var mainTitle = $("main-section-title");
 
   if(!CAT_ATUAL){
-    // Exibe a grade visual de ícones
     gridContainer.style.display = "grid";
     btnVoltar.style.display = "none";
     mainTitle.textContent = "Categorias";
@@ -780,7 +800,6 @@ function desenhar(){
 
     storesContainer.innerHTML = "";
   } else {
-    // Exibe os comércios da categoria selecionada
     gridContainer.style.display = "none";
     btnVoltar.style.display = "block";
     var iconeAtual = ICONES_CATEGORIAS[CAT_ATUAL] || "🏪";
