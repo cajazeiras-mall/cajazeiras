@@ -24,6 +24,7 @@
       --brand-blue: #2563eb;
       --brand-blue-hover: #1d4ed8;
       --accent-green: #25d366;
+      --accent-green-hover: #128c7e;
       --text-dark: #0f172a;
       --text-muted: #64748b;
     }
@@ -35,10 +36,13 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
-    body {
+    html, body {
+      min-height: 100vh;
       background-color: var(--bg-main);
       color: var(--text-dark);
-      min-height: 100vh;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
     }
@@ -53,22 +57,26 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
     }
 
     .header-brand {
       display: flex;
       align-items: center;
       gap: 10px;
+      text-align: left;
     }
 
     .app-logo-header {
       width: 42px;
       height: 42px;
+      flex-shrink: 0;
     }
 
     .header-title {
       font-size: 1.15rem;
       font-weight: 800;
+      letter-spacing: -0.5px;
       color: var(--primary-color);
       line-height: 1.1;
     }
@@ -84,16 +92,44 @@
     }
 
     .btn-header-whatsapp {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       background-color: var(--accent-green);
       color: #ffffff;
       text-decoration: none;
       padding: 6px 12px;
       border-radius: 20px;
-      font-size: 0.8rem;
+      box-shadow: 0 2px 5px rgba(37, 211, 102, 0.3);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-header-whatsapp:active {
+      transform: scale(0.95);
+    }
+
+    .btn-header-whatsapp-content {
+      display: flex;
+      align-items: center;
+      gap: 5px;
       font-weight: 800;
+      font-size: 0.8rem;
+      line-height: 1;
+    }
+
+    .btn-header-whatsapp-sub {
+      font-size: 0.6rem;
+      font-weight: 600;
+      opacity: 0.95;
+      margin-top: 2px;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
     }
 
     .install-bar {
+      display: block;
       background: #ffffff;
       border-bottom: 1px solid var(--card-border);
       padding: 8px 16px;
@@ -111,7 +147,14 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
+    }
+
+    .phone-icon {
+      color: var(--brand-blue);
+      font-size: 1rem;
+      display: inline-block;
     }
 
     .container {
@@ -120,6 +163,8 @@
       max-width: 600px;
       width: 100%;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
     }
 
     .section-title {
@@ -127,8 +172,13 @@
       margin-bottom: 12px;
       color: var(--primary-color);
       text-transform: uppercase;
+      letter-spacing: 0.5px;
       text-align: center;
       font-weight: 800;
+    }
+
+    #content-list {
+      flex: 1;
     }
 
     .categories-grid {
@@ -146,10 +196,113 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      transition: transform 0.1s ease, border-color 0.2s ease;
+    }
+
+    .cat-grid-card:active {
+      transform: scale(0.98);
+    }
+
+    .cat-grid-card.active {
+      border-color: var(--brand-blue);
+      background-color: #eff6ff;
+    }
+
+    .cat-grid-icon {
+      font-size: 2rem;
+    }
+
+    .cat-grid-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      text-align: center;
+    }
+
+    .btn-voltar-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      border: 1px solid var(--card-border);
+      color: var(--primary-color);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .store-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+      display: block;
+      position: relative;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .store-tag {
+      display: inline-block;
+      background: #f1f5f9;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .store-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      margin-bottom: 4px;
+    }
+
+    .store-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      line-height: 1.35;
+      white-space: pre-line;
+    }
+
+    .btn-whatsapp {
+      display: block;
+      width: 100%;
+      background-color: var(--accent-green);
+      color: #ffffff;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .register-banner-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 12px;
+      text-align: center;
     }
 
     .btn-open-register {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       width: 100%;
       background-color: var(--brand-blue);
       color: #ffffff;
@@ -159,10 +312,66 @@
       font-size: 0.92rem;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 16px;
+      transition: background-color 0.2s ease;
     }
 
-    /* MODAL DE INSTALAÇÃO ESTILIZADO */
+    .btn-open-register:hover {
+      background-color: var(--brand-blue-hover);
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px 12px 24px 12px;
+      background: var(--bg-main);
+      border-top: 1px solid var(--card-border);
+      margin-top: auto;
+    }
+
+    .btn-admin-trigger {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--primary-color);
+      text-transform: uppercase;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      background: #ffffff;
+      color: var(--text-dark);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: var(--accent-green);
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
     .modal-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -188,10 +397,11 @@
       background: #ffffff;
       border-radius: 20px;
       padding: 24px 20px;
-      max-width: 380px;
+      max-width: 420px;
       width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-      text-align: center;
     }
 
     .modal-app-icon {
@@ -199,23 +409,26 @@
       height: 72px;
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 12px;
+      margin: 0 auto 12px auto;
+      display: block;
       background: #ffffff;
       padding: 4px;
       border: 1px solid var(--card-border);
     }
 
     .modal-title {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       color: var(--primary-color);
       font-weight: 800;
       margin-bottom: 6px;
+      text-align: center;
     }
 
     .modal-text {
       font-size: 0.88rem;
       color: var(--text-muted);
       margin-bottom: 16px;
+      text-align: center;
       line-height: 1.4;
     }
 
@@ -257,6 +470,13 @@
       width: 100%;
       margin-top: 6px;
     }
+
+    .carregando {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 20px;
+      font-size: .9rem;
+    }
   </style>
 </head>
 <body>
@@ -266,29 +486,69 @@
       <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" class="app-logo-header">
       <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
     </div>
-    <a href="https://wa.me/5585996461047" target="_blank" class="btn-header-whatsapp">WhatsApp</a>
+    <a href="https://wa.me/5585996461047" target="_blank" rel="noopener" class="btn-header-whatsapp">
+      <div class="btn-header-whatsapp-content">💬 WhatsApp</div>
+      <div class="btn-header-whatsapp-sub">Atendimento ao cliente</div>
+    </a>
   </header>
 
-  <div class="install-bar">
-    <button class="btn-install-app" id="btn-show-install">📲 Baixar App no Celular</button>
+  <div class="install-bar" id="installContainer">
+    <button class="btn-install-app" id="btn-show-install"><span class="phone-icon">📲</span> Baixar App no Celular</button>
   </div>
 
   <div class="container">
-    <h2 class="section-title">Categorias</h2>
-    <div class="categories-grid">
-      <div class="cat-grid-card">
-        <span style="font-size:2rem">🍔</span>
-        <strong>Alimentação</strong>
-      </div>
-      <div class="cat-grid-card">
-        <span style="font-size:2rem">🎨</span>
-        <strong>Artesanato</strong>
-      </div>
+    <div id="btn-voltar-container" style="display:none">
+      <button class="btn-voltar-home" onclick="voltarParaCategorias()">⬅ Ver todas as categorias</button>
     </div>
-    <button class="btn-open-register">📝 Cadastre Seu Comércio Aqui</button>
+
+    <h2 class="section-title" id="main-section-title">Categorias</h2>
+    
+    <div id="categories-grid-container" class="categories-grid"></div>
+
+    <div id="content-list">
+      <div id="stores-container"></div>
+    </div>
+
+    <div class="register-banner-card">
+      <button type="button" class="btn-open-register" onclick="abrirCadastro()">📝 Cadastre Seu Comércio Aqui</button>
+    </div>
   </div>
 
-  <!-- CAIXA DE INSTALAÇÃO BONITA E PERSONALIZADA -->
+  <footer>
+    <button class="btn-admin-trigger" onclick="abrirLogin()">⚙ Painel do Administrador</button>
+  </footer>
+
+  <!-- MODAL DE CADASTRO DE COMÉRCIO -->
+  <div class="modal-overlay" id="user-register-modal">
+    <div class="modal-body">
+      <div class="modal-title">Cadastre seu Comércio</div>
+      <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
+      <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
+        <input type="hidden" name="_captcha" value="false">
+        <div class="form-group"><label for="comerciante-nome">Seu Nome:</label><input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo"></div>
+        <div class="form-group"><label for="loja-nome">Nome do Estabelecimento:</label><input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da loja/serviço"></div>
+        <div class="form-group"><label for="loja-categoria">Categoria:</label><select name="Categoria" id="loja-categoria" required></select></div>
+        <div class="form-group"><label for="loja-whatsapp">WhatsApp:</label><input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX"></div>
+        <div class="form-group"><label for="loja-desc">Descrição:</label><textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea></div>
+        <button type="submit" class="btn-submit">Enviar Cadastro</button>
+        <button type="button" class="modal-btn-cancel" onclick="fechar('user-register-modal')">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DE LOGIN ADMIN -->
+  <div class="modal-overlay" id="admin-login-modal">
+    <div class="modal-body">
+      <div class="modal-title">Acesso Restrito</div>
+      <div class="modal-text">Área reservada para a administração.</div>
+      <div class="form-group"><label for="admin-pass">Senha:</label><input type="password" id="admin-pass" placeholder="Digite sua senha"></div>
+      <button type="button" class="btn-submit" onclick="validarLogin()">Entrar</button>
+      <button type="button" class="modal-btn-cancel" onclick="fechar('admin-login-modal')">Fechar</button>
+    </div>
+  </div>
+
+  <!-- MODAL DE INSTALAÇÃO PWA PERSONALIZADA -->
   <div class="modal-overlay" id="pwa-install-modal">
     <div class="modal-body">
       <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" class="modal-app-icon">
@@ -307,29 +567,133 @@
   </div>
 
   <script>
+    // DADOS DAS CATEGORIAS E LOJAS
+    const categorias = [
+      { id: 'alimentacao', nome: 'Alimentação', icone: '🍔' },
+      { id: 'artesanato', nome: 'Artesanato', icone: '🎨' },
+      { id: 'servicos', nome: 'Serviços', icone: '🛠' },
+      { id: 'saude', nome: 'Saúde & Beleza', icone: '💈' }
+    ];
+
+    const lojas = [
+      { id: 1, categoria: 'alimentacao', nome: 'Lanchonete Central', desc: 'Salgados, sucos e lanches rápidos.', whatsapp: '5585996461047' },
+      { id: 2, categoria: 'artesanato', nome: 'Artes de Cajazeiras', desc: 'Peças artesanais e decorações exclusivas.', whatsapp: '5585996461047' }
+    ];
+
+    let categoriaSelecionada = null;
+
+    function renderizarCategorias() {
+      const container = document.getElementById('categories-grid-container');
+      const selectModal = document.getElementById('loja-categoria');
+      
+      container.innerHTML = '';
+      selectModal.innerHTML = '<option value="">Selecione uma categoria...</option>';
+
+      categorias.forEach(cat => {
+        // Grid na home
+        const card = document.createElement('div');
+        card.className = 'cat-grid-card';
+        card.onclick = () => filtrarPorCategoria(cat.id);
+        card.innerHTML = `
+          <span class="cat-grid-icon">${cat.icone}</span>
+          <span class="cat-grid-title">${cat.nome}</span>
+        `;
+        container.appendChild(card);
+
+        // Opções no formulário
+        const option = document.createElement('option');
+        option.value = cat.id;
+        option.textContent = cat.nome;
+        selectModal.appendChild(option);
+      });
+    }
+
+    function renderizarLojas(catId = null) {
+      const container = document.getElementById('stores-container');
+      container.innerHTML = '';
+
+      const lojasFiltradas = catId ? lojas.filter(l => l.categoria === catId) : lojas;
+
+      if (lojasFiltradas.length === 0) {
+        container.innerHTML = '<div class="carregando">Nenhum estabelecimento encontrado nesta categoria.</div>';
+        return;
+      }
+
+      lojasFiltradas.forEach(loja => {
+        const catObj = categorias.find(c => c.id === loja.categoria);
+        const card = document.createElement('div');
+        card.className = 'store-card';
+        card.innerHTML = `
+          <span class="store-tag">${catObj ? catObj.nome : 'Geral'}</span>
+          <div class="store-name">${loja.nome}</div>
+          <div class="store-desc">${loja.desc}</div>
+          <a href="https://wa.me/${loja.whatsapp}" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filtrarPorCategoria(catId) {
+      categoriaSelecionada = catId;
+      const catObj = categorias.find(c => c.id === catId);
+      
+      document.getElementById('categories-grid-container').style.display = 'none';
+      document.getElementById('btn-voltar-container').style.display = 'block';
+      document.getElementById('main-section-title').textContent = catObj ? catObj.nome : 'Lojas';
+      
+      renderizarLojas(catId);
+    }
+
+    function voltarParaCategorias() {
+      categoriaSelecionada = null;
+      document.getElementById('categories-grid-container').style.display = 'grid';
+      document.getElementById('btn-voltar-container').style.display = 'none';
+      document.getElementById('main-section-title').textContent = 'Categorias';
+      renderizarLojas();
+    }
+
+    function abrirCadastro() {
+      document.getElementById('user-register-modal').classList.add('active');
+    }
+
+    function abrirLogin() {
+      document.getElementById('admin-login-modal').classList.add('active');
+    }
+
+    function fechar(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function validarLogin() {
+      const pass = document.getElementById('admin-pass').value;
+      if (pass === '1234') {
+        alert('Acesso concedido!');
+        fechar('admin-login-modal');
+      } else {
+        alert('Senha incorreta!');
+      }
+    }
+
+    // PWA & Service Worker
     let deferredPrompt;
     const installModal = document.getElementById('pwa-install-modal');
     const btnShowInstall = document.getElementById('btn-show-install');
     const btnConfirmInstall = document.getElementById('btn-confirm-install');
     const btnCloseInstall = document.getElementById('btn-close-install');
 
-    // Captura o evento nativo sem abrir a caixa preta do Chrome direto
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
     });
 
-    // Clique no botão do topo abre o Modal Bonito
     btnShowInstall.addEventListener('click', () => {
       installModal.classList.add('active');
     });
 
-    // Fechar Modal
     btnCloseInstall.addEventListener('click', () => {
       installModal.classList.remove('active');
     });
 
-    // Confirmar instalação pelo Modal
     btnConfirmInstall.addEventListener('click', () => {
       installModal.classList.remove('active');
       if (deferredPrompt) {
@@ -340,7 +704,6 @@
       }
     });
 
-    // Registro do Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js').then((reg) => {
@@ -355,6 +718,12 @@
         });
       });
     }
+
+    // Inicializar na carga da página
+    document.addEventListener('DOMContentLoaded', () => {
+      renderizarCategorias();
+      renderizarLojas();
+    });
   </script>
 </body>
 </html>
