@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cajazeiras Mall by Fortaleza - Comércio Local</title>
-<link rel="manifest" href="manifest.json?v=4">
+<link rel="manifest" href="manifest.json?v=5">
 <link rel="icon" type="image/png" href="icon-192.png">
 <meta name="theme-color" content="#ffffff">
 <style>
@@ -684,7 +684,7 @@
 <script src="config.js"></script>
 <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js?v=4').then(reg => {
+            navigator.serviceWorker.register('sw.js?v=5').then(reg => {
                 reg.update();
             });
         }
@@ -797,7 +797,7 @@ var PADRAO = {categorias:["Alimentação","Beleza","Moda","Reforço Escolar","Sa
  {id:"8",nome:"Amadas Artigos Femininos, Fardamentos e Acessórios",categoria:"Moda",whatsapp:"85996482898",desc:"• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios"}]};
 
 var CORES_CAT=[["#f97316","#fbbf24","rgba(249,115,22,.35)"],["#ec4899","#f472b6","rgba(236,72,153,.35)"],["#6366f1","#818cf8","rgba(99,102,241,.35)"],["#10b981","#34d399","rgba(16,185,129,.35)"],["#0ea5e9","#38bdf8","rgba(14,165,233,.35)"],["#8b5cf6","#c084fc","rgba(139,92,246,.35)"],["#ef4444","#fb7185","rgba(239,68,68,.35)"],["#14b8a6","#2dd4bf","rgba(20,184,166,.35)"]];
-var ICONES_PALAVRAS=[["alimen","🍔"],["comida","🍔"],["restaur","🍽️"],["lanche","🍔"],["beleza","💅"],["salão","💅"],["estética","💅"],["eletr","📱"],["mercado","🛒"],["moda","👗"],["roupa","👗"],["padaria","🥖"],["pet","🐾"],["reforço","📚"],["escola","📚"],["curso","📚"],["saúde","💊"],["farm","💊"],["clínica","🩺"],["serviço","🛠️"],["automó","🚗"],["carro","🚗"],["casa","🏠"],["constru","🏗️"],["esporte","🏋️"],["academia","🏋️"],["festa","🎉"],["evento","🎉"]];
+var ICONES_PALAVRAS=[["alimen","🍔"],["comida","🍔"],["restaur","🍽️"],["lanche","🍔"],["beleza","💅"],["salão","💅"],["estética","💅"],["eletr","📱"],["mercado","🛒"],["moda","👗"],["roupa","👗"],["padaria","🥖"],["pet","🐾"],["reforço","📚"],["escola","📚"],["curso","📚"],["saúde","💊"],["farm","💊"],["clínica","🩺"],["serviço","🛠️"],["automó","🚗"],["carro","🚗"],["casa","🏠"],["constru","🏗️"],["esporte","🏋️"],["academia","🏋️️"],["festa","🎉"],["evento","🎉"]];
 function iconeDe(n){var t=String(n).toLowerCase();for(var i=0;i<ICONES_PALAVRAS.length;i++){if(t.indexOf(ICONES_PALAVRAS[i][0])>-1)return ICONES_PALAVRAS[i][1]}return "🏪"}
 function corDe(n){var h=0;for(var i=0;i<n.length;i++)h+=n.charCodeAt(i);return CORES_CAT[h%CORES_CAT.length]}
 
