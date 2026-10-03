@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cajazeiras Mall by Fortaleza - Comércio Local</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#ffffff">
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cajazeiras Mall by Fortaleza - Comércio Local</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
+<style>
         :root {
             --bg-main: #f8fafc;
             --card-bg: #ffffff;
@@ -552,279 +552,88 @@
             cursor: pointer;
             flex: 1;
         }
-    </style>
+    
+.news-card{transition:opacity .4s}
+.admin-tabs-title{font-size:.78rem;font-weight:700;text-transform:uppercase;color:var(--primary-color);margin:6px 0}
+.category-manage-list{max-height:200px}
+.carregando{text-align:center;color:var(--text-muted);padding:20px;font-size:.9rem}
+.store-card{display:block}
+</style>
 </head>
 <body>
+<header><div class="header-brand"><div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div></div></header>
+<div class="install-bar" id="installContainer"><button class="btn-install-app" onclick="instalarApp()"><span class="phone-icon">📲</span> Baixar App no Celular</button></div>
+<nav class="categories-nav" id="categories-nav-container"></nav>
+<div class="container">
+  <h2 class="section-title" id="main-section-title">Informativo Local</h2>
+  <div id="content-list">
+    <div id="news-container"></div>
+    <div id="stores-container" style="display:none"></div>
+  </div>
+  <div class="register-banner-card"><button type="button" class="btn-open-register" onclick="abrirCadastro()">📝 Cadastre Seu Comércio Aqui</button></div>
+</div>
+<footer><button class="btn-admin-trigger" onclick="abrirLogin()">⚙ Painel do Administrador</button></footer>
 
-    <header>
-        <div class="header-brand">
-            <div class="header-title">
-                Cajazeiras Mall
-                <span>by Fortaleza</span>
-            </div>
-        </div>
-    </header>
+<div class="modal-overlay" id="user-register-modal"><div class="modal-body">
+  <div class="modal-header-branding"><div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div></div>
+  <div class="modal-title">Cadastre seu Comércio</div>
+  <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
+  <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
+    <input type="hidden" name="_captcha" value="false">
+    <div class="form-group"><label for="comerciante-nome">Seu Nome:</label><input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo"></div>
+    <div class="form-group"><label for="loja-nome">Nome do Estabelecimento:</label><input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da loja/serviço"></div>
+    <div class="form-group"><label for="loja-categoria">Categoria:</label><select name="Categoria" id="loja-categoria" required></select></div>
+    <div class="form-group"><label for="loja-whatsapp">WhatsApp:</label><input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX"></div>
+    <div class="form-group"><label for="loja-desc">Descrição:</label><textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea></div>
+    <button type="submit" class="btn-submit">Enviar Cadastro</button>
+    <button type="button" class="modal-btn btn-close-modal" onclick="fechar('user-register-modal')">Cancelar</button>
+  </form>
+</div></div>
 
-    <div class="install-bar" id="installContainer">
-        <button class="btn-install-app" onclick="instalarApp()">
-            <span class="phone-icon">📲</span> Baixar App no Celular
-        </button>
-    </div>
+<div class="modal-overlay" id="admin-login-modal"><div class="modal-body">
+  <div class="modal-header-branding"><div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div></div>
+  <div class="modal-title">Acesso Restrito</div>
+  <div class="modal-text">Digite a senha do Administrador.</div>
+  <form onsubmit="entrar(event)">
+    <div class="form-group"><label for="admin-pass-input">Senha de Acesso:</label><input type="password" id="admin-pass-input" required placeholder="Digite sua senha..." autocomplete="current-password"></div>
+    <div id="login-error-msg" class="login-error-msg"></div>
+    <button type="submit" class="btn-submit" id="btn-entrar" style="margin-top:10px">Entrar</button>
+    <button type="button" class="modal-btn btn-close-modal" onclick="fechar('admin-login-modal')">Cancelar</button>
+  </form>
+</div></div>
 
-    <nav class="categories-nav" id="categories-nav-container">
-    </nav>
+<div class="modal-overlay" id="admin-modal"><div class="modal-body">
+  <div class="modal-title">Painel do Administrador</div>
+  <div class="modal-text">As mudanças aparecem para todos os visitantes.</div>
+  <form id="admin-form" onsubmit="salvarComercio(event)">
+    <div class="admin-tabs-title" id="admin-form-titulo">Publicar estabelecimento</div>
+    <div class="form-group"><label>Nome:</label><input type="text" id="admin-nome" required maxlength="90"></div>
+    <div class="form-group"><label>Categoria:</label><select id="admin-categoria" required></select></div>
+    <div class="form-group"><label>WhatsApp:</label><input type="tel" id="admin-whatsapp" required placeholder="85996482898"></div>
+    <div class="form-group"><label>Descrição:</label><textarea id="admin-desc" rows="3" required maxlength="500"></textarea></div>
+    <button type="submit" class="btn-submit" id="admin-btn-salvar">➕ Publicar</button>
+    <button type="button" class="modal-btn btn-close-modal" id="admin-btn-cancelar-edicao" style="display:none" onclick="limparForm()">Cancelar edição</button>
+  </form>
+  <div class="admin-section-divider"></div>
+  <div class="admin-tabs-title">Comércios publicados</div>
+  <div class="category-manage-list" id="admin-lista-comercios"></div>
+  <div class="admin-section-divider"></div>
+  <div class="admin-tabs-title">Categorias</div>
+  <form onsubmit="novaCategoria(event)"><div style="display:flex;gap:6px"><input type="text" id="admin-nova-categoria" placeholder="Nova categoria..." required maxlength="40" style="padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;width:100%"><button type="submit" class="btn-submit" style="width:auto;padding:0 12px">Criar</button></div></form>
+  <div class="category-manage-list" id="admin-lista-categorias"></div>
+  <button type="button" class="modal-btn btn-close-modal" onclick="sairAdmin()" style="margin-top:12px">Sair do painel</button>
+</div></div>
 
-    <div class="container">
-        <h2 class="section-title" id="main-section-title">Informativo Local</h2>
+<div class="modal-overlay" id="custom-dialog-modal"><div class="modal-body">
+  <div class="modal-title" id="custom-dialog-title">Aviso</div>
+  <div class="modal-text" id="custom-dialog-desc"></div>
+  <div class="form-group" id="custom-dialog-input-container" style="display:none;text-align:left"><input type="text" id="custom-dialog-input"></div>
+  <div class="custom-dialog-btns" id="custom-dialog-btns"></div>
+</div></div>
 
-        <div id="content-list">
-            <div id="news-container">
-                <div class="news-card" data-category="noticias">
-                    <span class="news-tag cultura">Cultura & Arte Local</span>
-                    <h3 class="news-title" id="news-cultura-title">Carregando notícia de Fortaleza...</h3>
-                    <div class="news-date" id="news-cultura-date">Atualizando...</div>
-                    <p class="news-desc" id="news-cultura-desc">Buscando as últimas novidades de cultura...</p>
-                </div>
-
-                <div class="news-card" data-category="noticias">
-                    <span class="news-tag cidade">Cidade & Vida Urbana</span>
-                    <h3 class="news-title" id="news-cidade-title">Carregando notícia de Fortaleza...</h3>
-                    <div class="news-date" id="news-cidade-date">Atualizando...</div>
-                    <p class="news-desc" id="news-cidade-desc">Buscando novidades da cidade...</p>
-                </div>
-
-                <div class="news-card" data-category="noticias">
-                    <span class="news-tag turismo">Turismo & Gastronomia</span>
-                    <h3 class="news-title" id="news-turismo-title">Carregando notícia de Fortaleza...</h3>
-                    <div class="news-date" id="news-turismo-date">Atualizando...</div>
-                    <p class="news-desc" id="news-turismo-desc">Buscando novidades de turismo e gastronomia...</p>
-                </div>
-            </div>
-
-            <div id="stores-container">
-                <div class="store-card" data-category="reforco">
-                    <span class="store-tag">Reforço Escolar</span>
-                    <h3 class="store-name">Reforço Escolar Tia Sandra</h3>
-                    <p class="store-desc">Trabalho com reforço escolar para educação infantil e ensino fundamental I.</p>
-                    <a href="https://wa.me/5585997354638" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-                </div>
-
-                <div class="store-card" data-category="beleza">
-                    <span class="store-tag">Beleza</span>
-                    <h3 class="store-name">Jamille Araújo Espaço da Beleza e do Bronze</h3>
-                    <p class="store-desc">Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua e bronze.</p>
-                    <a href="https://wa.me/5585988961380" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-                </div>
-
-                <div class="store-card" data-category="beleza">
-                    <span class="store-tag">Beleza</span>
-                    <h3 class="store-name">Nayanne Nascimento Salão de Beleza</h3>
-                    <p class="store-desc">Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados.</p>
-                    <a href="https://wa.me/5585921490223" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-                </div>
-
-                <div class="store-card" data-category="alimentacao">
-                    <span class="store-tag">Alimentação</span>
-                    <h3 class="store-name">Boomerang Sanduíches</h3>
-                    <p class="store-desc">Hamburgueria com opções de sanduíches e lanches.</p>
-                    <a href="https://wa.me/5585987012328" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-                </div>
-
-                <div class="store-card" data-category="saude">
-                    <span class="store-tag">Saúde</span>
-                    <h3 class="store-name">Farmácia Super Farma</h3>
-                    <p class="store-desc">O super cuidado para sua saúde!</p>
-                    <a href="https://wa.me/5585996656572" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-                </div>
-
-                <div class="store-card" data-category="alimentacao">
-                    <span class="store-tag">Alimentação</span>
-                    <h3 class="store-name">Barfruta</h3>
-                    <p class="store-desc">Polpas de frutas de diversos sabores e morango congelado.</p>
-                    <a href="https://wa.me/5585988408564" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-                </div>
-
-                <div class="store-card" data-category="alimentacao">
-                    <span class="store-tag">Alimentação</span>
-                    <h3 class="store-name">Alemão e Cléa Espetaria e Pratinhos</h3>
-                    <p class="store-desc">Espetos variados e pratinhos tradicionais.</p>
-                    <a href="https://wa.me/5585996277402" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-                </div>
-
-                <div class="store-card" data-category="moda">
-                    <span class="store-tag">Moda</span>
-                    <h3 class="store-name">AMADAS ARTIGOS FEMENINO/FARDAMENTOS E ACESSORIOS</h3>
-                    <div class="store-address">📍 Rua Newton craveiro 120 bairro parque Iracema</div>
-                    <p class="store-desc">• Moda Feminina, Masculina e Infantil&#10;• Fardamentos&#10;• Acessórios</p>
-                    <a href="https://wa.me/5585996482898" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="register-banner-card">
-            <button type="button" class="btn-open-register" onclick="abrirModalCadastroPublico()">📝 Cadastre Seu Comércio Aqui</button>
-        </div>
-    </div>
-
-    <footer>
-        <button class="btn-admin-trigger" onclick="abrirModalLoginAdmin()">⚙ Painel do Administrador</button>
-    </footer>
-
-    <!-- MODAL DE CADASTRO PÚBLICO -->
-    <div class="modal-overlay" id="user-register-modal">
-        <div class="modal-body">
-            <div class="modal-header-branding">
-                <div class="header-title">
-                    Cajazeiras Mall
-                    <span>by Fortaleza</span>
-                </div>
-            </div>
-            <div class="modal-title">Cadastre seu Comércio</div>
-            <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
-
-            <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
-                <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
-                <input type="hidden" name="_captcha" value="false">
-
-                <div class="form-group" style="text-align: left;">
-                    <label for="comerciante-nome">Seu Nome:</label>
-                    <input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo">
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    <label for="loja-nome">Nome do Estabelecimento:</label>
-                    <input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da loja/serviço">
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    <label for="loja-categoria">Categoria:</label>
-                    <select name="Categoria" id="loja-categoria" required></select>
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    <label for="loja-whatsapp">WhatsApp:</label>
-                    <input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX">
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    <label for="loja-desc">Descrição:</label>
-                    <textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit">Enviar Cadastro</button>
-                <button type="button" class="modal-btn btn-close-modal" onclick="fecharModalCadastroPublico()">Cancelar</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL DE LOGIN DO ADMINISTRADOR -->
-    <div class="modal-overlay" id="admin-login-modal">
-        <div class="modal-body">
-            <div class="modal-header-branding">
-                <div class="header-title">
-                    Cajazeiras Mall
-                    <span>by Fortaleza</span>
-                </div>
-            </div>
-            <div class="modal-title">Acesso Restrito</div>
-            <div class="modal-text">Digite a senha do Administrador para acessar o painel de gestão.</div>
-
-            <form onsubmit="autenticarAdmin(event)">
-                <div class="form-group" style="text-align: left;">
-                    <label for="admin-pass-input">Senha de Acesso:</label>
-                    <input type="password" id="admin-pass-input" required placeholder="Digite sua senha..." autocomplete="current-password">
-                </div>
-                <div id="login-error-msg" class="login-error-msg">Senha incorreta! Tente novamente.</div>
-                
-                <button type="submit" class="btn-submit" style="margin-top: 10px;">Entrar</button>
-                <button type="button" class="modal-btn btn-close-modal" onclick="fecharModalLoginAdmin()">Cancelar</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL DO PAINEL DO ADMINISTRADOR -->
-    <div class="modal-overlay" id="admin-modal">
-        <div class="modal-body">
-            <div class="modal-header-branding">
-                <div class="header-title">
-                    Cajazeiras Mall
-                    <span>by Fortaleza</span>
-                </div>
-            </div>
-            <div class="modal-title">Painel do Administrador</div>
-            <div class="modal-text">Gerencie categorias e publique comércios.</div>
-
-            <form onsubmit="adicionarNovaCategoriaAdmin(event)" style="margin-bottom: 8px;">
-                <div class="form-group" style="text-align: left;">
-                    <label>⚙ Gerenciar Categorias:</label>
-                    <div style="display: flex; gap: 6px;">
-                        <input type="text" id="admin-nova-categoria-nome" placeholder="Nova Categoria..." required style="margin-bottom:0;">
-                        <button type="submit" class="btn-submit" style="width: auto; margin-top:0; padding: 0 12px; white-space: nowrap;">Criar</button>
-                    </div>
-                </div>
-            </form>
-
-            <div class="category-manage-list" id="admin-categories-manage-list">
-            </div>
-
-            <div class="admin-section-divider"></div>
-
-            <form id="admin-form" onsubmit="salvarNovoComercioAdmin(event)">
-                <div class="modal-title" style="font-size: 0.95rem; text-align: left; margin-bottom: 8px;">Publicar Estabelecimento</div>
-                
-                <div class="form-group" style="text-align: left;">
-                    <label>Nome:</label>
-                    <input type="text" id="admin-nome" required placeholder="Ex: Boutique da Maria">
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    <label>Categoria:</label>
-                    <select id="admin-categoria" required></select>
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    <label>Endereço:</label>
-                    <input type="text" id="admin-endereco" placeholder="Ex: Rua Newton Craveiro, 120">
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    <label>WhatsApp:</label>
-                    <input type="tel" id="admin-whatsapp" required placeholder="85996482898">
-                </div>
-
-                <div class="form-group" style="text-align: left;">
-                    <label>Descrição:</label>
-                    <textarea id="admin-desc" rows="2" required placeholder="Detalhes dos produtos..."></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit">➕ Publicar</button>
-                <button type="button" class="modal-btn btn-close-modal" onclick="fecharPainelAdmin()">Sair e Ocultar Botões de Exclusão</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL CUSTOMIZADO PARA AVISOS / EDICAO / CONFIRMAÇÕES -->
-    <div class="modal-overlay" id="custom-dialog-modal">
-        <div class="modal-body">
-            <div class="modal-header-branding">
-                <div class="header-title">
-                    Cajazeiras Mall
-                    <span>by Fortaleza</span>
-                </div>
-            </div>
-            <div class="modal-title" id="custom-dialog-title">Aviso</div>
-            <div class="modal-text" id="custom-dialog-desc"></div>
-
-            <div class="form-group" id="custom-dialog-input-container" style="display: none; text-align: left;">
-                <input type="text" id="custom-dialog-input" placeholder="">
-            </div>
-
-            <div class="custom-dialog-btns" id="custom-dialog-btns">
-            </div>
-        </div>
-    </div>
-
-    <script>
+<script src="config.js"></script>
+<script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
         }
@@ -923,418 +732,160 @@
             }
         }
 
-        const categoriasPadrao = [
-            { id: 'alimentacao', nome: 'Alimentação' },
-            { id: 'beleza', nome: 'Beleza' },
-            { id: 'eletronicos', nome: 'Eletrônicos' },
-            { id: 'mercado', nome: 'Mercado' },
-            { id: 'moda', nome: 'Moda' },
-            { id: 'padaria', nome: 'Padaria' },
-            { id: 'pet', nome: 'Pet Shop' },
-            { id: 'reforco', nome: 'Reforço Escolar' },
-            { id: 'saude', nome: 'Saúde' }
-        ];
-
-        let currentCategory = 'noticias';
-
-        function obterTodasCategoriasOrdenadas() {
-            let categoriasCustom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
-            let categoriasExcluidasPadrao = JSON.parse(localStorage.getItem('categorias_padrao_excluidas')) || [];
-            let categoriasEditadasPadrao = JSON.parse(localStorage.getItem('categorias_padrao_editadas')) || {};
-
-            let mapa = new Map();
-            
-            categoriasPadrao.forEach(c => {
-                if (!categoriasExcluidasPadrao.includes(c.id)) {
-                    let nomeFinal = categoriasEditadasPadrao[c.id] || c.nome;
-                    mapa.set(c.id, nomeFinal);
-                }
-            });
-
-            categoriasCustom.forEach(c => mapa.set(c.id, c.nome));
-
-            let lista = [];
-            mapa.forEach((nome, id) => lista.push({ id, nome }));
-            lista.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
-
-            return lista;
-        }
-
-        function obterCategoriasComComercio() {
-            const todas = obterTodasCategoriasOrdenadas();
-            const storeCards = document.querySelectorAll('.store-card');
-            
-            const categoriasUsadas = new Set();
-            storeCards.forEach(card => {
-                const cat = card.getAttribute('data-category');
-                if (cat) categoriasUsadas.add(cat);
-            });
-
-            return todas.filter(c => categoriasUsadas.has(c.id));
-        }
-
-        function renderizarBarraCategorias() {
-            const nav = document.getElementById('categories-nav-container');
-            const listaComComercio = obterCategoriasComComercio();
-
-            let html = `<button class="cat-btn ${currentCategory === 'noticias' ? 'active' : ''}" onclick="filterCategory('noticias', this)">Notícias</button>`;
-
-            listaComComercio.forEach(cat => {
-                const activeClass = currentCategory === cat.id ? 'active' : '';
-                html += `<button class="cat-btn ${activeClass}" onclick="filterCategory('${cat.id}', this)">${cat.nome}</button>`;
-            });
-
-            nav.innerHTML = html;
-            atualizarSelectsCategorias();
-            renderizarListaGestaoCategoriasAdmin();
-        }
-
-        function atualizarSelectsCategorias() {
-            const listaOrdenada = obterTodasCategoriasOrdenadas();
-            const selectPublico = document.getElementById('loja-categoria');
-            const selectAdmin = document.getElementById('admin-categoria');
-
-            let optionsPublico = '<option value="">Selecione...</option>';
-            let optionsAdmin = '';
-
-            listaOrdenada.forEach(cat => {
-                optionsPublico += `<option value="${cat.nome}">${cat.nome}</option>`;
-                optionsAdmin += `<option value="${cat.id}">${cat.nome}</option>`;
-            });
-
-            if (selectPublico) selectPublico.innerHTML = optionsPublico;
-            if (selectAdmin) selectAdmin.innerHTML = optionsAdmin;
-        }
-
-        function renderizarListaGestaoCategoriasAdmin() {
-            const container = document.getElementById('admin-categories-manage-list');
-            if (!container) return;
-
-            const lista = obterTodasCategoriasOrdenadas();
-            if (lista.length === 0) {
-                container.innerHTML = '<div style="font-size:0.78rem; text-align:center; color:#94a3b8;">Nenhuma categoria cadastrada.</div>';
-                return;
-            }
-
-            let html = '';
-            lista.forEach(cat => {
-                html += `
-                    <div class="category-manage-item">
-                        <span>${cat.nome}</span>
-                        <div class="cat-item-actions">
-                            <button type="button" class="btn-cat-edit" onclick="editarCategoriaAdmin('${cat.id}', '${cat.nome}')">Editar</button>
-                            <button type="button" class="btn-cat-delete" onclick="excluirCategoriaAdmin('${cat.id}', '${cat.nome}')">Deletar</button>
-                        </div>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        }
-
-        function editarCategoriaAdmin(id, nomeAtual) {
-            mostrarPrompt("Editar Categoria", "Digite o novo nome para a categoria:", nomeAtual, (novoNome) => {
-                if (!novoNome || novoNome === nomeAtual) return;
-
-                const nomeFormatado = novoNome;
-                const ePadrao = categoriasPadrao.some(c => c.id === id);
-
-                if (ePadrao) {
-                    let editadas = JSON.parse(localStorage.getItem('categorias_padrao_editadas')) || {};
-                    editadas[id] = nomeFormatado;
-                    localStorage.setItem('categorias_padrao_editadas', JSON.stringify(editadas));
-                } else {
-                    let custom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
-                    custom = custom.map(c => c.id === id ? { ...c, nome: nomeFormatado } : c);
-                    localStorage.setItem('categorias_customizadas', JSON.stringify(custom));
-                }
-
-                renderizarBarraCategorias();
-                mostrarAlerta("Sucesso", `Categoria renomeada para "${nomeFormatado}"!`);
-            });
-        }
-
-        function excluirCategoriaAdmin(id, nome) {
-            mostrarConfirmacao("Excluir Categoria", `Tem certeza que deseja excluir a categoria "${nome}"?`, () => {
-                const ePadrao = categoriasPadrao.some(c => c.id === id);
-
-                if (ePadrao) {
-                    let excluidas = JSON.parse(localStorage.getItem('categorias_padrao_excluidas')) || [];
-                    if (!excluidas.includes(id)) {
-                        excluidas.push(id);
-                        localStorage.setItem('categorias_padrao_excluidas', JSON.stringify(excluidas));
-                    }
-                } else {
-                    let custom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
-                    custom = custom.filter(c => c.id !== id);
-                    localStorage.setItem('categorias_customizadas', JSON.stringify(custom));
-                }
-
-                if (currentCategory === id) {
-                    filterCategory('noticias');
-                }
-
-                renderizarBarraCategorias();
-                mostrarAlerta("Removida", `Categoria "${nome}" removida com sucesso!`);
-            }, true);
-        }
-
-        function adicionarNovaCategoriaAdmin(event) {
-            event.preventDefault();
-            const input = document.getElementById('admin-nova-categoria-nome');
-            const nomeCategoria = input.value.trim();
-
-            if (!nomeCategoria) return;
-
-            const idCategoria = nomeCategoria.toLowerCase()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/[^a-z0-9]/g, '');
-
-            let categoriasCustom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
-            const existe = obterTodasCategoriasOrdenadas().some(c => c.id === idCategoria || c.nome.toLowerCase() === nomeCategoria.toLowerCase());
-            
-            if (existe) {
-                mostrarAlerta("Aviso", "Esta categoria já existe!");
-                return;
-            }
-
-            categoriasCustom.push({ id: idCategoria, nome: nomeCategoria });
-            localStorage.setItem('categorias_customizadas', JSON.stringify(categoriasCustom));
-
-            input.value = '';
-            renderizarBarraCategorias();
-            mostrarAlerta("Sucesso", `Categoria "${nomeCategoria}" criada com sucesso!`);
-        }
-
-        window.addEventListener('load', () => {
-            carregarComerciosSalvos();
-            renderizarBarraCategorias();
-            carregarNoticiasLocais();
-        });
-
-        function abrirModalCadastroPublico() {
-            document.getElementById('user-register-modal').classList.add('active');
-        }
-
-        function fecharModalCadastroPublico() {
-            document.getElementById('user-register-modal').classList.remove('active');
-        }
-
-        const ADMIN_PASSWORD = "#Lis2019";
-
-        function abrirModalLoginAdmin() {
-            document.getElementById('admin-pass-input').value = '';
-            document.getElementById('login-error-msg').style.display = 'none';
-            document.getElementById('admin-login-modal').classList.add('active');
-        }
-
-        function fecharModalLoginAdmin() {
-            document.getElementById('admin-login-modal').classList.remove('active');
-        }
-
-        function autenticarAdmin(event) {
-            event.preventDefault();
-            const passEntered = document.getElementById('admin-pass-input').value;
-            if (passEntered === ADMIN_PASSWORD) {
-                fecharModalLoginAdmin();
-                renderizarListaGestaoCategoriasAdmin();
-                document.body.classList.add('admin-mode'); // Ativa botões de exclusão
-                document.getElementById('admin-modal').classList.add('active');
-            } else {
-                document.getElementById('login-error-msg').style.display = 'block';
-            }
-        }
-
-        function fecharPainelAdmin() {
-            document.body.classList.remove('admin-mode'); // Oculta botões de exclusão ao fechar o painel
-            document.getElementById('admin-modal').classList.remove('active');
-        }
-
-        function filterCategory(category, btnElement) {
-            currentCategory = category;
-            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            if (btnElement) {
-                btnElement.classList.add('active');
-            }
-
-            const newsContainer = document.getElementById('news-container');
-            const storeCards = document.querySelectorAll('.store-card');
-            const sectionTitle = document.getElementById('main-section-title');
-
-            if (category === 'noticias') {
-                sectionTitle.textContent = 'Informativo Local';
-                newsContainer.style.display = 'block';
-                storeCards.forEach(card => card.style.display = 'none');
-            } else {
-                sectionTitle.textContent = 'Comércios Cadastrados';
-                newsContainer.style.display = 'none';
-                
-                storeCards.forEach(card => {
-                    if (card.getAttribute('data-category') === category) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
-        }
-
-        async function carregarNoticiasLocais() {
-            const feedCultura = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fdiariodonordeste.verdesmares.com.br%2Fcetv-verso-rss';
-            const feedCeara = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fdiariodonordeste.verdesmares.com.br%2Fceara-rss';
-            const feedOPovo = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.opovo.com.br%2Frss%2Fvidaearte';
-
-            const termosProibidos = ['crime', 'preso', 'morte', 'matou', 'tiro', 'polícia', 'pf', 'stf', 'eleição', 'eleições', 'candidato', 'assassino', 'roubo', 'assalto', 'bomba', 'incêndio', 'droga'];
-
-            function eNoticiaLeve(item) {
-                const texto = (item.title + ' ' + item.description).toLowerCase();
-                return !termosProibidos.some(termo => texto.includes(termo));
-            }
-
-            try {
-                const resCultura = await fetch(feedCultura);
-                const dataCultura = await resCultura.json();
-                
-                let itemValido = null;
-                if (dataCultura.items) {
-                    itemValido = dataCultura.items.find(eNoticiaLeve);
-                }
-
-                if (itemValido) {
-                    document.getElementById('news-cultura-title').innerHTML = `<a href="${itemValido.link}" target="_blank" rel="noopener">${itemValido.title}</a>`;
-                    document.getElementById('news-cultura-date').textContent = 'Diário do Nordeste (Verso) • ' + new Date(itemValido.pubDate).toLocaleDateString('pt-BR');
-                    document.getElementById('news-cultura-desc').textContent = itemValido.description.replace(/<[^>]*>?/gm, '').substring(0, 110) + '...';
-                } else {
-                    document.getElementById('news-cultura-title').textContent = 'Coral do IFCE celebra 70 anos com novo espetáculo em Fortaleza';
-                    document.getElementById('news-cultura-date').textContent = 'Diário do Nordeste • Cultura Local';
-                    document.getElementById('news-cultura-desc').textContent = 'Um dos grupos artísticos mais antigos do Ceará apresenta novo concerto festivo gratuito na capital.';
-                }
-            } catch (e) {
-                document.getElementById('news-cultura-title').textContent = 'Coral do IFCE celebra 70 anos com novo espetáculo em Fortaleza';
-                document.getElementById('news-cultura-date').textContent = 'Diário do Nordeste • Cultura Local';
-                document.getElementById('news-cultura-desc').textContent = 'Um dos grupos artísticos mais antigos do Ceará apresenta novo concerto festivo gratuito na capital.';
-            }
-
-            try {
-                const resCeara = await fetch(feedCeara);
-                const dataCeara = await resCeara.json();
-
-                let itemValido = null;
-                if (dataCeara.items) {
-                    itemValido = dataCeara.items.find(eNoticiaLeve);
-                }
-
-                if (itemValido) {
-                    document.getElementById('news-cidade-title').innerHTML = `<a href="${itemValido.link}" target="_blank" rel="noopener">${itemValido.title}</a>`;
-                    document.getElementById('news-cidade-date').textContent = 'Diário do Nordeste • ' + new Date(itemValido.pubDate).toLocaleDateString('pt-BR');
-                    document.getElementById('news-cidade-desc').textContent = itemValido.description.replace(/<[^>]*>?/gm, '').substring(0, 110) + '...';
-                } else {
-                    document.getElementById('news-cidade-title').textContent = 'Projeto reúne voluntários em ação de limpeza e preservação nas praias de Fortaleza';
-                    document.getElementById('news-cidade-date').textContent = 'Diário do Nordeste • Vida Urbana';
-                    document.getElementById('news-cidade-desc').textContent = 'Iniciativa comunitária promove oficinas de educação ambiental e conscientização sustentável na orla.';
-                }
-            } catch (e) {
-                document.getElementById('news-cidade-title').textContent = 'Projeto reúne voluntários em ação de limpeza e preservação nas praias de Fortaleza';
-                document.getElementById('news-cidade-date').textContent = 'Diário do Nordeste • Vida Urbana';
-                document.getElementById('news-cidade-desc').textContent = 'Iniciativa comunitária promove oficinas de educação ambiental e conscientização sustentável na orla.';
-            }
-
-            try {
-                const resOPovo = await fetch(feedOPovo);
-                const dataOPovo = await resOPovo.json();
-
-                let itemValido = null;
-                if (dataOPovo.items) {
-                    itemValido = dataOPovo.items.find(eNoticiaLeve);
-                }
-
-                if (itemValido) {
-                    document.getElementById('news-turismo-title').innerHTML = `<a href="${itemValido.link}" target="_blank" rel="noopener">${itemValido.title}</a>`;
-                    document.getElementById('news-turismo-date').textContent = 'O POVO (Vida & Arte) • ' + new Date(itemValido.pubDate).toLocaleDateString('pt-BR');
-                    document.getElementById('news-turismo-desc').textContent = itemValido.description.replace(/<[^>]*>?/gm, '').substring(0, 110) + '...';
-                } else {
-                    document.getElementById('news-turismo-title').textContent = 'Feira de artesanato e gastronomia reúne produtores locais no Centro de Fortaleza';
-                    document.getElementById('news-turismo-date').textContent = 'O POVO • Gastronomia Local';
-                    document.getElementById('news-turismo-desc').textContent = 'Evento destaca a culinária regional, produtos feitos à mão e apresentações artísticas no fim de semana.';
-                }
-            } catch (e) {
-                document.getElementById('news-turismo-title').textContent = 'Feira de artesanato e gastronomia reúne produtores locais no Centro de Fortaleza';
-                document.getElementById('news-turismo-date').textContent = 'O POVO • Gastronomia Local';
-                document.getElementById('news-turismo-desc').textContent = 'Evento destaca a culinária regional, produtos feitos à mão e apresentações artísticas no fim de semana.';
-            }
-        }
-
-        function salvarNovoComercioAdmin(event) {
-            event.preventDefault();
-
-            const nome = document.getElementById('admin-nome').value;
-            const categoria = document.getElementById('admin-categoria').value;
-            const endereco = document.getElementById('admin-endereco').value;
-            const whatsapp = document.getElementById('admin-whatsapp').value.replace(/\D/g, '');
-            const desc = document.getElementById('admin-desc').value;
-
-            const novoComercio = { id: Date.now(), nome, categoria, endereco, whatsapp, desc };
-
-            let comercios = JSON.parse(localStorage.getItem('comercios_customizados')) || [];
-            comercios.push(novoComercio);
-            localStorage.setItem('comercios_customizados', JSON.stringify(comercios));
-
-            renderizarCardComercio(novoComercio, true);
-            renderizarBarraCategorias();
-
-            document.getElementById('admin-form').reset();
-            fecharPainelAdmin();
-            filterCategory(categoria);
-            mostrarAlerta("Publicado", "Estabelecimento publicado com sucesso!");
-        }
-
-        function carregarComerciosSalvos() {
-            let comercios = JSON.parse(localStorage.getItem('comercios_customizados')) || [];
-            comercios.forEach(item => renderizarCardComercio(item, true));
-        }
-
-        function renderizarCardComercio(item, eCustom) {
-            const container = document.getElementById('stores-container');
-
-            const card = document.createElement('div');
-            card.className = 'store-card';
-            card.setAttribute('data-category', item.categoria);
-            if(eCustom) card.setAttribute('data-custom-id', item.id);
-
-            const todasCategorias = obterTodasCategoriasOrdenadas();
-            const catObj = todasCategorias.find(c => c.id === item.categoria);
-            const nomeCategoriaExibicao = catObj ? catObj.nome : item.categoria;
-
-            let enderecoHtml = item.endereco ? `<div class="store-address">📍 ${item.endereco}</div>` : '';
-            let btnDelete = eCustom ? `<button class="btn-delete-store" onclick="removerComercioCustom(${item.id})">Excluir</button>` : '';
-
-            card.innerHTML = `
-                ${btnDelete}
-                <span class="store-tag">${nomeCategoriaExibicao}</span>
-                <h3 class="store-name">${item.nome}</h3>
-                ${enderecoHtml}
-                <p class="store-desc">${item.desc}</p>
-                <a href="https://wa.me/55${item.whatsapp}" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-            `;
-
-            container.appendChild(card);
-        }
-
-        function removerComercioCustom(id) {
-            mostrarConfirmacao("Remover Estabelecimento", "Deseja realmente remover este estabelecimento do aplicativo?", () => {
-                let comercios = JSON.parse(localStorage.getItem('comercios_customizados')) || [];
-                comercios = comercios.filter(item => item.id !== id);
-                localStorage.setItem('comercios_customizados', JSON.stringify(comercios));
-                
-                const elem = document.querySelector(`[data-custom-id="${id}"]`);
-                if (elem) elem.remove();
-
-                renderizarBarraCategorias();
-                filterCategory('noticias');
-                mostrarAlerta("Removido", "Estabelecimento removido com sucesso!");
-            }, true);
-        }
-    </script>
+        
+var API = window.API_URL || "";
+
+var PADRAO = {categorias:["Alimentação","Beleza","Moda","Reforço Escolar","Saúde"],comercios:[
+ {id:"1",nome:"Reforço Escolar Tia Sandra",categoria:"Reforço Escolar",whatsapp:"85997354638",desc:"Trabalho com reforço escolar para educação infantil e ensino fundamental I."},
+ {id:"2",nome:"Jamille Araújo Espaço da Beleza e do Bronze",categoria:"Beleza",whatsapp:"85988961380",desc:"Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua e bronze."},
+ {id:"3",nome:"Nayanne Nascimento Salão de Beleza",categoria:"Beleza",whatsapp:"85921490223",desc:"Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados."},
+ {id:"4",nome:"Boomerang Sanduíches",categoria:"Alimentação",whatsapp:"85987012328",desc:"Hamburgueria com opções de sanduíches e lanches."},
+ {id:"5",nome:"Farmácia Super Farma",categoria:"Saúde",whatsapp:"85996656572",desc:"O super cuidado para sua saúde!"},
+ {id:"6",nome:"Barfruta",categoria:"Alimentação",whatsapp:"85988408564",desc:"Polpas de frutas de diversos sabores e morango congelado."},
+ {id:"7",nome:"Alemão e Cléa Espetaria e Pratinhos",categoria:"Alimentação",whatsapp:"85996277402",desc:"Espetos variados e pratinhos tradicionais."},
+ {id:"8",nome:"Amadas Artigos Femininos, Fardamentos e Acessórios",categoria:"Moda",whatsapp:"85996482898",desc:"• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios"}]};
+
+var DATA=null, SENHA_ADMIN=null, CAT_ATUAL="noticias", EDIT_ID=null, NOTICIAS=[];
+function $(i){return document.getElementById(i)}
+function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function apiOn(){return API.indexOf("https://")===0}
+function zapLink(n){var d=String(n).replace(/\D/g,"");if(d.length<=11)d="55"+d;return "https://wa.me/"+d}
+function abrir(id){$(id).classList.add("active")}
+function fechar(id){$(id).classList.remove("active")}
+function abrirCadastro(){abrir("user-register-modal")}
+function guardar(d){try{localStorage.setItem("cm_dados",JSON.stringify({categorias:d.categorias,comercios:d.comercios}))}catch(e){}}
+
+function chamar(obj){
+  return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(obj)}).then(function(r){return r.json()});
+}
+
+function carregar(){
+  var cache=null;try{cache=JSON.parse(localStorage.getItem("cm_dados"))}catch(e){}
+  DATA=cache||(apiOn()?{categorias:[],comercios:[],carregando:true}:PADRAO);
+  desenhar();
+  if(!apiOn())return;
+  fetch(API+"?acao=listar").then(function(r){return r.json()}).then(function(d){
+    if(d&&d.comercios){DATA={categorias:d.categorias,comercios:d.comercios};guardar(DATA);desenhar()}
+  }).catch(function(){ if(DATA.carregando){DATA=PADRAO;desenhar()} });
+}
+
+function categoriasComComercio(){
+  var usadas={};DATA.comercios.forEach(function(c){usadas[c.categoria]=1});
+  return DATA.categorias.filter(function(n){return usadas[n]});
+}
+
+function desenhar(){
+  var cats=categoriasComComercio();
+  if(CAT_ATUAL!=="noticias"&&cats.indexOf(CAT_ATUAL)<0)CAT_ATUAL="noticias";
+  var h='<button class="cat-btn '+(CAT_ATUAL==="noticias"?"active":"")+'" data-cat="noticias">Notícias</button>';
+  cats.forEach(function(n){h+='<button class="cat-btn '+(CAT_ATUAL===n?"active":"")+'" data-cat="'+esc(n)+'">'+esc(n)+'</button>'});
+  $("categories-nav-container").innerHTML=h;
+  var opts='<option value="">Selecione...</option>',optsA='';
+  DATA.categorias.forEach(function(n){opts+='<option value="'+esc(n)+'">'+esc(n)+'</option>';optsA+='<option value="'+esc(n)+'">'+esc(n)+'</option>'});
+  $("loja-categoria").innerHTML=opts;
+  var sel=$("admin-categoria"),atual=sel.value;sel.innerHTML=optsA;if(atual)sel.value=atual;
+
+  var noticias=CAT_ATUAL==="noticias";
+  $("news-container").style.display=noticias?"block":"none";
+  $("stores-container").style.display=noticias?"none":"block";
+  $("main-section-title").textContent=noticias?"Informativo Local":"Comércios Cadastrados";
+  if(!noticias){
+    $("stores-container").innerHTML=DATA.comercios.filter(function(c){return c.categoria===CAT_ATUAL}).map(function(c){
+      return '<div class="store-card"><span class="store-tag">'+esc(c.categoria)+'</span><h3 class="store-name">'+esc(c.nome)+'</h3><p class="store-desc">'+esc(c.desc)+'</p><a href="'+esc(zapLink(c.whatsapp))+'" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a></div>';
+    }).join("");
+  } else if(DATA.carregando){
+    $("stores-container").innerHTML='<div class="carregando">Carregando...</div>';
+  }
+}
+
+$("categories-nav-container").addEventListener("click",function(e){
+  var b=e.target.closest(".cat-btn");if(!b)return;
+  CAT_ATUAL=b.getAttribute("data-cat");desenhar();window.scrollTo(0,0);
+});
+
+/* ===== NOTÍCIAS REAIS (sem textos de reserva) ===== */
+function desenharNoticias(){
+  var box=$("news-container"),cards=NOTICIAS.filter(function(n){return n.itens&&n.itens.length});
+  if(!cards.length){
+    box.innerHTML='<div class="news-card"><p class="news-desc">Notícias indisponíveis no momento. Use as categorias acima para encontrar comércios.</p></div>';return;
+  }
+  box.innerHTML=cards.map(function(n,i){return '<div class="news-card" id="nc'+i+'"></div>'}).join("");
+  cards.forEach(function(n,i){n._i=0;mostrarNoticia(n,i)});
+  clearInterval(window._rot);
+  window._rot=setInterval(function(){cards.forEach(function(n,i){n._i=(n._i+1)%n.itens.length;mostrarNoticia(n,i)})},12000);
+}
+function mostrarNoticia(n,i){
+  var it=n.itens[n._i],el=$("nc"+i);if(!el)return;
+  var dt="";try{dt=new Date(it.data).toLocaleDateString("pt-BR");if(dt==="Invalid Date")dt=""}catch(e){}
+  var link=/^https?:/.test(it.link)?it.link:"";
+  el.innerHTML='<span class="news-tag '+(i===0?"cultura":i===1?"cidade":"turismo")+'">'+esc(n.tag)+'</span><h3 class="news-title">'+(link?'<a href="'+esc(link)+'" target="_blank" rel="noopener">'+esc(it.titulo)+'</a>':esc(it.titulo))+'</h3><div class="news-date">'+esc(n.fonte)+(dt?" • "+dt:"")+'</div><p class="news-desc">'+esc(it.resumo)+(it.resumo?"...":"")+'</p>';
+}
+function carregarNoticias(){
+  if(!apiOn()){desenharNoticias();return}
+  fetch(API+"?acao=noticias").then(function(r){return r.json()}).then(function(d){NOTICIAS=(d&&d.noticias)||[];desenharNoticias()}).catch(function(){desenharNoticias()});
+}
+
+/* ===== PAINEL DO ADMINISTRADOR (grava para todos) ===== */
+function abrirLogin(){
+  if(!apiOn()){mostrarAlerta("Servidor não conectado","Cole o endereço do servidor no arquivo config.js do GitHub.");return}
+  $("admin-pass-input").value="";$("login-error-msg").style.display="none";abrir("admin-login-modal");
+}
+function entrar(ev){
+  ev.preventDefault();var s=$("admin-pass-input").value,btn=$("btn-entrar"),msg=$("login-error-msg");
+  btn.disabled=true;btn.textContent="Entrando...";
+  chamar({acao:"login",senha:s}).then(function(d){
+    btn.disabled=false;btn.textContent="Entrar";
+    if(d.ok){SENHA_ADMIN=s;aplicar(d);fechar("admin-login-modal");abrir("admin-modal")}
+    else{msg.textContent=d.erro||"Senha incorreta!";msg.style.display="block"}
+  }).catch(function(){btn.disabled=false;btn.textContent="Entrar";msg.textContent="Sem conexão com o servidor.";msg.style.display="block"});
+}
+function sairAdmin(){SENHA_ADMIN=null;limparForm();fechar("admin-modal")}
+function aplicar(d){DATA={categorias:d.categorias,comercios:d.comercios};guardar(DATA);desenhar();listasAdmin()}
+function enviar(obj,ok){
+  obj.senha=SENHA_ADMIN;
+  chamar(obj).then(function(d){
+    if(d.ok){aplicar(d);if(ok)ok()}else mostrarAlerta("Aviso",d.erro||"Não foi possível concluir.");
+  }).catch(function(){mostrarAlerta("Erro","Sem conexão com o servidor.")});
+}
+function listasAdmin(){
+  $("admin-lista-comercios").innerHTML=DATA.comercios.length?DATA.comercios.map(function(c){
+    return '<div class="category-manage-item"><span>'+esc(c.nome)+'</span><div class="cat-item-actions"><button type="button" class="btn-cat-edit" data-ed="'+esc(c.id)+'">Editar</button><button type="button" class="btn-cat-delete" data-del="'+esc(c.id)+'">Excluir</button></div></div>';
+  }).join(""):'<div class="carregando">Nenhum comércio.</div>';
+  $("admin-lista-categorias").innerHTML=DATA.categorias.map(function(n){
+    return '<div class="category-manage-item"><span>'+esc(n)+'</span><div class="cat-item-actions"><button type="button" class="btn-cat-edit" data-cren="'+esc(n)+'">Renomear</button><button type="button" class="btn-cat-delete" data-cdel="'+esc(n)+'">Excluir</button></div></div>';
+  }).join("");
+}
+function limparForm(){
+  EDIT_ID=null;$("admin-form").reset();$("admin-form-titulo").textContent="Publicar estabelecimento";
+  $("admin-btn-salvar").textContent="➕ Publicar";$("admin-btn-cancelar-edicao").style.display="none";
+}
+function salvarComercio(ev){
+  ev.preventDefault();
+  enviar({acao:"salvar",comercio:{id:EDIT_ID,nome:$("admin-nome").value,categoria:$("admin-categoria").value,whatsapp:$("admin-whatsapp").value,desc:$("admin-desc").value}},function(){
+    var cat=$("admin-categoria").value;limparForm();mostrarAlerta("Publicado","Salvo! Já aparece para todos os visitantes.");
+  });
+}
+function novaCategoria(ev){
+  ev.preventDefault();var i=$("admin-nova-categoria");
+  enviar({acao:"cat_add",nome:i.value},function(){i.value=""});
+}
+$("admin-lista-comercios").addEventListener("click",function(e){
+  var ed=e.target.getAttribute("data-ed"),del=e.target.getAttribute("data-del");
+  if(ed){
+    var c=DATA.comercios.filter(function(x){return x.id===ed})[0];if(!c)return;
+    EDIT_ID=c.id;$("admin-nome").value=c.nome;$("admin-categoria").value=c.categoria;$("admin-whatsapp").value=c.whatsapp;$("admin-desc").value=c.desc;
+    $("admin-form-titulo").textContent="Editando estabelecimento";$("admin-btn-salvar").textContent="💾 Salvar alterações";$("admin-btn-cancelar-edicao").style.display="block";
+    $("admin-nome").scrollIntoView({block:"center"});
+  }
+  if(del)mostrarConfirmacao("Excluir comércio","Deseja remover este estabelecimento para todos os visitantes?",function(){enviar({acao:"excluir",id:del})},true);
+});
+$("admin-lista-categorias").addEventListener("click",function(e){
+  var r=e.target.getAttribute("data-cren"),d=e.target.getAttribute("data-cdel");
+  if(r)mostrarPrompt("Renomear categoria","Novo nome:",r,function(v){if(v&&v!==r)enviar({acao:"cat_ren",de:r,para:v})});
+  if(d)mostrarConfirmacao("Excluir categoria","Excluir a categoria \""+d+"\"?",function(){enviar({acao:"cat_del",nome:d})},true);
+});
+
+window.addEventListener("load",function(){carregar();carregarNoticias()});
+</script>
 </body>
 </html>
