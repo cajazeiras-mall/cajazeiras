@@ -83,7 +83,6 @@
             margin-top: 2px;
         }
 
-        /* Botão do WhatsApp no Cabeçalho */
         .btn-header-whatsapp {
             display: inline-flex;
             flex-direction: column;
@@ -389,51 +388,116 @@
         .modal-body {
             background: #ffffff;
             border-radius: 16px;
-            padding: 20px;
+            padding: 24px 20px;
             max-width: 440px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         .modal-header-branding {
             text-align: center;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
             border-bottom: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-header-branding img {
+            width: 48px;
+            height: 48px;
         }
 
         .modal-title {
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             color: var(--primary-color);
             font-weight: 800;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             text-align: center;
+            letter-spacing: -0.3px;
         }
 
         .modal-text {
-            font-size: 0.82rem;
+            font-size: 0.88rem;
             color: var(--text-muted);
-            margin-bottom: 14px;
+            margin-bottom: 20px;
             text-align: center;
+            line-height: 1.4;
         }
 
-        .modal-btn {
-            background: var(--primary-color);
+        .install-features {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .install-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .install-feature-item span {
+            font-size: 1rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-btn-install {
+            background: var(--brand-blue);
             color: #ffffff;
             border: none;
-            padding: 12px;
-            border-radius: 20px;
-            font-size: 0.88rem;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .modal-btn-install:active {
+            transform: scale(0.98);
+            background-color: var(--brand-blue-hover);
+        }
+
+        .modal-btn-cancel {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
         }
 
-        .btn-close-modal {
-            background: #e2e8f0;
-            color: var(--text-dark);
-            margin-top: 8px;
+        .modal-btn-cancel:hover {
+            color: var(--primary-color);
+            background: #f1f5f9;
         }
 
         .admin-section-divider {
@@ -596,7 +660,7 @@
 
 <div class="modal-overlay" id="user-register-modal"><div class="modal-body">
   <div class="modal-header-branding">
-    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" style="width:36px;height:36px">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo">
     <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
   </div>
   <div class="modal-title">Cadastre seu Comércio</div>
@@ -610,13 +674,13 @@
     <div class="form-group"><label for="loja-whatsapp">WhatsApp:</label><input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX"></div>
     <div class="form-group"><label for="loja-desc">Descrição:</label><textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea></div>
     <button type="submit" class="btn-submit">Enviar Cadastro</button>
-    <button type="button" class="modal-btn btn-close-modal" onclick="fechar('user-register-modal')">Cancelar</button>
+    <button type="button" class="modal-btn-cancel" style="margin-top:8px" onclick="fechar('user-register-modal')">Cancelar</button>
   </form>
 </div></div>
 
 <div class="modal-overlay" id="admin-login-modal"><div class="modal-body">
   <div class="modal-header-branding">
-    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" style="width:36px;height:36px">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo">
     <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
   </div>
   <div class="modal-title">Acesso Restrito</div>
@@ -625,7 +689,7 @@
     <div class="form-group"><label for="admin-pass-input">Senha de Acesso:</label><input type="password" id="admin-pass-input" required placeholder="Digite sua senha..." autocomplete="current-password"></div>
     <div id="login-error-msg" class="login-error-msg"></div>
     <button type="submit" class="btn-submit" id="btn-entrar" style="margin-top:10px">Entrar</button>
-    <button type="button" class="modal-btn btn-close-modal" onclick="fechar('admin-login-modal')">Cancelar</button>
+    <button type="button" class="modal-btn-cancel" style="margin-top:8px" onclick="fechar('admin-login-modal')">Cancelar</button>
   </form>
 </div></div>
 
@@ -639,7 +703,7 @@
     <div class="form-group"><label>WhatsApp:</label><input type="tel" id="admin-whatsapp" required placeholder="85996482898"></div>
     <div class="form-group"><label>Descrição:</label><textarea id="admin-desc" rows="3" required maxlength="500"></textarea></div>
     <button type="submit" class="btn-submit" id="admin-btn-salvar">➕ Publicar</button>
-    <button type="button" class="modal-btn btn-close-modal" id="admin-btn-cancelar-edicao" style="display:none" onclick="limparForm()">Cancelar edição</button>
+    <button type="button" class="modal-btn-cancel" id="admin-btn-cancelar-edicao" style="display:none;margin-top:8px" onclick="limparForm()">Cancelar edição</button>
   </form>
   <div class="admin-section-divider"></div>
   <div class="admin-tabs-title">Comércios publicados</div>
@@ -648,12 +712,17 @@
   <div class="admin-tabs-title">Categorias</div>
   <form onsubmit="novaCategoria(event)"><div style="display:flex;gap:6px"><input type="text" id="admin-nova-categoria" placeholder="Nova categoria..." required maxlength="40" style="padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;width:100%"><button type="submit" class="btn-submit" style="width:auto;padding:0 12px">Criar</button></div></form>
   <div class="category-manage-list" id="admin-lista-categorias"></div>
-  <button type="button" class="modal-btn btn-close-modal" onclick="sairAdmin()" style="margin-top:12px">Sair do painel</button>
+  <button type="button" class="modal-btn-cancel" onclick="sairAdmin()" style="margin-top:12px">Sair do painel</button>
 </div></div>
 
 <div class="modal-overlay" id="custom-dialog-modal"><div class="modal-body">
+  <div class="modal-header-branding" id="custom-dialog-branding" style="display:none">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo">
+    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
+  </div>
   <div class="modal-title" id="custom-dialog-title">Aviso</div>
   <div class="modal-text" id="custom-dialog-desc"></div>
+  <div id="custom-dialog-extra"></div>
   <div class="form-group" id="custom-dialog-input-container" style="display:none;text-align:left"><input type="text" id="custom-dialog-input"></div>
   <div class="custom-dialog-btns" id="custom-dialog-btns"></div>
 </div></div>
@@ -675,9 +744,11 @@
 
         function mostrarAlerta(titulo, mensagem, aoFechar) {
             const modal = document.getElementById('custom-dialog-modal');
+            document.getElementById('custom-dialog-branding').style.display = 'none';
             document.getElementById('custom-dialog-title').textContent = titulo;
             document.getElementById('custom-dialog-desc').textContent = mensagem;
             document.getElementById('custom-dialog-input-container').style.display = 'none';
+            document.getElementById('custom-dialog-extra').innerHTML = '';
 
             const btns = document.getElementById('custom-dialog-btns');
             btns.innerHTML = `<button type="button" class="btn-dialog-confirm" id="dialog-btn-ok">OK</button>`;
@@ -692,9 +763,11 @@
 
         function mostrarConfirmacao(titulo, mensagem, aoConfirmar, ePerigoso = false) {
             const modal = document.getElementById('custom-dialog-modal');
+            document.getElementById('custom-dialog-branding').style.display = 'none';
             document.getElementById('custom-dialog-title').textContent = titulo;
             document.getElementById('custom-dialog-desc').textContent = mensagem;
             document.getElementById('custom-dialog-input-container').style.display = 'none';
+            document.getElementById('custom-dialog-extra').innerHTML = '';
 
             const btns = document.getElementById('custom-dialog-btns');
             const classeConfirm = ePerigoso ? 'btn-dialog-danger' : 'btn-dialog-confirm';
@@ -717,8 +790,10 @@
 
         function mostrarPrompt(titulo, mensagem, valorInicial, aoConfirmar) {
             const modal = document.getElementById('custom-dialog-modal');
+            document.getElementById('custom-dialog-branding').style.display = 'none';
             document.getElementById('custom-dialog-title').textContent = titulo;
             document.getElementById('custom-dialog-desc').textContent = mensagem;
+            document.getElementById('custom-dialog-extra').innerHTML = '';
             
             const inputContainer = document.getElementById('custom-dialog-input-container');
             const input = document.getElementById('custom-dialog-input');
@@ -755,7 +830,38 @@
                     deferredPrompt = null;
                 });
             } else {
-                mostrarAlerta("Instalação do App", "Para instalar no celular, abra no navegador Chrome (Android) ou Safari (iPhone) e escolha 'Adicionar à tela inicial'.");
+                const modal = document.getElementById('custom-dialog-modal');
+                document.getElementById('custom-dialog-branding').style.display = 'flex';
+                document.getElementById('custom-dialog-title').textContent = 'Instalar Aplicativo';
+                document.getElementById('custom-dialog-desc').textContent = 'Tenha o comércio local do Cajazeiras Mall direto na sua tela inicial com acesso rápido e offline.';
+                document.getElementById('custom-dialog-input-container').style.display = 'none';
+
+                document.getElementById('custom-dialog-extra').innerHTML = `
+                    <div class="install-features">
+                        <div class="install-feature-item"><span>⚡</span> Acesso instantâneo sem digitar site</div>
+                        <div class="install-feature-item"><span>📱</span> Funciona como aplicativo nativo</div>
+                        <div class="install-feature-item"><span>🛍️</span> Encontre serviços do bairro em segundos</div>
+                    </div>
+                `;
+
+                const btns = document.getElementById('custom-dialog-btns');
+                btns.innerHTML = `
+                    <div class="modal-actions" style="width:100%">
+                        <button type="button" class="modal-btn-install" id="dialog-btn-instalar"><span>📲</span> Como Adicionar à Tela Inicial</button>
+                        <button type="button" class="modal-btn-cancel" id="dialog-btn-cancel">Agora não</button>
+                    </div>
+                `;
+
+                modal.classList.add('active');
+
+                document.getElementById('dialog-btn-cancel').onclick = () => {
+                    modal.classList.remove('active');
+                };
+
+                document.getElementById('dialog-btn-instalar').onclick = () => {
+                    modal.classList.remove('active');
+                    mostrarAlerta("Instruções de Instalação", "No Android (Chrome): clique nos 3 pontos no canto superior e selecione 'Adicionar à tela inicial'.\n\nNo iPhone (Safari): toque no botão Compartilhar e selecione 'Adicionar à Tela de Início'.");
+                };
             }
         }
 
@@ -773,7 +879,7 @@ var PADRAO = {categorias:["Alimentação","Beleza","Moda","Reforço Escolar","Sa
 
 var ICONES_CATEGORIAS = {
     "Alimentação": "🍔",
-    "Beleza": "✂️",
+    "Beleza": "✂️️",
     "Moda": "🛍️",
     "Reforço Escolar": "📚",
     "Saúde": "🏥",
