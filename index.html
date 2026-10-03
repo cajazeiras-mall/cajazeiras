@@ -28,18 +28,17 @@
         body {
             background-color: var(--bg-main);
             color: var(--text-dark);
-            padding-bottom: 60px;
-            line-height: 1.5;
+            padding-bottom: 8px;
+            line-height: 1.25;
         }
 
         header {
             background: #ffffff;
             border-bottom: 1px solid var(--card-border);
-            padding: 16px;
+            padding: 6px 10px;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -54,28 +53,28 @@
         }
 
         .header-title {
-            font-size: 1.4rem;
+            font-size: 1.05rem;
             font-weight: 800;
             letter-spacing: -0.5px;
             color: var(--primary-color);
-            line-height: 1.1;
+            line-height: 1;
         }
 
         .header-title span {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.6rem;
             font-weight: 600;
             color: var(--text-muted);
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin-top: 4px;
+            margin-top: 1px;
         }
 
         .install-bar {
             display: block;
             background: #ffffff;
             border-bottom: 1px solid var(--card-border);
-            padding: 12px 16px;
+            padding: 4px 10px;
             text-align: center;
         }
 
@@ -83,22 +82,17 @@
             background: #f1f5f9;
             border: 1px solid var(--card-border);
             color: var(--primary-color);
-            padding: 10px 22px;
-            border-radius: 25px;
-            font-size: 0.9rem;
+            padding: 4px 14px;
+            border-radius: 16px;
+            font-size: 0.75rem;
             font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .btn-install-app:hover {
-            background: #e2e8f0;
         }
 
         .categories-nav {
             display: flex;
-            gap: 8px;
-            padding: 14px 16px;
+            gap: 6px;
+            padding: 6px 10px;
             overflow-x: auto;
             background: #ffffff;
             border-bottom: 1px solid var(--card-border);
@@ -113,13 +107,12 @@
             background: #f1f5f9;
             border: 1px solid var(--card-border);
             color: var(--text-dark);
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 0.78rem;
             font-weight: 600;
             white-space: nowrap;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
         .cat-btn.active {
@@ -129,14 +122,14 @@
         }
 
         .container {
-            padding: 20px 16px;
+            padding: 6px 10px;
             max-width: 600px;
             margin: 0 auto;
         }
 
         .section-title {
-            font-size: 1.2rem;
-            margin: 16px 0 14px;
+            font-size: 0.85rem;
+            margin: 4px 0;
             color: var(--primary-color);
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -147,57 +140,59 @@
         .news-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            border-radius: 10px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
         }
 
         .news-tag {
             display: inline-block;
             background: #e0f2fe;
             color: #0369a1;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 12px;
+            padding: 2px 6px;
+            border-radius: 8px;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 2px;
         }
 
-        .news-tag.female { background: #fce7f3; color: #be185d; }
-        .news-tag.male { background: #e0e7ff; color: #3730a3; }
+        .news-tag.cultura { background: #fce7f3; color: #be185d; }
+        .news-tag.cidade { background: #ecfdf5; color: #047857; }
 
         .news-title {
-            font-size: 1.15rem;
+            font-size: 0.85rem;
             font-weight: 800;
             color: var(--primary-color);
-            margin-bottom: 6px;
+            margin-bottom: 2px;
+            line-height: 1.15;
         }
 
         .news-title a { color: inherit; text-decoration: none; }
-        .news-title a:hover { text-decoration: underline; }
 
         .news-date {
-            font-size: 0.8rem;
+            font-size: 0.68rem;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 4px;
             font-weight: 600;
         }
 
         .news-desc {
-            font-size: 0.95rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            line-height: 1.4;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .store-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 6px;
             display: none;
             position: relative;
         }
@@ -206,33 +201,33 @@
             display: inline-block;
             background: #f1f5f9;
             color: var(--text-muted);
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 12px;
+            padding: 2px 6px;
+            border-radius: 8px;
             text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .store-name {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--primary-color);
             margin-bottom: 4px;
         }
 
+        .store-name {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 2px;
+        }
+
         .store-address {
-            font-size: 0.85rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             font-weight: 600;
         }
 
         .store-desc {
-            font-size: 0.95rem;
+            font-size: 0.78rem;
             color: var(--text-muted);
-            margin-bottom: 16px;
-            line-height: 1.4;
+            margin-bottom: 8px;
+            line-height: 1.25;
             white-space: pre-line;
         }
 
@@ -242,104 +237,86 @@
             background-color: var(--accent-green);
             color: #ffffff;
             text-align: center;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 8px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.95rem;
-            transition: background-color 0.2s;
-        }
-
-        .btn-whatsapp:hover {
-            background-color: var(--accent-green-hover);
+            font-size: 0.82rem;
         }
 
         .btn-delete-store {
             position: absolute;
-            top: 16px;
-            right: 16px;
+            top: 8px;
+            right: 8px;
             background: #fee2e2;
             color: #ef4444;
             border: none;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 0.65rem;
             font-weight: 700;
             cursor: pointer;
         }
 
-        /* CARTÃO DE CHAMADA PARA CADASTRO */
         .register-banner-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 24px 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-            margin-top: 24px;
+            border-radius: 10px;
+            padding: 8px 10px;
+            margin-top: 6px;
             text-align: center;
         }
 
-        .register-banner-title {
-            font-size: 1.35rem;
-            color: var(--primary-color);
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .register-banner-subtitle {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 18px;
-            line-height: 1.4;
-        }
-
         .btn-open-register {
-            display: inline-block;
+            display: block;
             width: 100%;
             background-color: var(--accent-green);
             color: #ffffff;
             border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 1rem;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.2s;
-            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
         }
 
-        .btn-open-register:hover {
-            background-color: var(--accent-green-hover);
+        .footer-admin-btn {
+            text-align: center;
+            margin-top: 8px;
+            padding: 2px;
+        }
+
+        .btn-admin-trigger {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.68rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 10px;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: var(--primary-color);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 12px 14px;
+            padding: 8px 10px;
             border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
             background: #ffffff;
             color: var(--text-dark);
-            transition: border-color 0.2s;
-        }
-
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-green);
         }
 
         .btn-submit {
@@ -347,43 +324,13 @@
             background-color: var(--accent-green);
             color: #ffffff;
             border: none;
-            padding: 16px;
-            border-radius: 10px;
-            font-size: 1.05rem;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 8px;
-            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
-            transition: background-color 0.2s;
         }
 
-        .btn-submit:hover {
-            background-color: var(--accent-green-hover);
-        }
-
-        .footer-admin-btn {
-            text-align: center;
-            margin-top: 40px;
-            padding: 10px;
-        }
-
-        .btn-admin-trigger {
-            background: transparent;
-            border: none;
-            color: #94a3b8;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        .admin-section-divider {
-            border-top: 1px dashed var(--card-border);
-            margin: 20px 0;
-            padding-top: 15px;
-        }
-
-        /* MODAIS */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -394,10 +341,10 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            padding: 16px;
+            padding: 12px;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.2s ease;
         }
 
         .modal-overlay.active {
@@ -407,29 +354,26 @@
 
         .modal-body {
             background: #ffffff;
-            border-radius: 20px;
-            padding: 28px 20px;
-            max-width: 480px;
+            border-radius: 14px;
+            padding: 16px;
+            max-width: 440px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         .modal-title {
-            font-size: 1.35rem;
+            font-size: 1.1rem;
             color: var(--primary-color);
             font-weight: 800;
-            margin-bottom: 12px;
-            line-height: 1.3;
+            margin-bottom: 6px;
             text-align: center;
         }
 
         .modal-text {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             text-align: center;
         }
 
@@ -437,9 +381,9 @@
             background: var(--primary-color);
             color: #ffffff;
             border: none;
-            padding: 14px 20px;
-            border-radius: 30px;
-            font-size: 0.95rem;
+            padding: 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
@@ -448,7 +392,13 @@
         .btn-close-modal {
             background: #e2e8f0;
             color: var(--text-dark);
-            margin-top: 10px;
+            margin-top: 8px;
+        }
+
+        .admin-section-divider {
+            border-top: 1px dashed var(--card-border);
+            margin: 12px 0;
+            padding-top: 10px;
         }
     </style>
 </head>
@@ -469,27 +419,27 @@
 
     <!-- NAVEGAÇÃO POR CATEGORIAS -->
     <nav class="categories-nav" id="categories-nav-container">
-        <!-- Gerado via JavaScript (apenas categorias com comércio) -->
+        <!-- Gerado via JavaScript -->
     </nav>
 
     <div class="container">
         <h2 class="section-title" id="main-section-title">Informativo Local</h2>
 
         <div id="content-list">
-            <!-- NOTÍCIAS REAIS -->
+            <!-- NOTÍCIAS LOCAIS DE FORTALEZA -->
             <div id="news-container">
                 <div class="news-card" data-category="noticias">
-                    <span class="news-tag female">Estilo de Vida & Saúde</span>
-                    <h3 class="news-title" id="news-female-title">Carregando notícia...</h3>
-                    <div class="news-date" id="news-female-date">Atualizando...</div>
-                    <p class="news-desc" id="news-female-desc">Buscando as últimas informações sobre saúde e bem-estar...</p>
+                    <span class="news-tag cultura">Cultura & Arte Local</span>
+                    <h3 class="news-title" id="news-cultura-title">Carregando notícia de Fortaleza...</h3>
+                    <div class="news-date" id="news-cultura-date">Atualizando...</div>
+                    <p class="news-desc" id="news-cultura-desc">Buscando as últimas novidades de cultura...</p>
                 </div>
 
                 <div class="news-card" data-category="noticias">
-                    <span class="news-tag male">Tecnologia & Esportes</span>
-                    <h3 class="news-title" id="news-male-title">Carregando notícia...</h3>
-                    <div class="news-date" id="news-male-date">Atualizando...</div>
-                    <p class="news-desc" id="news-male-desc">Buscando as últimas informações sobre inovação e esportes...</p>
+                    <span class="news-tag cidade">Cidade & Vida Urbana</span>
+                    <h3 class="news-title" id="news-cidade-title">Carregando notícia de Fortaleza...</h3>
+                    <div class="news-date" id="news-cidade-date">Atualizando...</div>
+                    <p class="news-desc" id="news-cidade-desc">Buscando novidades da cidade...</p>
                 </div>
             </div>
 
@@ -505,14 +455,14 @@
                 <div class="store-card" data-category="beleza">
                     <span class="store-tag">Beleza</span>
                     <h3 class="store-name">Jamille Araújo Espaço da Beleza e do Bronze</h3>
-                    <p class="store-desc">Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua, bronze artificial na máquina e decapagem corporal.</p>
+                    <p class="store-desc">Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua e bronze.</p>
                     <a href="https://wa.me/5585988961380" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
                 </div>
 
                 <div class="store-card" data-category="beleza">
                     <span class="store-tag">Beleza</span>
                     <h3 class="store-name">Nayanne Nascimento Salão de Beleza</h3>
-                    <p class="store-desc">Seu cabelo merece um cuidado especial! Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados.</p>
+                    <p class="store-desc">Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados.</p>
                     <a href="https://wa.me/5585921490223" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
                 </div>
 
@@ -554,15 +504,13 @@
             </div>
         </div>
 
-        <!-- CARTÃO DE CHAMADA PARA CADASTRO -->
+        <!-- BOTÃO DIRETO DE CADASTRO -->
         <div class="register-banner-card">
-            <div class="register-banner-title">Cadastre seu Comércio</div>
-            <div class="register-banner-subtitle">Participe gratuitamente do Cajazeiras Mall e alcance novos clientes na nossa região!</div>
             <button type="button" class="btn-open-register" onclick="abrirModalCadastroPublico()">📝 Cadastre Seu Comércio Aqui</button>
         </div>
 
         <div class="footer-admin-btn">
-            <button class="btn-admin-trigger" onclick="abrirPainelAdmin()">⚙️ Painel do Administrador (Gerenciar Lojas e Categorias)</button>
+            <button class="btn-admin-trigger" onclick="abrirPainelAdmin()">⚙ Painel do Administrador</button>
         </div>
     </div>
 
@@ -570,7 +518,7 @@
     <div class="modal-overlay" id="user-register-modal">
         <div class="modal-body">
             <div class="modal-title">Cadastre seu Comércio</div>
-            <div class="modal-text">Preencha os dados abaixo para enviar a solicitação de cadastro.</div>
+            <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
 
             <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
                 <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
@@ -583,24 +531,22 @@
 
                 <div class="form-group" style="text-align: left;">
                     <label for="loja-nome">Nome do Estabelecimento:</label>
-                    <input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da sua loja/serviço">
+                    <input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da loja/serviço">
                 </div>
 
                 <div class="form-group" style="text-align: left;">
                     <label for="loja-categoria">Categoria:</label>
-                    <select name="Categoria" id="loja-categoria" required>
-                        <!-- Gerado dinamicamente via JS em ordem alfabética -->
-                    </select>
+                    <select name="Categoria" id="loja-categoria" required></select>
                 </div>
 
                 <div class="form-group" style="text-align: left;">
-                    <label for="loja-whatsapp">WhatsApp do Estabelecimento:</label>
+                    <label for="loja-whatsapp">WhatsApp:</label>
                     <input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX">
                 </div>
 
                 <div class="form-group" style="text-align: left;">
-                    <label for="loja-desc">Breve descrição dos produtos/serviços:</label>
-                    <textarea name="Descricao" id="loja-desc" rows="3" required placeholder="O que seu negócio oferece..."></textarea>
+                    <label for="loja-desc">Descrição:</label>
+                    <textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Enviar Cadastro</button>
@@ -613,54 +559,50 @@
     <div class="modal-overlay" id="admin-modal">
         <div class="modal-body">
             <div class="modal-title">Painel do Administrador</div>
-            <div class="modal-text">Cadastre novas categorias ou publique comércios diretamente no app.</div>
+            <div class="modal-text">Cadastre novas categorias ou publique comércios.</div>
 
-            <!-- FORMULÁRIO DE NOVA CATEGORIA -->
-            <form onsubmit="adicionarNovaCategoriaAdmin(event)" style="margin-bottom: 20px;">
+            <form onsubmit="adicionarNovaCategoriaAdmin(event)" style="margin-bottom: 12px;">
                 <div class="form-group" style="text-align: left;">
-                    <label>➕ Criar Nova Categoria:</label>
-                    <div style="display: flex; gap: 8px;">
-                        <input type="text" id="admin-nova-categoria-nome" placeholder="Ex: Oficina, Farmácia..." required style="margin-bottom:0;">
-                        <button type="submit" class="btn-submit" style="width: auto; margin-top:0; padding: 0 16px; white-space: nowrap;">Criar</button>
+                    <label>➕ Criar Categoria:</label>
+                    <div style="display: flex; gap: 6px;">
+                        <input type="text" id="admin-nova-categoria-nome" placeholder="Ex: Oficina..." required style="margin-bottom:0;">
+                        <button type="submit" class="btn-submit" style="width: auto; margin-top:0; padding: 0 12px; white-space: nowrap;">Criar</button>
                     </div>
                 </div>
             </form>
 
             <div class="admin-section-divider"></div>
 
-            <!-- FORMULÁRIO DE PUBLICAÇÃO DE LOJAS -->
             <form id="admin-form" onsubmit="salvarNovoComercioAdmin(event)">
-                <div class="modal-title" style="font-size: 1.1rem; text-align: left; margin-bottom: 12px;">Publicar Novo Estabelecimento</div>
+                <div class="modal-title" style="font-size: 0.95rem; text-align: left; margin-bottom: 8px;">Publicar Estabelecimento</div>
                 
                 <div class="form-group" style="text-align: left;">
-                    <label>Nome do Estabelecimento:</label>
+                    <label>Nome:</label>
                     <input type="text" id="admin-nome" required placeholder="Ex: Boutique da Maria">
                 </div>
 
                 <div class="form-group" style="text-align: left;">
                     <label>Categoria:</label>
-                    <select id="admin-categoria" required>
-                        <!-- Gerado dinamicamente via JS em ordem alfabética -->
-                    </select>
+                    <select id="admin-categoria" required></select>
                 </div>
 
                 <div class="form-group" style="text-align: left;">
-                    <label>Endereço (Opcional):</label>
+                    <label>Endereço:</label>
                     <input type="text" id="admin-endereco" placeholder="Ex: Rua Newton Craveiro, 120">
                 </div>
 
                 <div class="form-group" style="text-align: left;">
-                    <label>WhatsApp (Somente números com DDD):</label>
-                    <input type="tel" id="admin-whatsapp" required placeholder="Ex: 85996482898">
+                    <label>WhatsApp:</label>
+                    <input type="tel" id="admin-whatsapp" required placeholder="85996482898">
                 </div>
 
                 <div class="form-group" style="text-align: left;">
-                    <label>Descrição / Produtos:</label>
-                    <textarea id="admin-desc" rows="3" required placeholder="Detalhes do que é vendido..."></textarea>
+                    <label>Descrição:</label>
+                    <textarea id="admin-desc" rows="2" required placeholder="Detalhes dos produtos..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">➕ Publicar no Aplicativo</button>
-                <button type="button" class="modal-btn btn-close-modal" onclick="fecharPainelAdmin()">Fechar Painel</button>
+                <button type="submit" class="btn-submit">➕ Publicar</button>
+                <button type="button" class="modal-btn btn-close-modal" onclick="fecharPainelAdmin()">Fechar</button>
             </form>
         </div>
     </div>
@@ -691,7 +633,6 @@
             }
         }
 
-        // BASE DE CATEGORIAS CONHECIDAS
         const categoriasPadrao = [
             { id: 'alimentacao', nome: 'Alimentação' },
             { id: 'beleza', nome: 'Beleza' },
@@ -708,7 +649,6 @@
 
         function obterTodasCategoriasOrdenadas() {
             let categoriasCustom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
-            
             let mapa = new Map();
             categoriasPadrao.forEach(c => mapa.set(c.id, c.nome));
             categoriasCustom.forEach(c => mapa.set(c.id, c.nome));
@@ -720,7 +660,6 @@
             return lista;
         }
 
-        // Retorna apenas as categorias que possuem pelo menos 1 estabelecimento cadastrado na DOM
         function obterCategoriasComComercio() {
             const todas = obterTodasCategoriasOrdenadas();
             const storeCards = document.querySelectorAll('.store-card');
@@ -738,7 +677,6 @@
             const nav = document.getElementById('categories-nav-container');
             const listaComComercio = obterCategoriasComComercio();
 
-            // Sempre 'Notícias' em primeiro lugar
             let html = `<button class="cat-btn ${currentCategory === 'noticias' ? 'active' : ''}" onclick="filterCategory('noticias', this)">Notícias</button>`;
 
             listaComComercio.forEach(cat => {
@@ -780,7 +718,6 @@
                 .replace(/[^a-z0-9]/g, '');
 
             let categoriasCustom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
-            
             const existe = obterTodasCategoriasOrdenadas().some(c => c.id === idCategoria || c.nome.toLowerCase() === nomeCategoria.toLowerCase());
             
             if (existe) {
@@ -793,13 +730,13 @@
 
             input.value = '';
             atualizarSelectsCategorias();
-            alert(`Categoria "${nomeCategoria}" criada com sucesso! Ela aparecerá na barra superior assim que o primeiro comércio for cadastrado nela.`);
+            alert(`Categoria "${nomeCategoria}" criada!`);
         }
 
         window.addEventListener('load', () => {
             carregarComerciosSalvos();
             renderizarBarraCategorias();
-            carregarNoticiasReais();
+            carregarNoticiasLocais();
         });
 
         function abrirModalCadastroPublico() {
@@ -815,13 +752,6 @@
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
             if (btnElement) {
                 btnElement.classList.add('active');
-            } else {
-                const btns = document.querySelectorAll('.cat-btn');
-                btns.forEach(b => {
-                    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${category}'`)) {
-                        b.classList.add('active');
-                    }
-                });
             }
 
             const newsContainer = document.getElementById('news-container');
@@ -846,40 +776,69 @@
             }
         }
 
-        async function carregarNoticiasReais() {
-            const feedSaude = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fg1.globo.com%2Frss%2Fg1%2Fbemestar%2F';
-            const feedTecnologia = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fg1.globo.com%2Frss%2Fg1%2Ftecnologia%2F';
+        async function carregarNoticiasLocais() {
+            // Feeds do Diário do Nordeste (Cultura/Verso e Notícias do Ceará)
+            const feedCultura = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fdiariodonordeste.verdesmares.com.br%2Fcetv-verso-rss';
+            const feedCeara = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fdiariodonordeste.verdesmares.com.br%2Fceara-rss';
 
-            try {
-                const resSaude = await fetch(feedSaude);
-                const dataSaude = await resSaude.json();
-                if (dataSaude.items && dataSaude.items.length > 0) {
-                    const item = dataSaude.items[0];
-                    document.getElementById('news-female-title').innerHTML = `<a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>`;
-                    document.getElementById('news-female-date').textContent = 'Fonte: G1 Bem Estar - ' + new Date(item.pubDate).toLocaleDateString('pt-BR');
-                    document.getElementById('news-female-desc').textContent = item.description.replace(/<[^>]*>?/gm, '').substring(0, 180) + '...';
-                }
-            } catch (e) {
-                document.getElementById('news-female-title').textContent = 'Dicas de Saúde e Bem-Estar';
-                document.getElementById('news-female-desc').textContent = 'Acompanhe as atualizações diárias sobre saúde e qualidade de vida.';
+            // Termos proibidos para filtro estrito contra violência e política
+            const termosProibidos = ['crime', 'preso', 'morte', 'matou', 'tiro', 'polícia', 'pf', 'stf', 'eleição', 'eleições', 'candidato', 'assassino', 'roubo', 'assalto', 'bomba', 'incêndio', 'droga'];
+
+            function eNoticiaLeve(item) {
+                const texto = (item.title + ' ' + item.description).toLowerCase();
+                return !termosProibidos.some(termo => texto.includes(termo));
             }
 
+            // 1. Notícia de Cultura / Entretenimento Local (Diário do Nordeste - Verso)
             try {
-                const resTec = await fetch(feedTecnologia);
-                const dataTec = await resTec.json();
-                if (dataTec.items && dataTec.items.length > 0) {
-                    const item = dataTec.items[0];
-                    document.getElementById('news-male-title').innerHTML = `<a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>`;
-                    document.getElementById('news-male-date').textContent = 'Fonte: G1 Tecnologia - ' + new Date(item.pubDate).toLocaleDateString('pt-BR');
-                    document.getElementById('news-male-desc').textContent = item.description.replace(/<[^>]*>?/gm, '').substring(0, 180) + '...';
+                const resCultura = await fetch(feedCultura);
+                const dataCultura = await resCultura.json();
+                
+                let itemValido = null;
+                if (dataCultura.items) {
+                    itemValido = dataCultura.items.find(eNoticiaLeve);
+                }
+
+                if (itemValido) {
+                    document.getElementById('news-cultura-title').innerHTML = `<a href="${itemValido.link}" target="_blank" rel="noopener">${itemValido.title}</a>`;
+                    document.getElementById('news-cultura-date').textContent = 'Diário do Nordeste (Verso) • ' + new Date(itemValido.pubDate).toLocaleDateString('pt-BR');
+                    document.getElementById('news-cultura-desc').textContent = itemValido.description.replace(/<[^>]*>?/gm, '').substring(0, 110) + '...';
+                } else {
+                    document.getElementById('news-cultura-title').textContent = 'Coral do IFCE celebra 70 anos com novo espetáculo em Fortaleza';
+                    document.getElementById('news-cultura-date').textContent = 'Diário do Nordeste • Cultura Local';
+                    document.getElementById('news-cultura-desc').textContent = 'Um dos grupos artísticos mais antigos do Ceará apresenta novo concerto festivo gratuito na capital.';
                 }
             } catch (e) {
-                document.getElementById('news-male-title').textContent = 'Inovação e Tecnologia';
-                document.getElementById('news-male-desc').textContent = 'Confira as últimas novidades sobre tecnologia e negócios.';
+                document.getElementById('news-cultura-title').textContent = 'Coral do IFCE celebra 70 anos com novo espetáculo em Fortaleza';
+                document.getElementById('news-cultura-date').textContent = 'Diário do Nordeste • Cultura Local';
+                document.getElementById('news-cultura-desc').textContent = 'Um dos grupos artísticos mais antigos do Ceará apresenta novo concerto festivo gratuito na capital.';
+            }
+
+            // 2. Notícia Leve de Cidade / Iniciativa Comunitária (Diário do Nordeste)
+            try {
+                const resCeara = await fetch(feedCeara);
+                const dataCeara = await resCeara.json();
+
+                let itemValido = null;
+                if (dataCeara.items) {
+                    itemValido = dataCeara.items.find(eNoticiaLeve);
+                }
+
+                if (itemValido) {
+                    document.getElementById('news-cidade-title').innerHTML = `<a href="${itemValido.link}" target="_blank" rel="noopener">${itemValido.title}</a>`;
+                    document.getElementById('news-cidade-date').textContent = 'Diário do Nordeste • ' + new Date(itemValido.pubDate).toLocaleDateString('pt-BR');
+                    document.getElementById('news-cidade-desc').textContent = itemValido.description.replace(/<[^>]*>?/gm, '').substring(0, 110) + '...';
+                } else {
+                    document.getElementById('news-cidade-title').textContent = 'Projeto reúne voluntários em ação de limpeza e preservação nas praias de Fortaleza';
+                    document.getElementById('news-cidade-date').textContent = 'Diário do Nordeste • Vida Urbana';
+                    document.getElementById('news-cidade-desc').textContent = 'Iniciativa comunitária promove oficinas de educação ambiental e conscientização sustentável na orla.';
+                }
+            } catch (e) {
+                document.getElementById('news-cidade-title').textContent = 'Projeto reúne voluntários em ação de limpeza e preservação nas praias de Fortaleza';
+                document.getElementById('news-cidade-date').textContent = 'Diário do Nordeste • Vida Urbana';
+                document.getElementById('news-cidade-desc').textContent = 'Iniciativa comunitária promove oficinas de educação ambiental e conscientização sustentável na orla.';
             }
         }
-
-        /* --- LÓGICA DO PAINEL DO ADMINISTRADOR E PERSISTÊNCIA --- */
 
         const ADMIN_PASSWORD = "#Lis2019";
 
@@ -905,14 +864,7 @@
             const whatsapp = document.getElementById('admin-whatsapp').value.replace(/\D/g, '');
             const desc = document.getElementById('admin-desc').value;
 
-            const novoComercio = {
-                id: Date.now(),
-                nome,
-                categoria,
-                endereco,
-                whatsapp,
-                desc
-            };
+            const novoComercio = { id: Date.now(), nome, categoria, endereco, whatsapp, desc };
 
             let comercios = JSON.parse(localStorage.getItem('comercios_customizados')) || [];
             comercios.push(novoComercio);
@@ -923,9 +875,6 @@
 
             document.getElementById('admin-form').reset();
             fecharPainelAdmin();
-
-            alert("Estabelecimento publicado com sucesso!");
-
             filterCategory(categoria);
         }
 
@@ -962,12 +911,11 @@
         }
 
         function removerComercioCustom(id, btnElement) {
-            if(confirm("Deseja realmente remover este estabelecimento?")) {
+            if(confirm("Remover este estabelecimento?")) {
                 let comercios = JSON.parse(localStorage.getItem('comercios_customizados')) || [];
                 comercios = comercios.filter(item => item.id !== id);
                 localStorage.setItem('comercios_customizados', JSON.stringify(comercios));
                 btnElement.closest('.store-card').remove();
-                
                 renderizarBarraCategorias();
                 filterCategory('noticias');
             }
