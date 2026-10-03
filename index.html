@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cajazeiras Mall by Fortaleza - Comércio Local</title>
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json?v=2">
+<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
 <meta name="theme-color" content="#ffffff">
 <style>
         :root {
@@ -516,10 +517,21 @@
             padding: 20px;
             font-size: .9rem;
         }
+
+        .app-logo-header {
+            width: 42px;
+            height: 42px;
+            margin-bottom: 6px;
+        }
 </style>
 </head>
 <body>
-<header><div class="header-brand"><div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div></div></header>
+<header>
+  <div class="header-brand">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" class="app-logo-header">
+    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
+  </div>
+</header>
 <div class="install-bar" id="installContainer"><button class="btn-install-app" onclick="instalarApp()"><span class="phone-icon">📲</span> Baixar App no Celular</button></div>
 
 <div class="container">
@@ -540,7 +552,10 @@
 <footer><button class="btn-admin-trigger" onclick="abrirLogin()">⚙ Painel do Administrador</button></footer>
 
 <div class="modal-overlay" id="user-register-modal"><div class="modal-body">
-  <div class="modal-header-branding"><div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div></div>
+  <div class="modal-header-branding">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" style="width:36px;height:36px">
+    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
+  </div>
   <div class="modal-title">Cadastre seu Comércio</div>
   <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
   <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
@@ -557,7 +572,10 @@
 </div></div>
 
 <div class="modal-overlay" id="admin-login-modal"><div class="modal-body">
-  <div class="modal-header-branding"><div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div></div>
+  <div class="modal-header-branding">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" style="width:36px;height:36px">
+    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
+  </div>
   <div class="modal-title">Acesso Restrito</div>
   <div class="modal-text">Digite a senha do Administrador.</div>
   <form onsubmit="entrar(event)">
@@ -600,7 +618,9 @@
 <script src="config.js"></script>
 <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
+            navigator.serviceWorker.register('sw.js?v=2').then(reg => {
+                reg.update();
+            });
         }
 
         let deferredPrompt;
