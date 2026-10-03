@@ -830,8 +830,7 @@ function carregar(){
 }
 
 function categoriasComComercio(){
-  var usadas={};DATA.comercios.forEach(function(c){usadas[c.categoria]=1});
-  return DATA.categorias.filter(function(n){return usadas[n]});
+  return DATA.categorias;
 }
 
 $("categories-grid-container").addEventListener("click",function(e){var b=e.target.closest(".cat-grid-card");if(b)selecionarCategoria(b.getAttribute("data-cat"))});
@@ -880,7 +879,7 @@ function desenhar(){
     
     gridContainer.innerHTML = cats.map(function(n){
       var cor = corDe(n), qtd = DATA.comercios.filter(function(c){return c.categoria===n}).length;
-      return '<button type="button" class="cat-grid-card" data-cat="'+esc(n)+'" style="--c1:'+cor[0]+';--c2:'+cor[1]+';--sombra:'+cor[2]+'"><span class="cat-grid-icon">'+iconeDe(n)+'</span><span class="cat-grid-title">'+esc(n)+'</span><span class="cat-grid-count">'+qtd+(qtd===1?' comércio':' comércios')+'</span></button>';
+      return '<button type="button" class="cat-grid-card" data-cat="'+esc(n)+'" style="--c1:'+cor[0]+';--c2:'+cor[1]+';--sombra:'+cor[2]+'"><span class="cat-grid-icon">'+iconeDe(n)+'</span><span class="cat-grid-title">'+esc(n)+'</span><span class="cat-grid-count">'+qtd+(qtd===1?' cadastrado':' cadastrados')+'</span></button>';
     }).join("");
 
     storesContainer.innerHTML = "";
