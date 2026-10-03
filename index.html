@@ -184,6 +184,7 @@
 
         .news-tag.cultura { background: #fce7f3; color: #be185d; }
         .news-tag.cidade { background: #ecfdf5; color: #047857; }
+        .news-tag.turismo { background: #fef3c7; color: #b45309; }
 
         .news-title {
             font-size: 0.98rem;
@@ -478,6 +479,13 @@
                     <h3 class="news-title" id="news-cidade-title">Carregando notícia de Fortaleza...</h3>
                     <div class="news-date" id="news-cidade-date">Atualizando...</div>
                     <p class="news-desc" id="news-cidade-desc">Buscando novidades da cidade...</p>
+                </div>
+
+                <div class="news-card" data-category="noticias">
+                    <span class="news-tag turismo">Turismo & Gastronomia</span>
+                    <h3 class="news-title" id="news-turismo-title">Carregando notícia de Fortaleza...</h3>
+                    <div class="news-date" id="news-turismo-date">Atualizando...</div>
+                    <p class="news-desc" id="news-turismo-desc">Buscando novidades de turismo e gastronomia...</p>
                 </div>
             </div>
 
@@ -817,6 +825,7 @@
         async function carregarNoticiasLocais() {
             const feedCultura = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fdiariodonordeste.verdesmares.com.br%2Fcetv-verso-rss';
             const feedCeara = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fdiariodonordeste.verdesmares.com.br%2Fceara-rss';
+            const feedOPovo = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.opovo.com.br%2Frss%2Fvidaearte';
 
             const termosProibidos = ['crime', 'preso', 'morte', 'matou', 'tiro', 'polícia', 'pf', 'stf', 'eleição', 'eleições', 'candidato', 'assassino', 'roubo', 'assalto', 'bomba', 'incêndio', 'droga'];
 
@@ -825,6 +834,7 @@
                 return !termosProibidos.some(termo => texto.includes(termo));
             }
 
+            // 1. Notícia de Cultura (Diário do Nordeste)
             try {
                 const resCultura = await fetch(feedCultura);
                 const dataCultura = await resCultura.json();
@@ -849,6 +859,7 @@
                 document.getElementById('news-cultura-desc').textContent = 'Um dos grupos artísticos mais antigos do Ceará apresenta novo concerto festivo gratuito na capital.';
             }
 
+            // 2. Notícia de Cidade (Diário do Nordeste)
             try {
                 const resCeara = await fetch(feedCeara);
                 const dataCeara = await resCeara.json();
@@ -871,6 +882,31 @@
                 document.getElementById('news-cidade-title').textContent = 'Projeto reúne voluntários em ação de limpeza e preservação nas praias de Fortaleza';
                 document.getElementById('news-cidade-date').textContent = 'Diário do Nordeste • Vida Urbana';
                 document.getElementById('news-cidade-desc').textContent = 'Iniciativa comunitária promove oficinas de educação ambiental e conscientização sustentável na orla.';
+            }
+
+            // 3. Notícia de Turismo & Gastronomia (O POVO)
+            try {
+                const resOPovo = await fetch(feedOPovo);
+                const dataOPovo = await resOPovo.json();
+
+                let itemValido = null;
+                if (dataOPovo.items) {
+                    itemValido = dataOPovo.items.find(eNoticiaLeve);
+                }
+
+                if (itemValido) {
+                    document.getElementById('news-turismo-title').innerHTML = `<a href="${itemValido.link}" target="_blank" rel="noopener">${itemValido.title}</a>`;
+                    document.getElementById('news-turismo-date').textContent = 'O POVO (Vida & Arte) • ' + new Date(itemValido.pubDate).toLocaleDateString('pt-BR');
+                    document.getElementById('news-turismo-desc').textContent = itemValido.description.replace(/<[^>]*>?/gm, '').substring(0, 110) + '...';
+                } else {
+                    document.getElementById('news-turismo-title').textContent = 'Feira de artesanato e gastronomia reúne produtores locais no Centro de Fortaleza';
+                    document.getElementById('news-turismo-date').textContent = 'O POVO • Gastronomia Local';
+                    document.getElementById('news-turismo-desc').textContent = 'Evento destaca a culinária regional, produtos feitos à mão e apresentações artísticas no fim de semana.';
+                }
+            } catch (e) {
+                document.getElementById('news-turismo-title').textContent = 'Feira de artesanato e gastronomia reúne produtores locais no Centro de Fortaleza';
+                document.getElementById('news-turismo-date').textContent = 'O POVO • Gastronomia Local';
+                document.getElementById('news-turismo-desc').textContent = 'Evento destaca a culinária regional, produtos feitos à mão e apresentações artísticas no fim de semana.';
             }
         }
 
