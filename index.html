@@ -144,7 +144,6 @@
             font-weight: 800;
         }
 
-        /* CARD DE NOTÍCIAS */
         .news-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -205,7 +204,6 @@
             line-height: 1.4;
         }
 
-        /* CARD DE COMÉRCIOS */
         .store-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -233,6 +231,13 @@
             font-weight: 800;
             color: var(--primary-color);
             margin-bottom: 4px;
+        }
+
+        .store-address {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .store-desc {
@@ -450,13 +455,14 @@
         <button class="cat-btn" onclick="filterCategory('padaria', this)">Padaria</button>
         <button class="cat-btn" onclick="filterCategory('eletronicos', this)">Eletrônicos</button>
         <button class="cat-btn" onclick="filterCategory('pet', this)">Pet Shop</button>
+        <button class="cat-btn" onclick="filterCategory('outros', this)">Outros</button>
     </nav>
 
     <div class="container">
         <h2 class="section-title" id="main-section-title">Informativo Local</h2>
 
         <div id="content-list">
-            <!-- CONTAINER DINÂMICO PARA AS NOTÍCIAS CARREGADAS VIA API -->
+            <!-- NOTÍCIAS REAIS -->
             <div id="news-container">
                 <div class="news-card" data-category="noticias">
                     <span class="news-tag female">Estilo de Vida & Saúde</span>
@@ -532,6 +538,17 @@ Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a
                 <h3 class="store-name">Alemão e Cléa Espetaria e Pratinhos</h3>
                 <p class="store-desc">Espetos variados e pratinhos tradicionais.</p>
                 <a href="https://wa.me/5585996277402" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+            </div>
+
+            <!-- ESTABELECIMENTO ADICIONADO: AMADAS ARTIGOS FEMENINOS / FARDAMENTOS E ACESSÓRIOS -->
+            <div class="store-card" data-category="outros">
+                <span class="store-tag">Outros</span>
+                <h3 class="store-name">Amadas Artigos Femininos / Fardamentos e Acessórios</h3>
+                <div class="store-address">📍 Rua Newton Craveiro, 120 - Parque Iracema</div>
+                <p class="store-desc">• Moda feminina, masculina e infantil
+• Fardamentos
+• Acessórios</p>
+                <a href="https://wa.me/5585996482898" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
             </div>
 
             <div class="empty-state" id="empty-message">
