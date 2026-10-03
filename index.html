@@ -1,729 +1,949 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cajazeiras Mall by Fortaleza</title>
-  
-  <link rel="manifest" href="./manifest.json?v=6">
-  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
-  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="background-color" content="#ffffff">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="CajazeirasMall">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cajazeiras Mall by Fortaleza - Comércio Local</title>
+<link rel="manifest" href="manifest.json?v=3">
+<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
+<meta name="theme-color" content="#ffffff">
+<style>
+        :root {
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --primary-color: #0f172a;
+            --brand-blue: #2563eb;
+            --brand-blue-hover: #1d4ed8;
+            --accent-green: #25d366;
+            --accent-green-hover: #128c7e;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+        }
 
-  <style>
-    :root {
-      --bg-main: #f8fafc;
-      --card-bg: #ffffff;
-      --card-border: #e2e8f0;
-      --primary-color: #0f172a;
-      --brand-blue: #2563eb;
-      --brand-blue-hover: #1d4ed8;
-      --accent-green: #25d366;
-      --accent-green-hover: #128c7e;
-      --text-dark: #0f172a;
-      --text-muted: #64748b;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
+        html, body {
+            min-height: 100vh;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+        }
 
-    html, body {
-      min-height: 100vh;
-      background-color: var(--bg-main);
-      color: var(--text-dark);
-    }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
 
-    body {
-      display: flex;
-      flex-direction: column;
-    }
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--card-border);
+            padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
 
-    header {
-      background: #ffffff;
-      border-bottom: 1px solid var(--card-border);
-      padding: 12px 16px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+        }
 
-    .header-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-align: left;
-    }
+        .app-logo-header {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+        }
 
-    .app-logo-header {
-      width: 42px;
-      height: 42px;
-      flex-shrink: 0;
-    }
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--primary-color);
+            line-height: 1.1;
+        }
 
-    .header-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--primary-color);
-      line-height: 1.1;
-    }
+        .header-title span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
 
-    .header-title span {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
+        /* Botão do WhatsApp no Cabeçalho */
+        .btn-header-whatsapp {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-green);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            flex-shrink: 0;
+        }
 
-    .btn-header-whatsapp {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--accent-green);
-      color: #ffffff;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 20px;
-      box-shadow: 0 2px 5px rgba(37, 211, 102, 0.3);
-      transition: transform 0.2s ease, background-color 0.2s ease;
-      flex-shrink: 0;
-    }
+        .btn-header-whatsapp:active {
+            transform: scale(0.95);
+        }
 
-    .btn-header-whatsapp:active {
-      transform: scale(0.95);
-    }
+        .btn-header-whatsapp-content {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            line-height: 1;
+        }
 
-    .btn-header-whatsapp-content {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-weight: 800;
-      font-size: 0.8rem;
-      line-height: 1;
-    }
+        .btn-header-whatsapp-sub {
+            font-size: 0.6rem;
+            font-weight: 600;
+            opacity: 0.95;
+            margin-top: 2px;
+            letter-spacing: 0.2px;
+            text-transform: uppercase;
+        }
 
-    .btn-header-whatsapp-sub {
-      font-size: 0.6rem;
-      font-weight: 600;
-      opacity: 0.95;
-      margin-top: 2px;
-      letter-spacing: 0.2px;
-      text-transform: uppercase;
-    }
+        .install-bar {
+            display: block;
+            background: #ffffff;
+            border-bottom: 1px solid var(--card-border);
+            padding: 8px 16px;
+            text-align: center;
+        }
 
-    .install-bar {
-      display: block;
-      background: #ffffff;
-      border-bottom: 1px solid var(--card-border);
-      padding: 8px 16px;
-      text-align: center;
-    }
+        .btn-install-app {
+            background: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--primary-color);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
 
-    .btn-install-app {
-      background: #f1f5f9;
-      border: 1px solid var(--card-border);
-      color: var(--primary-color);
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
+        .phone-icon {
+            color: var(--brand-blue);
+            font-size: 1rem;
+            display: inline-block;
+        }
 
-    .phone-icon {
-      color: var(--brand-blue);
-      font-size: 1rem;
-      display: inline-block;
-    }
+        .container {
+            flex: 1;
+            padding: 16px;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .container {
-      flex: 1;
-      padding: 16px;
-      max-width: 600px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-    }
+        .section-title {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            font-weight: 800;
+        }
 
-    .section-title {
-      font-size: 0.95rem;
-      margin-bottom: 12px;
-      color: var(--primary-color);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      text-align: center;
-      font-weight: 800;
-    }
+        #content-list {
+            flex: 1;
+        }
 
-    #content-list {
-      flex: 1;
-    }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
 
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-    }
+        .cat-grid-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            transition: transform 0.1s ease, border-color 0.2s ease;
+        }
 
-    .cat-grid-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-      transition: transform 0.1s ease, border-color 0.2s ease;
-    }
+        .cat-grid-card:active {
+            transform: scale(0.98);
+        }
 
-    .cat-grid-card:active {
-      transform: scale(0.98);
-    }
+        .cat-grid-card.active {
+            border-color: var(--brand-blue);
+            background-color: #eff6ff;
+        }
 
-    .cat-grid-card.active {
-      border-color: var(--brand-blue);
-      background-color: #eff6ff;
-    }
+        .cat-grid-icon {
+            font-size: 2rem;
+        }
 
-    .cat-grid-icon {
-      font-size: 2rem;
-    }
+        .cat-grid-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-align: center;
+        }
 
-    .cat-grid-title {
-      font-size: 0.9rem;
-      font-weight: 800;
-      color: var(--primary-color);
-      text-align: center;
-    }
+        .btn-voltar-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--primary-color);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
 
-    .btn-voltar-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #f1f5f9;
-      border: 1px solid var(--card-border);
-      color: var(--primary-color);
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin-bottom: 12px;
-    }
+        .store-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: block;
+            position: relative;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
 
-    .store-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
-      display: block;
-      position: relative;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-    }
+        .store-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
 
-    .store-tag {
-      display: inline-block;
-      background: #f1f5f9;
-      color: var(--text-muted);
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
+        .store-name {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
 
-    .store-name {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--primary-color);
-      margin-bottom: 4px;
-    }
+        .store-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.35;
+            white-space: pre-line;
+        }
 
-    .store-desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      line-height: 1.35;
-      white-space: pre-line;
-    }
+        .btn-whatsapp {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-green);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+        }
 
-    .btn-whatsapp {
-      display: block;
-      width: 100%;
-      background-color: var(--accent-green);
-      color: #ffffff;
-      text-align: center;
-      padding: 10px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.88rem;
-    }
+        .register-banner-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 12px;
+            text-align: center;
+        }
 
-    .register-banner-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 12px;
-      margin-top: 12px;
-      text-align: center;
-    }
+        .btn-open-register {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            background-color: var(--brand-blue);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
 
-    .btn-open-register {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      width: 100%;
-      background-color: var(--brand-blue);
-      color: #ffffff;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
+        .btn-open-register:hover {
+            background-color: var(--brand-blue-hover);
+        }
 
-    .btn-open-register:hover {
-      background-color: var(--brand-blue-hover);
-    }
+        footer {
+            text-align: center;
+            padding: 16px 12px 24px 12px;
+            background: var(--bg-main);
+            border-top: 1px solid var(--card-border);
+            margin-top: auto;
+        }
 
-    footer {
-      text-align: center;
-      padding: 16px 12px 24px 12px;
-      background: var(--bg-main);
-      border-top: 1px solid var(--card-border);
-      margin-top: auto;
-    }
+        .btn-admin-trigger {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+        }
 
-    .btn-admin-trigger {
-      background: transparent;
-      border: none;
-      color: #94a3b8;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: underline;
-    }
+        .form-group {
+            margin-bottom: 12px;
+        }
 
-    .form-group {
-      margin-bottom: 12px;
-    }
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
 
-    .form-group label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--primary-color);
-      text-transform: uppercase;
-    }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            background: #ffffff;
+            color: var(--text-dark);
+        }
 
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      background: #ffffff;
-      color: var(--text-dark);
-    }
+        .btn-submit {
+            width: 100%;
+            background-color: var(--accent-green);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
 
-    .btn-submit {
-      width: 100%;
-      background-color: var(--accent-green);
-      color: #ffffff;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
 
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 16px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+        .modal-body {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 440px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
 
-    .modal-body {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 24px 20px;
-      max-width: 420px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-    }
+        .modal-header-branding {
+            text-align: center;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--card-border);
+        }
 
-    .modal-app-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin: 0 auto 12px auto;
-      display: block;
-      background: #ffffff;
-      padding: 4px;
-      border: 1px solid var(--card-border);
-    }
+        .modal-title {
+            font-size: 1.15rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-bottom: 4px;
+            text-align: center;
+        }
 
-    .modal-title {
-      font-size: 1.25rem;
-      color: var(--primary-color);
-      font-weight: 800;
-      margin-bottom: 6px;
-      text-align: center;
-    }
+        .modal-text {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            text-align: center;
+        }
 
-    .modal-text {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      text-align: center;
-      line-height: 1.4;
-    }
+        .modal-btn {
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
 
-    .modal-features {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 20px;
-      text-align: left;
-      font-size: 0.82rem;
-      color: var(--primary-color);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+        .btn-close-modal {
+            background: #e2e8f0;
+            color: var(--text-dark);
+            margin-top: 8px;
+        }
 
-    .modal-btn-install {
-      background: var(--brand-blue);
-      color: #ffffff;
-      border: none;
-      padding: 14px;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      font-weight: 800;
-      cursor: pointer;
-      width: 100%;
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
-    }
+        .admin-section-divider {
+            border-top: 1px dashed var(--card-border);
+            margin: 14px 0;
+            padding-top: 12px;
+        }
 
-    .modal-btn-cancel {
-      background: transparent;
-      color: var(--text-muted);
-      border: none;
-      padding: 10px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 6px;
-    }
+        .login-error-msg {
+            color: #ef4444;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 8px;
+            display: none;
+        }
 
-    .carregando {
-      text-align: center;
-      color: var(--text-muted);
-      padding: 20px;
-      font-size: .9rem;
-    }
-  </style>
+        .category-manage-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 6px;
+            margin-top: 8px;
+            background: #f8fafc;
+        }
+
+        .category-manage-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 8px;
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            margin-bottom: 4px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .category-manage-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .cat-item-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .btn-cat-edit {
+            background: #fef3c7;
+            color: #b45309;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-cat-delete {
+            background: #fee2e2;
+            color: #ef4444;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .custom-dialog-btns {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .btn-dialog-cancel {
+            background: #e2e8f0;
+            color: var(--text-dark);
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-dialog-confirm {
+            background: var(--brand-blue);
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-dialog-danger {
+            background: #ef4444;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .admin-tabs-title {
+            font-size: .78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            margin: 6px 0;
+        }
+
+        .carregando {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 20px;
+            font-size: .9rem;
+        }
+</style>
 </head>
 <body>
+<header>
+  <div class="header-brand">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" class="app-logo-header">
+    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
+  </div>
+  <a href="https://wa.me/5585996461047" target="_blank" rel="noopener" class="btn-header-whatsapp">
+    <div class="btn-header-whatsapp-content">💬 WhatsApp</div>
+    <div class="btn-header-whatsapp-sub">Atendimento ao cliente</div>
+  </a>
+</header>
 
-  <header>
-    <div class="header-brand">
-      <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" class="app-logo-header">
-      <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
-    </div>
-    <a href="https://wa.me/5585996461047" target="_blank" rel="noopener" class="btn-header-whatsapp">
-      <div class="btn-header-whatsapp-content">💬 WhatsApp</div>
-      <div class="btn-header-whatsapp-sub">Atendimento ao cliente</div>
-    </a>
-  </header>
+<div class="install-bar" id="installContainer"><button class="btn-install-app" onclick="instalarApp()"><span class="phone-icon">📲</span> Baixar App no Celular</button></div>
 
-  <div class="install-bar" id="installContainer">
-    <button class="btn-install-app" id="btn-show-install"><span class="phone-icon">📲</span> Baixar App no Celular</button>
+<div class="container">
+  <div id="btn-voltar-container" style="display:none">
+    <button class="btn-voltar-home" onclick="voltarParaCategorias()">⬅ Ver todas as categorias</button>
+  </div>
+  <h2 class="section-title" id="main-section-title">Categorias</h2>
+  
+  <div id="categories-grid-container" class="categories-grid"></div>
+
+  <div id="content-list">
+    <div id="stores-container"></div>
   </div>
 
-  <div class="container">
-    <div id="btn-voltar-container" style="display:none">
-      <button class="btn-voltar-home" onclick="voltarParaCategorias()">⬅ Ver todas as categorias</button>
-    </div>
+  <div class="register-banner-card"><button type="button" class="btn-open-register" onclick="abrirCadastro()">📝 Cadastre Seu Comércio Aqui</button></div>
+</div>
 
-    <h2 class="section-title" id="main-section-title">Categorias</h2>
-    
-    <div id="categories-grid-container" class="categories-grid"></div>
+<footer><button class="btn-admin-trigger" onclick="abrirLogin()">⚙ Painel do Administrador</button></footer>
 
-    <div id="content-list">
-      <div id="stores-container"></div>
-    </div>
-
-    <div class="register-banner-card">
-      <button type="button" class="btn-open-register" onclick="abrirCadastro()">📝 Cadastre Seu Comércio Aqui</button>
-    </div>
+<div class="modal-overlay" id="user-register-modal"><div class="modal-body">
+  <div class="modal-header-branding">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" style="width:36px;height:36px">
+    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
   </div>
+  <div class="modal-title">Cadastre seu Comércio</div>
+  <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
+  <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
+    <input type="hidden" name="_captcha" value="false">
+    <div class="form-group"><label for="comerciante-nome">Seu Nome:</label><input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo"></div>
+    <div class="form-group"><label for="loja-nome">Nome do Estabelecimento:</label><input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da loja/serviço"></div>
+    <div class="form-group"><label for="loja-categoria">Categoria:</label><select name="Categoria" id="loja-categoria" required></select></div>
+    <div class="form-group"><label for="loja-whatsapp">WhatsApp:</label><input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX"></div>
+    <div class="form-group"><label for="loja-desc">Descrição:</label><textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea></div>
+    <button type="submit" class="btn-submit">Enviar Cadastro</button>
+    <button type="button" class="modal-btn btn-close-modal" onclick="fechar('user-register-modal')">Cancelar</button>
+  </form>
+</div></div>
 
-  <footer>
-    <button class="btn-admin-trigger" onclick="abrirLogin()">⚙ Painel do Administrador</button>
-  </footer>
-
-  <!-- MODAL DE CADASTRO DE COMÉRCIO -->
-  <div class="modal-overlay" id="user-register-modal">
-    <div class="modal-body">
-      <div class="modal-title">Cadastre seu Comércio</div>
-      <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
-      <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
-        <input type="hidden" name="_captcha" value="false">
-        <div class="form-group"><label for="comerciante-nome">Seu Nome:</label><input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo"></div>
-        <div class="form-group"><label for="loja-nome">Nome do Estabelecimento:</label><input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da loja/serviço"></div>
-        <div class="form-group"><label for="loja-categoria">Categoria:</label><select name="Categoria" id="loja-categoria" required></select></div>
-        <div class="form-group"><label for="loja-whatsapp">WhatsApp:</label><input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX"></div>
-        <div class="form-group"><label for="loja-desc">Descrição:</label><textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea></div>
-        <button type="submit" class="btn-submit">Enviar Cadastro</button>
-        <button type="button" class="modal-btn-cancel" onclick="fechar('user-register-modal')">Cancelar</button>
-      </form>
-    </div>
+<div class="modal-overlay" id="admin-login-modal"><div class="modal-body">
+  <div class="modal-header-branding">
+    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" style="width:36px;height:36px">
+    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
   </div>
+  <div class="modal-title">Acesso Restrito</div>
+  <div class="modal-text">Digite a senha do Administrador.</div>
+  <form onsubmit="entrar(event)">
+    <div class="form-group"><label for="admin-pass-input">Senha de Acesso:</label><input type="password" id="admin-pass-input" required placeholder="Digite sua senha..." autocomplete="current-password"></div>
+    <div id="login-error-msg" class="login-error-msg"></div>
+    <button type="submit" class="btn-submit" id="btn-entrar" style="margin-top:10px">Entrar</button>
+    <button type="button" class="modal-btn btn-close-modal" onclick="fechar('admin-login-modal')">Cancelar</button>
+  </form>
+</div></div>
 
-  <!-- MODAL DE LOGIN ADMIN -->
-  <div class="modal-overlay" id="admin-login-modal">
-    <div class="modal-body">
-      <div class="modal-title">Acesso Restrito</div>
-      <div class="modal-text">Área reservada para a administração.</div>
-      <div class="form-group"><label for="admin-pass">Senha:</label><input type="password" id="admin-pass" placeholder="Digite sua senha"></div>
-      <button type="button" class="btn-submit" onclick="validarLogin()">Entrar</button>
-      <button type="button" class="modal-btn-cancel" onclick="fechar('admin-login-modal')">Fechar</button>
-    </div>
-  </div>
+<div class="modal-overlay" id="admin-modal"><div class="modal-body">
+  <div class="modal-title">Painel do Administrador</div>
+  <div class="modal-text">As mudanças aparecem para todos os visitantes.</div>
+  <form id="admin-form" onsubmit="salvarComercio(event)">
+    <div class="admin-tabs-title" id="admin-form-titulo">Publicar estabelecimento</div>
+    <div class="form-group"><label>Nome:</label><input type="text" id="admin-nome" required maxlength="90"></div>
+    <div class="form-group"><label>Categoria:</label><select id="admin-categoria" required></select></div>
+    <div class="form-group"><label>WhatsApp:</label><input type="tel" id="admin-whatsapp" required placeholder="85996482898"></div>
+    <div class="form-group"><label>Descrição:</label><textarea id="admin-desc" rows="3" required maxlength="500"></textarea></div>
+    <button type="submit" class="btn-submit" id="admin-btn-salvar">➕ Publicar</button>
+    <button type="button" class="modal-btn btn-close-modal" id="admin-btn-cancelar-edicao" style="display:none" onclick="limparForm()">Cancelar edição</button>
+  </form>
+  <div class="admin-section-divider"></div>
+  <div class="admin-tabs-title">Comércios publicados</div>
+  <div class="category-manage-list" id="admin-lista-comercios"></div>
+  <div class="admin-section-divider"></div>
+  <div class="admin-tabs-title">Categorias</div>
+  <form onsubmit="novaCategoria(event)"><div style="display:flex;gap:6px"><input type="text" id="admin-nova-categoria" placeholder="Nova categoria..." required maxlength="40" style="padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;width:100%"><button type="submit" class="btn-submit" style="width:auto;padding:0 12px">Criar</button></div></form>
+  <div class="category-manage-list" id="admin-lista-categorias"></div>
+  <button type="button" class="modal-btn btn-close-modal" onclick="sairAdmin()" style="margin-top:12px">Sair do painel</button>
+</div></div>
 
-  <!-- MODAL DE INSTALAÇÃO PWA PERSONALIZADA -->
-  <div class="modal-overlay" id="pwa-install-modal">
-    <div class="modal-body">
-      <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" class="modal-app-icon">
-      <div class="modal-title">Instalar Cajazeiras Mall</div>
-      <div class="modal-text">Instale o aplicativo na sua tela inicial para um acesso mais rápido e direto.</div>
-      
-      <div class="modal-features">
-        <div>⚡ Acesso rápido com 1 clique</div>
-        <div>📱 Funciona como app nativo</div>
-        <div>🚫 Sem marca d'água do navegador</div>
-      </div>
+<div class="modal-overlay" id="custom-dialog-modal"><div class="modal-body">
+  <div class="modal-title" id="custom-dialog-title">Aviso</div>
+  <div class="modal-text" id="custom-dialog-desc"></div>
+  <div class="form-group" id="custom-dialog-input-container" style="display:none;text-align:left"><input type="text" id="custom-dialog-input"></div>
+  <div class="custom-dialog-btns" id="custom-dialog-btns"></div>
+</div></div>
 
-      <button class="modal-btn-install" id="btn-confirm-install">Instalar Agora</button>
-      <button class="modal-btn-cancel" id="btn-close-install">Agora não</button>
-    </div>
-  </div>
+<script src="config.js"></script>
+<script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js?v=3').then(reg => {
+                reg.update();
+            });
+        }
 
-  <script>
-    // DADOS DAS CATEGORIAS E LOJAS
-    const categorias = [
-      { id: 'alimentacao', nome: 'Alimentação', icone: '🍔' },
-      { id: 'artesanato', nome: 'Artesanato', icone: '🎨' },
-      { id: 'servicos', nome: 'Serviços', icone: '🛠' },
-      { id: 'saude', nome: 'Saúde & Beleza', icone: '💈' }
-    ];
-
-    const lojas = [
-      { id: 1, categoria: 'alimentacao', nome: 'Lanchonete Central', desc: 'Salgados, sucos e lanches rápidos.', whatsapp: '5585996461047' },
-      { id: 2, categoria: 'artesanato', nome: 'Artes de Cajazeiras', desc: 'Peças artesanais e decorações exclusivas.', whatsapp: '5585996461047' }
-    ];
-
-    let categoriaSelecionada = null;
-
-    function renderizarCategorias() {
-      const container = document.getElementById('categories-grid-container');
-      const selectModal = document.getElementById('loja-categoria');
-      
-      container.innerHTML = '';
-      selectModal.innerHTML = '<option value="">Selecione uma categoria...</option>';
-
-      categorias.forEach(cat => {
-        // Grid na home
-        const card = document.createElement('div');
-        card.className = 'cat-grid-card';
-        card.onclick = () => filtrarPorCategoria(cat.id);
-        card.innerHTML = `
-          <span class="cat-grid-icon">${cat.icone}</span>
-          <span class="cat-grid-title">${cat.nome}</span>
-        `;
-        container.appendChild(card);
-
-        // Opções no formulário
-        const option = document.createElement('option');
-        option.value = cat.id;
-        option.textContent = cat.nome;
-        selectModal.appendChild(option);
-      });
-    }
-
-    function renderizarLojas(catId = null) {
-      const container = document.getElementById('stores-container');
-      container.innerHTML = '';
-
-      const lojasFiltradas = catId ? lojas.filter(l => l.categoria === catId) : lojas;
-
-      if (lojasFiltradas.length === 0) {
-        container.innerHTML = '<div class="carregando">Nenhum estabelecimento encontrado nesta categoria.</div>';
-        return;
-      }
-
-      lojasFiltradas.forEach(loja => {
-        const catObj = categorias.find(c => c.id === loja.categoria);
-        const card = document.createElement('div');
-        card.className = 'store-card';
-        card.innerHTML = `
-          <span class="store-tag">${catObj ? catObj.nome : 'Geral'}</span>
-          <div class="store-name">${loja.nome}</div>
-          <div class="store-desc">${loja.desc}</div>
-          <a href="https://wa.me/${loja.whatsapp}" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function filtrarPorCategoria(catId) {
-      categoriaSelecionada = catId;
-      const catObj = categorias.find(c => c.id === catId);
-      
-      document.getElementById('categories-grid-container').style.display = 'none';
-      document.getElementById('btn-voltar-container').style.display = 'block';
-      document.getElementById('main-section-title').textContent = catObj ? catObj.nome : 'Lojas';
-      
-      renderizarLojas(catId);
-    }
-
-    function voltarParaCategorias() {
-      categoriaSelecionada = null;
-      document.getElementById('categories-grid-container').style.display = 'grid';
-      document.getElementById('btn-voltar-container').style.display = 'none';
-      document.getElementById('main-section-title').textContent = 'Categorias';
-      renderizarLojas();
-    }
-
-    function abrirCadastro() {
-      document.getElementById('user-register-modal').classList.add('active');
-    }
-
-    function abrirLogin() {
-      document.getElementById('admin-login-modal').classList.add('active');
-    }
-
-    function fechar(id) {
-      document.getElementById(id).classList.remove('active');
-    }
-
-    function validarLogin() {
-      const pass = document.getElementById('admin-pass').value;
-      if (pass === '1234') {
-        alert('Acesso concedido!');
-        fechar('admin-login-modal');
-      } else {
-        alert('Senha incorreta!');
-      }
-    }
-
-    // PWA & Service Worker
-    let deferredPrompt;
-    const installModal = document.getElementById('pwa-install-modal');
-    const btnShowInstall = document.getElementById('btn-show-install');
-    const btnConfirmInstall = document.getElementById('btn-confirm-install');
-    const btnCloseInstall = document.getElementById('btn-close-install');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    });
-
-    btnShowInstall.addEventListener('click', () => {
-      installModal.classList.add('active');
-    });
-
-    btnCloseInstall.addEventListener('click', () => {
-      installModal.classList.remove('active');
-    });
-
-    btnConfirmInstall.addEventListener('click', () => {
-      installModal.classList.remove('active');
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => {
-          deferredPrompt = null;
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installContainer').style.display = 'block';
         });
-      }
-    });
 
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').then((reg) => {
-          reg.onupdatefound = () => {
-            const installingWorker = reg.installing;
-            installingWorker.onstatechange = () => {
-              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                window.location.reload();
-              }
+        function mostrarAlerta(titulo, mensagem, aoFechar) {
+            const modal = document.getElementById('custom-dialog-modal');
+            document.getElementById('custom-dialog-title').textContent = titulo;
+            document.getElementById('custom-dialog-desc').textContent = mensagem;
+            document.getElementById('custom-dialog-input-container').style.display = 'none';
+
+            const btns = document.getElementById('custom-dialog-btns');
+            btns.innerHTML = `<button type="button" class="btn-dialog-confirm" id="dialog-btn-ok">OK</button>`;
+
+            modal.classList.add('active');
+
+            document.getElementById('dialog-btn-ok').onclick = () => {
+                modal.classList.remove('active');
+                if (aoFechar) aoFechar();
             };
-          };
-        });
-      });
-    }
+        }
 
-    // Inicializar na carga da página
-    document.addEventListener('DOMContentLoaded', () => {
-      renderizarCategorias();
-      renderizarLojas();
-    });
-  </script>
+        function mostrarConfirmacao(titulo, mensagem, aoConfirmar, ePerigoso = false) {
+            const modal = document.getElementById('custom-dialog-modal');
+            document.getElementById('custom-dialog-title').textContent = titulo;
+            document.getElementById('custom-dialog-desc').textContent = mensagem;
+            document.getElementById('custom-dialog-input-container').style.display = 'none';
+
+            const btns = document.getElementById('custom-dialog-btns');
+            const classeConfirm = ePerigoso ? 'btn-dialog-danger' : 'btn-dialog-confirm';
+            btns.innerHTML = `
+                <button type="button" class="btn-dialog-cancel" id="dialog-btn-cancel">Cancelar</button>
+                <button type="button" class="${classeConfirm}" id="dialog-btn-confirm">Confirmar</button>
+            `;
+
+            modal.classList.add('active');
+
+            document.getElementById('dialog-btn-cancel').onclick = () => {
+                modal.classList.remove('active');
+            };
+
+            document.getElementById('dialog-btn-confirm').onclick = () => {
+                modal.classList.remove('active');
+                if (aoConfirmar) aoConfirmar();
+            };
+        }
+
+        function mostrarPrompt(titulo, mensagem, valorInicial, aoConfirmar) {
+            const modal = document.getElementById('custom-dialog-modal');
+            document.getElementById('custom-dialog-title').textContent = titulo;
+            document.getElementById('custom-dialog-desc').textContent = mensagem;
+            
+            const inputContainer = document.getElementById('custom-dialog-input-container');
+            const input = document.getElementById('custom-dialog-input');
+            inputContainer.style.display = 'block';
+            input.value = valorInicial || '';
+
+            const btns = document.getElementById('custom-dialog-btns');
+            btns.innerHTML = `
+                <button type="button" class="btn-dialog-cancel" id="dialog-btn-cancel">Cancelar</button>
+                <button type="button" class="btn-dialog-confirm" id="dialog-btn-save">Salvar</button>
+            `;
+
+            modal.classList.add('active');
+            setTimeout(() => input.focus(), 100);
+
+            document.getElementById('dialog-btn-cancel').onclick = () => {
+                modal.classList.remove('active');
+            };
+
+            document.getElementById('dialog-btn-save').onclick = () => {
+                const valor = input.value.trim();
+                modal.classList.remove('active');
+                if (aoConfirmar) aoConfirmar(valor);
+            };
+        }
+
+        function instalarApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('installContainer').style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                mostrarAlerta("Instalação do App", "Para instalar no celular, abra no navegador Chrome (Android) ou Safari (iPhone) e escolha 'Adicionar à tela inicial'.");
+            }
+        }
+
+var API = window.API_URL || "";
+
+var PADRAO = {categorias:["Alimentação","Beleza","Moda","Reforço Escolar","Saúde"],comercios:[
+ {id:"1",nome:"Reforço Escolar Tia Sandra",categoria:"Reforço Escolar",whatsapp:"85997354638",desc:"Trabalho com reforço escolar para educação infantil e ensino fundamental I."},
+ {id:"2",nome:"Jamille Araújo Espaço da Beleza e do Bronze",categoria:"Beleza",whatsapp:"85988961380",desc:"Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua e bronze."},
+ {id:"3",nome:"Nayanne Nascimento Salão de Beleza",categoria:"Beleza",whatsapp:"85921490223",desc:"Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados."},
+ {id:"4",nome:"Boomerang Sanduíches",categoria:"Alimentação",whatsapp:"85987012328",desc:"Hamburgueria com opções de sanduíches e lanches."},
+ {id:"5",nome:"Farmácia Super Farma",categoria:"Saúde",whatsapp:"85996656572",desc:"O super cuidado para sua saúde!"},
+ {id:"6",nome:"Barfruta",categoria:"Alimentação",whatsapp:"85988408564",desc:"Polpas de frutas de diversos sabores e morango congelado."},
+ {id:"7",nome:"Alemão e Cléa Espetaria e Pratinhos",categoria:"Alimentação",whatsapp:"85996277402",desc:"Espetos variados e pratinhos tradicionais."},
+ {id:"8",nome:"Amadas Artigos Femininos, Fardamentos e Acessórios",categoria:"Moda",whatsapp:"85996482898",desc:"• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios"}]};
+
+var ICONES_CATEGORIAS = {
+    "Alimentação": "🍔",
+    "Beleza": "✂️",
+    "Moda": "🛍️",
+    "Reforço Escolar": "📚",
+    "Saúde": "🏥",
+    "Serviços": "🛠️"
+};
+
+var DATA=null, SENHA_ADMIN=null, CAT_ATUAL=null, EDIT_ID=null;
+function $(i){return document.getElementById(i)}
+function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function apiOn(){return API.indexOf("https://")===0}
+function zapLink(n){var d=String(n).replace(/\D/g,"");if(d.length<=11)d="55"+d;return "https://wa.me/"+d}
+function abrir(id){$(id).classList.add("active")}
+function fechar(id){$(id).classList.remove("active")}
+function abrirCadastro(){abrir("user-register-modal")}
+function guardar(d){try{localStorage.setItem("cm_dados",JSON.stringify({categorias:d.categorias,comercios:d.comercios}))}catch(e){}}
+
+function chamar(obj){
+  return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(obj)}).then(function(r){return r.json()});
+}
+
+function carregar(){
+  if (!history.state || !history.state.home) {
+    history.replaceState({ home: true, categoria: null }, "", window.location.pathname);
+  }
+
+  var cache=null;try{cache=JSON.parse(localStorage.getItem("cm_dados"))}catch(e){}
+  DATA=cache||(apiOn()?{categorias:[],comercios:[],carregando:true}:PADRAO);
+  desenhar();
+  if(!apiOn())return;
+  fetch(API+"?acao=listar").then(function(r){return r.json()}).then(function(d){
+    if(d&&d.comercios){DATA={categorias:d.categorias,comercios:d.comercios};guardar(DATA);desenhar()}
+  }).catch(function(){ if(DATA.carregando){DATA=PADRAO;desenhar()} });
+}
+
+function categoriasComComercio(){
+  var usadas={};DATA.comercios.forEach(function(c){usadas[c.categoria]=1});
+  return DATA.categorias.filter(function(n){return usadas[n]});
+}
+
+function selecionarCategoria(cat, registrarHistorico = true){
+  CAT_ATUAL = cat;
+  if(registrarHistorico && cat){
+    history.pushState({ home: false, categoria: cat }, "", "#cat=" + encodeURIComponent(cat));
+  }
+  desenhar();
+  window.scrollTo(0,0);
+}
+
+function voltarParaCategorias(){
+  if(CAT_ATUAL){
+    history.back();
+  }
+}
+
+window.addEventListener("popstate", function(event) {
+  if (event.state && event.state.categoria) {
+    CAT_ATUAL = event.state.categoria;
+  } else {
+    CAT_ATUAL = null;
+  }
+  desenhar();
+  window.scrollTo(0,0);
+});
+
+function desenhar(){
+  var cats = categoriasComComercio();
+  
+  var opts='<option value="">Selecione...</option>',optsA='';
+  DATA.categorias.forEach(function(n){opts+='<option value="'+esc(n)+'">'+esc(n)+'</option>';optsA+='<option value="'+esc(n)+'">'+esc(n)+'</option>'});
+  $("loja-categoria").innerHTML=opts;
+  var sel=$("admin-categoria"),atual=sel.value;sel.innerHTML=optsA;if(atual)sel.value=atual;
+
+  var gridContainer = $("categories-grid-container");
+  var storesContainer = $("stores-container");
+  var btnVoltar = $("btn-voltar-container");
+  var mainTitle = $("main-section-title");
+
+  if(!CAT_ATUAL){
+    gridContainer.style.display = "grid";
+    btnVoltar.style.display = "none";
+    mainTitle.textContent = "Categorias";
+    
+    gridContainer.innerHTML = cats.map(function(n){
+      var icone = ICONES_CATEGORIAS[n] || "🏪";
+      return '<div class="cat-grid-card" onclick="selecionarCategoria(\''+esc(n)+'\')"><span class="cat-grid-icon">'+icone+'</span><span class="cat-grid-title">'+esc(n)+'</span></div>';
+    }).join("");
+
+    storesContainer.innerHTML = "";
+  } else {
+    gridContainer.style.display = "none";
+    btnVoltar.style.display = "block";
+    var iconeAtual = ICONES_CATEGORIAS[CAT_ATUAL] || "🏪";
+    mainTitle.textContent = iconeAtual + " " + CAT_ATUAL;
+
+    var comerciosFiltrados = DATA.comercios.filter(function(c){return c.categoria===CAT_ATUAL});
+    
+    if(!comerciosFiltrados.length){
+      storesContainer.innerHTML = '<div class="carregando">Nenhum comércio cadastrado nesta categoria.</div>';
+    } else {
+      storesContainer.innerHTML = comerciosFiltrados.map(function(c){
+        return '<div class="store-card"><span class="store-tag">'+esc(c.categoria)+'</span><h3 class="store-name">'+esc(c.nome)+'</h3><p class="store-desc">'+esc(c.desc)+'</p><a href="'+esc(zapLink(c.whatsapp))+'" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a></div>';
+      }).join("");
+    }
+  }
+
+  if(DATA.carregando && !CAT_ATUAL){
+    storesContainer.innerHTML='<div class="carregando">Carregando informações...</div>';
+  }
+}
+
+function abrirLogin(){
+  if(!apiOn()){mostrarAlerta("Servidor não conectado","Cole o endereço do servidor no arquivo config.js do GitHub.");return}
+  $("admin-pass-input").value="";$("login-error-msg").style.display="none";abrir("admin-login-modal");
+}
+function entrar(ev){
+  ev.preventDefault();var s=$("admin-pass-input").value,btn=$("btn-entrar"),msg=$("login-error-msg");
+  btn.disabled=true;btn.textContent="Entrando...";
+  chamar({acao:"login",senha:s}).then(function(d){
+    btn.disabled=false;btn.textContent="Entrar";
+    if(d.ok){SENHA_ADMIN=s;aplicar(d);fechar("admin-login-modal");abrir("admin-modal")}
+    else{msg.textContent=d.erro||"Senha incorreta!";msg.style.display="block"}
+  }).catch(function(){btn.disabled=false;btn.textContent="Entrar";msg.textContent="Sem conexão com o servidor.";msg.style.display="block"});
+}
+function sairAdmin(){SENHA_ADMIN=null;limparForm();fechar("admin-modal")}
+function aplicar(d){DATA={categorias:d.categorias,comercios:d.comercios};guardar(DATA);desenhar();listasAdmin()}
+function enviar(obj,ok){
+  obj.senha=SENHA_ADMIN;
+  chamar(obj).then(function(d){
+    if(d.ok){aplicar(d);if(ok)ok()}else mostrarAlerta("Aviso",d.erro||"Não foi possível concluir.");
+  }).catch(function(){mostrarAlerta("Erro","Sem conexão com o servidor.")});
+}
+function listasAdmin(){
+  $("admin-lista-comercios").innerHTML=DATA.comercios.length?DATA.comercios.map(function(c){
+    return '<div class="category-manage-item"><span>'+esc(c.nome)+'</span><div class="cat-item-actions"><button type="button" class="btn-cat-edit" data-ed="'+esc(c.id)+'">Editar</button><button type="button" class="btn-cat-delete" data-del="'+esc(c.id)+'">Excluir</button></div></div>';
+  }).join(""):'<div class="carregando">Nenhum comércio.</div>';
+  $("admin-lista-categorias").innerHTML=DATA.categorias.map(function(n){
+    return '<div class="category-manage-item"><span>'+esc(n)+'</span><div class="cat-item-actions"><button type="button" class="btn-cat-edit" data-cren="'+esc(n)+'">Renomear</button><button type="button" class="btn-cat-delete" data-cdel="'+esc(n)+'">Excluir</button></div></div>';
+  }).join("");
+}
+function limparForm(){
+  EDIT_ID=null;$("admin-form").reset();$("admin-form-titulo").textContent="Publicar estabelecimento";
+  $("admin-btn-salvar").textContent="➕ Publicar";$("admin-btn-cancelar-edicao").style.display="none";
+}
+function salvarComercio(ev){
+  ev.preventDefault();
+  enviar({acao:"salvar",comercio:{id:EDIT_ID,nome:$("admin-nome").value,categoria:$("admin-categoria").value,whatsapp:$("admin-whatsapp").value,desc:$("admin-desc").value}},function(){
+    limparForm();mostrarAlerta("Publicado","Salvo! Já aparece para todos os visitantes.");
+  });
+}
+function novaCategoria(ev){
+  ev.preventDefault();var i=$("admin-nova-categoria");
+  enviar({acao:"cat_add",nome:i.value},function(){i.value=""});
+}
+$("admin-lista-comercios").addEventListener("click",function(e){
+  var ed=e.target.getAttribute("data-ed"),del=e.target.getAttribute("data-del");
+  if(ed){
+    var c=DATA.comercios.filter(function(x){return x.id===ed})[0];if(!c)return;
+    EDIT_ID=c.id;$("admin-nome").value=c.nome;$("admin-categoria").value=c.categoria;$("admin-whatsapp").value=c.whatsapp;$("admin-desc").value=c.desc;
+    $("admin-form-titulo").textContent="Editando estabelecimento";$("admin-btn-salvar").textContent="💾 Salvar alterações";$("admin-btn-cancelar-edicao").style.display="block";
+    $("admin-nome").scrollIntoView({block:"center"});
+  }
+  if(del)mostrarConfirmacao("Excluir comércio","Deseja remover este estabelecimento para todos os visitantes?",function(){enviar({acao:"excluir",id:del})},true);
+});
+$("admin-lista-categorias").addEventListener("click",function(e){
+  var r=e.target.getAttribute("data-cren"),d=e.target.getAttribute("data-cdel");
+  if(r)mostrarPrompt("Renomear categoria","Novo nome:",r,function(v){if(v&&v!==r)enviar({acao:"cat_ren",de:r,para:v})});
+  if(d)mostrarConfirmacao("Excluir categoria","Excluir a categoria \""+d+"\"?",function(){enviar({acao:"cat_del",nome:d})},true);
+});
+
+window.addEventListener("load",function(){carregar()});
+</script>
 </body>
 </html>
