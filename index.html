@@ -399,11 +399,18 @@
             overflow-y: auto;
         }
 
+        .modal-header-branding {
+            text-align: center;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
         .modal-title {
             font-size: 1.15rem;
             color: var(--primary-color);
             font-weight: 800;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             text-align: center;
         }
 
@@ -436,6 +443,15 @@
             border-top: 1px dashed var(--card-border);
             margin: 14px 0;
             padding-top: 12px;
+        }
+
+        .login-error-msg {
+            color: #ef4444;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 8px;
+            display: none;
         }
     </style>
 </head>
@@ -557,12 +573,18 @@
     </div>
 
     <footer>
-        <button class="btn-admin-trigger" onclick="abrirPainelAdmin()">⚙ Painel do Administrador</button>
+        <button class="btn-admin-trigger" onclick="abrirModalLoginAdmin()">⚙ Painel do Administrador</button>
     </footer>
 
     <!-- MODAL DE CADASTRO PÚBLICO -->
     <div class="modal-overlay" id="user-register-modal">
         <div class="modal-body">
+            <div class="modal-header-branding">
+                <div class="header-title">
+                    Cajazeiras Mall
+                    <span>by Fortaleza</span>
+                </div>
+            </div>
             <div class="modal-title">Cadastre seu Comércio</div>
             <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
 
@@ -601,9 +623,40 @@
         </div>
     </div>
 
+    <!-- MODAL DE LOGIN DO ADMINISTRADOR Customizado -->
+    <div class="modal-overlay" id="admin-login-modal">
+        <div class="modal-body">
+            <div class="modal-header-branding">
+                <div class="header-title">
+                    Cajazeiras Mall
+                    <span>by Fortaleza</span>
+                </div>
+            </div>
+            <div class="modal-title">Acesso Restrito</div>
+            <div class="modal-text">Digite a senha do Administrador para acessar o painel de gestão.</div>
+
+            <form onsubmit="autenticarAdmin(event)">
+                <div class="form-group" style="text-align: left;">
+                    <label for="admin-pass-input">Senha de Acesso:</label>
+                    <input type="password" id="admin-pass-input" required placeholder="Digite sua senha..." autocomplete="current-password">
+                </div>
+                <div id="login-error-msg" class="login-error-msg">Senha incorreta! Tente novamente.</div>
+                
+                <button type="submit" class="btn-submit" style="margin-top: 10px;">Entrar</button>
+                <button type="button" class="modal-btn btn-close-modal" onclick="fecharModalLoginAdmin()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
     <!-- MODAL DO PAINEL DO ADMINISTRADOR -->
     <div class="modal-overlay" id="admin-modal">
         <div class="modal-body">
+            <div class="modal-header-branding">
+                <div class="header-title">
+                    Cajazeiras Mall
+                    <span>by Fortaleza</span>
+                </div>
+            </div>
             <div class="modal-title">Painel do Administrador</div>
             <div class="modal-text">Cadastre novas categorias ou publique comércios.</div>
 
@@ -793,6 +846,34 @@
             document.getElementById('user-register-modal').classList.remove('active');
         }
 
+        /* LÓGICA DE MODAL DE LOGIN CUSTOMIZADO */
+        const ADMIN_PASSWORD = "#Lis2019";
+
+        function abrirModalLoginAdmin() {
+            document.getElementById('admin-pass-input').value = '';
+            document.getElementById('login-error-msg').style.display = 'none';
+            document.getElementById('admin-login-modal').classList.add('active');
+        }
+
+        function fecharModalLoginAdmin() {
+            document.getElementById('admin-login-modal').classList.remove('active');
+        }
+
+        function autenticarAdmin(event) {
+            event.preventDefault();
+            const passEntered = document.getElementById('admin-pass-input').value;
+            if (passEntered === ADMIN_PASSWORD) {
+                fecharModalLoginAdmin();
+                document.getElementById('admin-modal').classList.add('active');
+            } else {
+                document.getElementById('login-error-msg').style.display = 'block';
+            }
+        }
+
+        function fecharPainelAdmin() {
+            document.getElementById('admin-modal').classList.remove('active');
+        }
+
         function filterCategory(category, btnElement) {
             currentCategory = category;
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
@@ -908,21 +989,6 @@
                 document.getElementById('news-turismo-date').textContent = 'O POVO • Gastronomia Local';
                 document.getElementById('news-turismo-desc').textContent = 'Evento destaca a culinária regional, produtos feitos à mão e apresentações artísticas no fim de semana.';
             }
-        }
-
-        const ADMIN_PASSWORD = "#Lis2019";
-
-        function abrirPainelAdmin() {
-            const pwd = prompt("Digite a senha do Administrador:");
-            if (pwd === ADMIN_PASSWORD) {
-                document.getElementById('admin-modal').classList.add('active');
-            } else if (pwd !== null) {
-                alert("Senha incorreta!");
-            }
-        }
-
-        function fecharPainelAdmin() {
-            document.getElementById('admin-modal').classList.remove('active');
         }
 
         function salvarNovoComercioAdmin(event) {
