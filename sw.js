@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cajazeiras-mall-v7';
+const CACHE_NAME = 'cajazeiras-mall-v8';
 const ASSETS = [
   './',
   './index.html',
