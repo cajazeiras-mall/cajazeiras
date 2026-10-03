@@ -1,22 +1,48 @@
-const CACHE_NAME = 'cajazeiras-mall-v6';
-const urlsToCache = ['./', './index.html', './manifest.json', './config.js', './icon-192.png', './icon-512.png'];
+const CACHE_NAME = 'cajazeiras-mall-v7';
+const ASSETS = [
+  './',
+  './index.html',
+  './config.js',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
+  'https://cdn.tailwindcss.com',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+];
 
-self.addEventListener('install', (event) => {
-  self.skipWaiting();
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache)));
-});
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys()
-      .then((nomes) => Promise.all(nomes.map((n) => (n !== CACHE_NAME ? caches.delete(n) : null))))
-      .then(() => self.clients.claim())
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS);
+    })
   );
+  self.skipWaiting();
 });
 
-self.addEventListener('fetch', (event) => {
-  const req = event.request;
-  // Só mexe em arquivos do próprio site. O servidor de dados (Google) passa direto.
-  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
-  event.respondWith(fetch(req).catch(() => caches.match(req)));
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (e) => {
+  // Não faz cache das requisições para a API do Google Apps Script
+  if (e.request.url.includes('script.google.com')) {
+    return;
+  }
+
+  e.respondWith(
+    caches.match(e.request).then((response) => {
+      return response || fetch(e.request);
+    })
+  );
 });
