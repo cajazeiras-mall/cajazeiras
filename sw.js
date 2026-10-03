@@ -1,25 +1,22 @@
 const CACHE_NAME = 'cajazeiras-mall-v6';
+const urlsToCache = ['./', './index.html', './manifest.json', './config.js', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache)));
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+    caches.keys()
+      .then((nomes) => Promise.all(nomes.map((n) => (n !== CACHE_NAME ? caches.delete(n) : null))))
+      .then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
-  );
+  const req = event.request;
+  // Só mexe em arquivos do próprio site. O servidor de dados (Google) passa direto.
+  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  event.respondWith(fetch(req).catch(() => caches.match(req)));
 });

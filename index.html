@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cajazeiras Mall by Fortaleza - Comércio Local</title>
-<link rel="manifest" href="manifest.json?v=3">
-<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3081/3081559.png">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffffff">
 <style>
         :root {
@@ -15,8 +14,8 @@
             --primary-color: #0f172a;
             --brand-blue: #2563eb;
             --brand-blue-hover: #1d4ed8;
-            --accent-green: #25d366;
-            --accent-green-hover: #128c7e;
+            --accent-green: #10b981;
+            --accent-green-hover: #059669;
             --text-dark: #0f172a;
             --text-muted: #64748b;
         }
@@ -47,26 +46,20 @@
             top: 0;
             z-index: 100;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            gap: 12px;
         }
 
         .header-brand {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
-            text-align: left;
-        }
-
-        .app-logo-header {
-            width: 42px;
-            height: 42px;
-            flex-shrink: 0;
+            justify-content: center;
+            text-align: center;
         }
 
         .header-title {
-            font-size: 1.15rem;
+            font-size: 1.35rem;
             font-weight: 800;
             letter-spacing: -0.5px;
             color: var(--primary-color);
@@ -75,50 +68,12 @@
 
         .header-title span {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--text-muted);
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             margin-top: 2px;
-        }
-
-        /* Botão do WhatsApp no Cabeçalho */
-        .btn-header-whatsapp {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--accent-green);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(37, 211, 102, 0.3);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .btn-header-whatsapp:active {
-            transform: scale(0.95);
-        }
-
-        .btn-header-whatsapp-content {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 800;
-            font-size: 0.8rem;
-            line-height: 1;
-        }
-
-        .btn-header-whatsapp-sub {
-            font-size: 0.6rem;
-            font-weight: 600;
-            opacity: 0.95;
-            margin-top: 2px;
-            letter-spacing: 0.2px;
-            text-transform: uppercase;
         }
 
         .install-bar {
@@ -150,6 +105,38 @@
             display: inline-block;
         }
 
+        .categories-nav {
+            display: flex;
+            gap: 8px;
+            padding: 10px 16px;
+            overflow-x: auto;
+            background: #ffffff;
+            border-bottom: 1px solid var(--card-border);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .categories-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-btn {
+            background: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--text-dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .cat-btn.active {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+        }
+
         .container {
             flex: 1;
             padding: 16px;
@@ -174,61 +161,56 @@
             flex: 1;
         }
 
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .cat-grid-card {
+        .news-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
+            padding: 14px 16px;
+            margin-bottom: 12px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-            transition: transform 0.1s ease, border-color 0.2s ease;
         }
 
-        .cat-grid-card:active {
-            transform: scale(0.98);
+        .news-tag {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
         }
 
-        .cat-grid-card.active {
-            border-color: var(--brand-blue);
-            background-color: #eff6ff;
-        }
+        .news-tag.cultura { background: #fce7f3; color: #be185d; }
+        .news-tag.cidade { background: #ecfdf5; color: #047857; }
+        .news-tag.turismo { background: #fef3c7; color: #b45309; }
 
-        .cat-grid-icon {
-            font-size: 2rem;
-        }
-
-        .cat-grid-title {
-            font-size: 0.9rem;
+        .news-title {
+            font-size: 0.98rem;
             font-weight: 800;
             color: var(--primary-color);
-            text-align: center;
+            margin-bottom: 4px;
+            line-height: 1.35;
         }
 
-        .btn-voltar-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #f1f5f9;
-            border: 1px solid var(--card-border);
-            color: var(--primary-color);
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-bottom: 12px;
+        .news-title a { color: inherit; text-decoration: none; }
+
+        .news-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .news-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .store-card {
@@ -237,7 +219,7 @@
             border-radius: 12px;
             padding: 14px;
             margin-bottom: 12px;
-            display: block;
+            display: none;
             position: relative;
             box-shadow: 0 1px 3px rgba(0,0,0,0.02);
         }
@@ -261,6 +243,13 @@
             margin-bottom: 4px;
         }
 
+        .store-address {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
         .store-desc {
             font-size: 0.82rem;
             color: var(--text-muted);
@@ -280,6 +269,25 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 0.88rem;
+        }
+
+        .btn-delete-store {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #fee2e2;
+            color: #ef4444;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: none; /* OCULTO POR PADRÃO PARA VISITANTES */
+        }
+
+        body.admin-mode .btn-delete-store {
+            display: block; /* EXIBE APENAS QUANDO ADMIN AUTENTICADO */
         }
 
         .register-banner-card {
@@ -452,7 +460,7 @@
         }
 
         .category-manage-list {
-            max-height: 200px;
+            max-height: 160px;
             overflow-y: auto;
             border: 1px solid var(--card-border);
             border-radius: 8px;
@@ -505,12 +513,12 @@
             cursor: pointer;
         }
 
+        /* MODAIS CUSTOMIZADOS (ALERTS, PROMPTS, CONFIRMS) */
         .custom-dialog-btns {
             display: flex;
             gap: 8px;
             margin-top: 14px;
         }
-
         .btn-dialog-cancel {
             background: #e2e8f0;
             color: var(--text-dark);
@@ -522,7 +530,6 @@
             cursor: pointer;
             flex: 1;
         }
-
         .btn-dialog-confirm {
             background: var(--brand-blue);
             color: #ffffff;
@@ -534,7 +541,6 @@
             cursor: pointer;
             flex: 1;
         }
-
         .btn-dialog-danger {
             background: #ef4444;
             color: #ffffff;
@@ -546,59 +552,30 @@
             cursor: pointer;
             flex: 1;
         }
-
-        .admin-tabs-title {
-            font-size: .78rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--primary-color);
-            margin: 6px 0;
-        }
-
-        .carregando {
-            text-align: center;
-            color: var(--text-muted);
-            padding: 20px;
-            font-size: .9rem;
-        }
+    
+.news-card{transition:opacity .4s}
+.admin-tabs-title{font-size:.78rem;font-weight:700;text-transform:uppercase;color:var(--primary-color);margin:6px 0}
+.category-manage-list{max-height:200px}
+.carregando{text-align:center;color:var(--text-muted);padding:20px;font-size:.9rem}
+.store-card{display:block}
 </style>
 </head>
 <body>
-<header>
-  <div class="header-brand">
-    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" class="app-logo-header">
-    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
-  </div>
-  <a href="https://wa.me/5585996461047" target="_blank" rel="noopener" class="btn-header-whatsapp">
-    <div class="btn-header-whatsapp-content">💬 WhatsApp</div>
-    <div class="btn-header-whatsapp-sub">Atendimento ao cliente</div>
-  </a>
-</header>
-
+<header><div class="header-brand"><div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div></div></header>
 <div class="install-bar" id="installContainer"><button class="btn-install-app" onclick="instalarApp()"><span class="phone-icon">📲</span> Baixar App no Celular</button></div>
-
+<nav class="categories-nav" id="categories-nav-container"></nav>
 <div class="container">
-  <div id="btn-voltar-container" style="display:none">
-    <button class="btn-voltar-home" onclick="voltarParaCategorias()">⬅ Ver todas as categorias</button>
-  </div>
-  <h2 class="section-title" id="main-section-title">Categorias</h2>
-  
-  <div id="categories-grid-container" class="categories-grid"></div>
-
+  <h2 class="section-title" id="main-section-title">Informativo Local</h2>
   <div id="content-list">
-    <div id="stores-container"></div>
+    <div id="news-container"></div>
+    <div id="stores-container" style="display:none"></div>
   </div>
-
   <div class="register-banner-card"><button type="button" class="btn-open-register" onclick="abrirCadastro()">📝 Cadastre Seu Comércio Aqui</button></div>
 </div>
-
 <footer><button class="btn-admin-trigger" onclick="abrirLogin()">⚙ Painel do Administrador</button></footer>
 
 <div class="modal-overlay" id="user-register-modal"><div class="modal-body">
-  <div class="modal-header-branding">
-    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" style="width:36px;height:36px">
-    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
-  </div>
+  <div class="modal-header-branding"><div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div></div>
   <div class="modal-title">Cadastre seu Comércio</div>
   <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
   <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
@@ -615,10 +592,7 @@
 </div></div>
 
 <div class="modal-overlay" id="admin-login-modal"><div class="modal-body">
-  <div class="modal-header-branding">
-    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png" alt="Logo" style="width:36px;height:36px">
-    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
-  </div>
+  <div class="modal-header-branding"><div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div></div>
   <div class="modal-title">Acesso Restrito</div>
   <div class="modal-text">Digite a senha do Administrador.</div>
   <form onsubmit="entrar(event)">
@@ -661,9 +635,7 @@
 <script src="config.js"></script>
 <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js?v=3').then(reg => {
-                reg.update();
-            });
+            navigator.serviceWorker.register('sw.js');
         }
 
         let deferredPrompt;
@@ -673,6 +645,7 @@
             document.getElementById('installContainer').style.display = 'block';
         });
 
+        /* CAIXAS DE DIÁLOGO CUSTOMIZADAS ESTILIZADAS */
         function mostrarAlerta(titulo, mensagem, aoFechar) {
             const modal = document.getElementById('custom-dialog-modal');
             document.getElementById('custom-dialog-title').textContent = titulo;
@@ -755,10 +728,11 @@
                     deferredPrompt = null;
                 });
             } else {
-                mostrarAlerta("Instalação do Aplicativo", "Para instalar como app no celular, abra no Chrome (Android) ou Safari (iPhone) e clique no menu do navegador para selecionar 'Instalar aplicativo'.");
+                mostrarAlerta("Instalação do App", "Para instalar no celular, abra no navegador Chrome (Android) ou Safari (iPhone) e escolha 'Adicionar à tela inicial'.");
             }
         }
 
+        
 var API = window.API_URL || "";
 
 var PADRAO = {categorias:["Alimentação","Beleza","Moda","Reforço Escolar","Saúde"],comercios:[
@@ -771,16 +745,7 @@ var PADRAO = {categorias:["Alimentação","Beleza","Moda","Reforço Escolar","Sa
  {id:"7",nome:"Alemão e Cléa Espetaria e Pratinhos",categoria:"Alimentação",whatsapp:"85996277402",desc:"Espetos variados e pratinhos tradicionais."},
  {id:"8",nome:"Amadas Artigos Femininos, Fardamentos e Acessórios",categoria:"Moda",whatsapp:"85996482898",desc:"• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios"}]};
 
-var ICONES_CATEGORIAS = {
-    "Alimentação": "🍔",
-    "Beleza": "✂️",
-    "Moda": "🛍️",
-    "Reforço Escolar": "📚",
-    "Saúde": "🏥",
-    "Serviços": "🛠️"
-};
-
-var DATA=null, SENHA_ADMIN=null, CAT_ATUAL=null, EDIT_ID=null;
+var DATA=null, SENHA_ADMIN=null, CAT_ATUAL="noticias", EDIT_ID=null, NOTICIAS=[];
 function $(i){return document.getElementById(i)}
 function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function apiOn(){return API.indexOf("https://")===0}
@@ -795,10 +760,6 @@ function chamar(obj){
 }
 
 function carregar(){
-  if (!history.state || !history.state.home) {
-    history.replaceState({ home: true, categoria: null }, "", window.location.pathname);
-  }
-
   var cache=null;try{cache=JSON.parse(localStorage.getItem("cm_dados"))}catch(e){}
   DATA=cache||(apiOn()?{categorias:[],comercios:[],carregando:true}:PADRAO);
   desenhar();
@@ -813,77 +774,58 @@ function categoriasComComercio(){
   return DATA.categorias.filter(function(n){return usadas[n]});
 }
 
-function selecionarCategoria(cat, registrarHistorico = true){
-  CAT_ATUAL = cat;
-  if(registrarHistorico && cat){
-    history.pushState({ home: false, categoria: cat }, "", "#cat=" + encodeURIComponent(cat));
-  }
-  desenhar();
-  window.scrollTo(0,0);
-}
-
-function voltarParaCategorias(){
-  if(CAT_ATUAL){
-    history.back();
-  }
-}
-
-window.addEventListener("popstate", function(event) {
-  if (event.state && event.state.categoria) {
-    CAT_ATUAL = event.state.categoria;
-  } else {
-    CAT_ATUAL = null;
-  }
-  desenhar();
-  window.scrollTo(0,0);
-});
-
 function desenhar(){
-  var cats = categoriasComComercio();
-  
+  var cats=categoriasComComercio();
+  if(CAT_ATUAL!=="noticias"&&cats.indexOf(CAT_ATUAL)<0)CAT_ATUAL="noticias";
+  var h='<button class="cat-btn '+(CAT_ATUAL==="noticias"?"active":"")+'" data-cat="noticias">Notícias</button>';
+  cats.forEach(function(n){h+='<button class="cat-btn '+(CAT_ATUAL===n?"active":"")+'" data-cat="'+esc(n)+'">'+esc(n)+'</button>'});
+  $("categories-nav-container").innerHTML=h;
   var opts='<option value="">Selecione...</option>',optsA='';
   DATA.categorias.forEach(function(n){opts+='<option value="'+esc(n)+'">'+esc(n)+'</option>';optsA+='<option value="'+esc(n)+'">'+esc(n)+'</option>'});
   $("loja-categoria").innerHTML=opts;
   var sel=$("admin-categoria"),atual=sel.value;sel.innerHTML=optsA;if(atual)sel.value=atual;
 
-  var gridContainer = $("categories-grid-container");
-  var storesContainer = $("stores-container");
-  var btnVoltar = $("btn-voltar-container");
-  var mainTitle = $("main-section-title");
-
-  if(!CAT_ATUAL){
-    gridContainer.style.display = "grid";
-    btnVoltar.style.display = "none";
-    mainTitle.textContent = "Categorias";
-    
-    gridContainer.innerHTML = cats.map(function(n){
-      var icone = ICONES_CATEGORIAS[n] || "🏪";
-      return '<div class="cat-grid-card" onclick="selecionarCategoria(\''+esc(n)+'\')"><span class="cat-grid-icon">'+icone+'</span><span class="cat-grid-title">'+esc(n)+'</span></div>';
+  var noticias=CAT_ATUAL==="noticias";
+  $("news-container").style.display=noticias?"block":"none";
+  $("stores-container").style.display=noticias?"none":"block";
+  $("main-section-title").textContent=noticias?"Informativo Local":"Comércios Cadastrados";
+  if(!noticias){
+    $("stores-container").innerHTML=DATA.comercios.filter(function(c){return c.categoria===CAT_ATUAL}).map(function(c){
+      return '<div class="store-card"><span class="store-tag">'+esc(c.categoria)+'</span><h3 class="store-name">'+esc(c.nome)+'</h3><p class="store-desc">'+esc(c.desc)+'</p><a href="'+esc(zapLink(c.whatsapp))+'" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a></div>';
     }).join("");
-
-    storesContainer.innerHTML = "";
-  } else {
-    gridContainer.style.display = "none";
-    btnVoltar.style.display = "block";
-    var iconeAtual = ICONES_CATEGORIAS[CAT_ATUAL] || "🏪";
-    mainTitle.textContent = iconeAtual + " " + CAT_ATUAL;
-
-    var comerciosFiltrados = DATA.comercios.filter(function(c){return c.categoria===CAT_ATUAL});
-    
-    if(!comerciosFiltrados.length){
-      storesContainer.innerHTML = '<div class="carregando">Nenhum comércio cadastrado nesta categoria.</div>';
-    } else {
-      storesContainer.innerHTML = comerciosFiltrados.map(function(c){
-        return '<div class="store-card"><span class="store-tag">'+esc(c.categoria)+'</span><h3 class="store-name">'+esc(c.nome)+'</h3><p class="store-desc">'+esc(c.desc)+'</p><a href="'+esc(zapLink(c.whatsapp))+'" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a></div>';
-      }).join("");
-    }
-  }
-
-  if(DATA.carregando && !CAT_ATUAL){
-    storesContainer.innerHTML='<div class="carregando">Carregando informações...</div>';
+  } else if(DATA.carregando){
+    $("stores-container").innerHTML='<div class="carregando">Carregando...</div>';
   }
 }
 
+$("categories-nav-container").addEventListener("click",function(e){
+  var b=e.target.closest(".cat-btn");if(!b)return;
+  CAT_ATUAL=b.getAttribute("data-cat");desenhar();window.scrollTo(0,0);
+});
+
+/* ===== NOTÍCIAS REAIS (sem textos de reserva) ===== */
+function desenharNoticias(){
+  var box=$("news-container"),cards=NOTICIAS.filter(function(n){return n.itens&&n.itens.length});
+  if(!cards.length){
+    box.innerHTML='<div class="news-card"><p class="news-desc">Notícias indisponíveis no momento. Use as categorias acima para encontrar comércios.</p></div>';return;
+  }
+  box.innerHTML=cards.map(function(n,i){return '<div class="news-card" id="nc'+i+'"></div>'}).join("");
+  cards.forEach(function(n,i){n._i=0;mostrarNoticia(n,i)});
+  clearInterval(window._rot);
+  window._rot=setInterval(function(){cards.forEach(function(n,i){n._i=(n._i+1)%n.itens.length;mostrarNoticia(n,i)})},12000);
+}
+function mostrarNoticia(n,i){
+  var it=n.itens[n._i],el=$("nc"+i);if(!el)return;
+  var dt="";try{dt=new Date(it.data).toLocaleDateString("pt-BR");if(dt==="Invalid Date")dt=""}catch(e){}
+  var link=/^https?:/.test(it.link)?it.link:"";
+  el.innerHTML='<span class="news-tag '+(i===0?"cultura":i===1?"cidade":"turismo")+'">'+esc(n.tag)+'</span><h3 class="news-title">'+(link?'<a href="'+esc(link)+'" target="_blank" rel="noopener">'+esc(it.titulo)+'</a>':esc(it.titulo))+'</h3><div class="news-date">'+esc(n.fonte)+(dt?" • "+dt:"")+'</div><p class="news-desc">'+esc(it.resumo)+(it.resumo?"...":"")+'</p>';
+}
+function carregarNoticias(){
+  if(!apiOn()){desenharNoticias();return}
+  fetch(API+"?acao=noticias").then(function(r){return r.json()}).then(function(d){NOTICIAS=(d&&d.noticias)||[];desenharNoticias()}).catch(function(){desenharNoticias()});
+}
+
+/* ===== PAINEL DO ADMINISTRADOR (grava para todos) ===== */
 function abrirLogin(){
   if(!apiOn()){mostrarAlerta("Servidor não conectado","Cole o endereço do servidor no arquivo config.js do GitHub.");return}
   $("admin-pass-input").value="";$("login-error-msg").style.display="none";abrir("admin-login-modal");
@@ -920,7 +862,7 @@ function limparForm(){
 function salvarComercio(ev){
   ev.preventDefault();
   enviar({acao:"salvar",comercio:{id:EDIT_ID,nome:$("admin-nome").value,categoria:$("admin-categoria").value,whatsapp:$("admin-whatsapp").value,desc:$("admin-desc").value}},function(){
-    limparForm();mostrarAlerta("Publicado","Salvo! Já aparece para todos os visitantes.");
+    var cat=$("admin-categoria").value;limparForm();mostrarAlerta("Publicado","Salvo! Já aparece para todos os visitantes.");
   });
 }
 function novaCategoria(ev){
@@ -943,7 +885,7 @@ $("admin-lista-categorias").addEventListener("click",function(e){
   if(d)mostrarConfirmacao("Excluir categoria","Excluir a categoria \""+d+"\"?",function(){enviar({acao:"cat_del",nome:d})},true);
 });
 
-window.addEventListener("load",function(){carregar()});
+window.addEventListener("load",function(){carregar();carregarNoticias()});
 </script>
 </body>
 </html>
