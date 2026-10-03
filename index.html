@@ -453,6 +453,61 @@
             margin-top: 8px;
             display: none;
         }
+
+        /* ESTILOS PARA GESTÃO DE CATEGORIAS NO PAINEL ADMIN */
+        .category-manage-list {
+            max-height: 160px;
+            overflow-y: auto;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 6px;
+            margin-top: 8px;
+            background: #f8fafc;
+        }
+
+        .category-manage-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 8px;
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            margin-bottom: 4px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .category-manage-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .cat-item-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .btn-cat-edit {
+            background: #fef3c7;
+            color: #b45309;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-cat-delete {
+            background: #fee2e2;
+            color: #ef4444;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -658,17 +713,22 @@
                 </div>
             </div>
             <div class="modal-title">Painel do Administrador</div>
-            <div class="modal-text">Cadastre novas categorias ou publique comércios.</div>
+            <div class="modal-text">Gerencie categorias e publique comércios.</div>
 
-            <form onsubmit="adicionarNovaCategoriaAdmin(event)" style="margin-bottom: 12px;">
+            <!-- GERENCIAMENTO COMPLETO DE CATEGORIAS -->
+            <form onsubmit="adicionarNovaCategoriaAdmin(event)" style="margin-bottom: 8px;">
                 <div class="form-group" style="text-align: left;">
-                    <label>➕ Criar Categoria:</label>
+                    <label>⚙ Gerenciar Categorias:</label>
                     <div style="display: flex; gap: 6px;">
-                        <input type="text" id="admin-nova-categoria-nome" placeholder="Ex: Oficina..." required style="margin-bottom:0;">
+                        <input type="text" id="admin-nova-categoria-nome" placeholder="Nova Categoria..." required style="margin-bottom:0;">
                         <button type="submit" class="btn-submit" style="width: auto; margin-top:0; padding: 0 12px; white-space: nowrap;">Criar</button>
                     </div>
                 </div>
             </form>
+
+            <div class="category-manage-list" id="admin-categories-manage-list">
+                <!-- Lista de categorias para editar/excluir via JS -->
+            </div>
 
             <div class="admin-section-divider"></div>
 
@@ -748,8 +808,18 @@
 
         function obterTodasCategoriasOrdenadas() {
             let categoriasCustom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
+            let categoriasExcluidasPadrao = JSON.parse(localStorage.getItem('categorias_padrao_excluidas')) || [];
+            let categoriasEditadasPadrao = JSON.parse(localStorage.getItem('categorias_padrao_editadas')) || {};
+
             let mapa = new Map();
-            categoriasPadrao.forEach(c => mapa.set(c.id, c.nome));
+            
+            categoriasPadrao.forEach(c => {
+                if (!categoriasExcluidasPadrao.includes(c.id)) {
+                    let nomeFinal = categoriasEditadasPadrao[c.id] || c.nome;
+                    mapa.set(c.id, nomeFinal);
+                }
+            });
+
             categoriasCustom.forEach(c => mapa.set(c.id, c.nome));
 
             let lista = [];
@@ -785,6 +855,7 @@
 
             nav.innerHTML = html;
             atualizarSelectsCategorias();
+            renderizarListaGestaoCategoriasAdmin();
         }
 
         function atualizarSelectsCategorias() {
@@ -802,6 +873,78 @@
 
             if (selectPublico) selectPublico.innerHTML = optionsPublico;
             if (selectAdmin) selectAdmin.innerHTML = optionsAdmin;
+        }
+
+        function renderizarListaGestaoCategoriasAdmin() {
+            const container = document.getElementById('admin-categories-manage-list');
+            if (!container) return;
+
+            const lista = obterTodasCategoriasOrdenadas();
+            if (lista.length === 0) {
+                container.innerHTML = '<div style="font-size:0.78rem; text-align:center; color:#94a3b8;">Nenhuma categoria cadastrada.</div>';
+                return;
+            }
+
+            let html = '';
+            lista.forEach(cat => {
+                html += `
+                    <div class="category-manage-item">
+                        <span>${cat.nome}</span>
+                        <div class="cat-item-actions">
+                            <button type="button" class="btn-cat-edit" onclick="editarCategoriaAdmin('${cat.id}', '${cat.nome}')">Editar</button>
+                            <button type="button" class="btn-cat-delete" onclick="excluirCategoriaAdmin('${cat.id}', '${cat.nome}')">Deletar</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function editarCategoriaAdmin(id, nomeAtual) {
+            const novoNome = prompt("Digite o novo nome para a categoria:", nomeAtual);
+            if (!novoNome || novoNome.trim() === '' || novoNome.trim() === nomeAtual) return;
+
+            const nomeFormatado = novoNome.trim();
+            const ePadrao = categoriasPadrao.some(c => c.id === id);
+
+            if (ePadrao) {
+                let editadas = JSON.parse(localStorage.getItem('categorias_padrao_editadas')) || {};
+                editadas[id] = nomeFormatado;
+                localStorage.setItem('categorias_padrao_editadas', JSON.stringify(editadas));
+            } else {
+                let custom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
+                custom = custom.map(c => c.id === id ? { ...c, nome: nomeFormatado } : c);
+                localStorage.setItem('categorias_customizadas', JSON.stringify(custom));
+            }
+
+            renderizarBarraCategorias();
+            alert(`Categoria renomeada para "${nomeFormatado}"!`);
+        }
+
+        function excluirCategoriaAdmin(id, nome) {
+            if (!confirm(`Tem certeza que deseja excluir a categoria "${nome}"?`)) return;
+
+            const ePadrao = categoriasPadrao.some(c => c.id === id);
+
+            if (ePadrao) {
+                let excluidas = JSON.parse(localStorage.getItem('categorias_padrao_excluidas')) || [];
+                if (!excluidas.includes(id)) {
+                    excluidas.push(id);
+                    localStorage.setItem('categorias_padrao_excluidas', JSON.stringify(excluidas));
+                }
+            } else {
+                let custom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
+                custom = custom.filter(c => c.id !== id);
+                localStorage.setItem('categorias_customizadas', JSON.stringify(custom));
+            }
+
+            if (currentCategory === id) {
+                filterCategory('noticias');
+            }
+
+            renderizarBarraCategorias();
+            alert(`Categoria "${nome}" removida!`);
         }
 
         function adicionarNovaCategoriaAdmin(event) {
@@ -828,7 +971,7 @@
             localStorage.setItem('categorias_customizadas', JSON.stringify(categoriasCustom));
 
             input.value = '';
-            atualizarSelectsCategorias();
+            renderizarBarraCategorias();
             alert(`Categoria "${nomeCategoria}" criada!`);
         }
 
@@ -864,6 +1007,7 @@
             const passEntered = document.getElementById('admin-pass-input').value;
             if (passEntered === ADMIN_PASSWORD) {
                 fecharModalLoginAdmin();
+                renderizarListaGestaoCategoriasAdmin();
                 document.getElementById('admin-modal').classList.add('active');
             } else {
                 document.getElementById('login-error-msg').style.display = 'block';
