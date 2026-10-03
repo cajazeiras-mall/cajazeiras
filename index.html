@@ -28,7 +28,7 @@
         body {
             background-color: var(--bg-main);
             color: var(--text-dark);
-            padding-bottom: 40px;
+            padding-bottom: 60px;
             line-height: 1.5;
         }
 
@@ -165,15 +165,8 @@
             margin-bottom: 8px;
         }
 
-        .news-tag.female {
-            background: #fce7f3;
-            color: #be185d;
-        }
-
-        .news-tag.male {
-            background: #e0e7ff;
-            color: #3730a3;
-        }
+        .news-tag.female { background: #fce7f3; color: #be185d; }
+        .news-tag.male { background: #e0e7ff; color: #3730a3; }
 
         .news-title {
             font-size: 1.15rem;
@@ -182,14 +175,8 @@
             margin-bottom: 6px;
         }
 
-        .news-title a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .news-title a:hover {
-            text-decoration: underline;
-        }
+        .news-title a { color: inherit; text-decoration: none; }
+        .news-title a:hover { text-decoration: underline; }
 
         .news-date {
             font-size: 0.8rem;
@@ -212,6 +199,7 @@
             margin-bottom: 16px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
             display: none;
+            position: relative;
         }
 
         .store-tag {
@@ -266,6 +254,20 @@
             background-color: var(--accent-green-hover);
         }
 
+        .btn-delete-store {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #fee2e2;
+            color: #ef4444;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         .empty-state {
             background: var(--card-bg);
             border: 1px dashed #cbd5e1;
@@ -293,31 +295,51 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 0.9rem;
+            cursor: pointer;
         }
 
-        .register-card {
+        /* CARTÃO DE CHAMADA PARA CADASTRO NA TELA PRINCIPAL */
+        .register-banner-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 28px 20px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 24px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
             margin-top: 24px;
+            text-align: center;
         }
 
-        .register-title {
+        .register-banner-title {
             font-size: 1.35rem;
             color: var(--primary-color);
             font-weight: 800;
             margin-bottom: 6px;
-            text-align: center;
         }
 
-        .register-subtitle {
+        .register-banner-subtitle {
             font-size: 0.9rem;
             color: var(--text-muted);
-            text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 18px;
             line-height: 1.4;
+        }
+
+        .btn-open-register {
+            display: inline-block;
+            width: 100%;
+            background-color: var(--accent-green);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-open-register:hover {
+            background-color: var(--accent-green-hover);
         }
 
         .form-group {
@@ -369,12 +391,27 @@
             background-color: var(--accent-green-hover);
         }
 
+        .footer-admin-btn {
+            text-align: center;
+            margin-top: 40px;
+            padding: 10px;
+        }
+
+        .btn-admin-trigger {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* MODAIS */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(4px);
             display: flex;
@@ -395,10 +432,11 @@
         .modal-body {
             background: #ffffff;
             border-radius: 20px;
-            padding: 32px 24px;
-            max-width: 440px;
+            padding: 28px 20px;
+            max-width: 480px;
             width: 100%;
-            text-align: center;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
@@ -408,13 +446,15 @@
             font-weight: 800;
             margin-bottom: 12px;
             line-height: 1.3;
+            text-align: center;
         }
 
         .modal-text {
             font-size: 0.95rem;
             color: var(--text-muted);
             line-height: 1.5;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         .modal-btn {
@@ -427,6 +467,12 @@
             font-weight: 700;
             cursor: pointer;
             width: 100%;
+        }
+
+        .btn-close-modal {
+            background: #e2e8f0;
+            color: var(--text-dark);
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -450,12 +496,12 @@
         <button class="cat-btn" onclick="filterCategory('saude', this)">Saúde</button>
         <button class="cat-btn" onclick="filterCategory('reforco', this)">Reforço Escolar</button>
         <button class="cat-btn" onclick="filterCategory('beleza', this)">Beleza</button>
+        <button class="cat-btn" onclick="filterCategory('moda', this)">Moda</button>
         <button class="cat-btn" onclick="filterCategory('alimentacao', this)">Alimentação</button>
         <button class="cat-btn" onclick="filterCategory('mercado', this)">Mercado</button>
         <button class="cat-btn" onclick="filterCategory('padaria', this)">Padaria</button>
         <button class="cat-btn" onclick="filterCategory('eletronicos', this)">Eletrônicos</button>
         <button class="cat-btn" onclick="filterCategory('pet', this)">Pet Shop</button>
-        <button class="cat-btn" onclick="filterCategory('outros', this)">Outros</button>
     </nav>
 
     <div class="container">
@@ -479,140 +525,193 @@
                 </div>
             </div>
 
-            <!-- ESTABELECIMENTOS -->
-            <div class="store-card" data-category="reforco">
-                <span class="store-tag">Reforço Escolar</span>
-                <h3 class="store-name">Reforço Escolar Tia Sandra</h3>
-                <p class="store-desc">Trabalho com reforço escolar para educação infantil e ensino fundamental I.</p>
-                <a href="https://wa.me/5585997354638" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-            </div>
+            <!-- CONTAINER ONDE OS ESTABELECIMENTOS FICAM -->
+            <div id="stores-container">
+                <!-- Estabelecimentos fixos/padrão -->
+                <div class="store-card" data-category="reforco">
+                    <span class="store-tag">Reforço Escolar</span>
+                    <h3 class="store-name">Reforço Escolar Tia Sandra</h3>
+                    <p class="store-desc">Trabalho com reforço escolar para educação infantil e ensino fundamental I.</p>
+                    <a href="https://wa.me/5585997354638" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+                </div>
 
-            <div class="store-card" data-category="beleza">
-                <span class="store-tag">Beleza</span>
-                <h3 class="store-name">Jamille Araújo Espaço da Beleza e do Bronze</h3>
-                <p class="store-desc">Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua, bronze artificial na máquina e decapagem corporal.</p>
-                <a href="https://wa.me/5585988961380" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-            </div>
+                <div class="store-card" data-category="beleza">
+                    <span class="store-tag">Beleza</span>
+                    <h3 class="store-name">Jamille Araújo Espaço da Beleza e do Bronze</h3>
+                    <p class="store-desc">Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua, bronze artificial na máquina e decapagem corporal.</p>
+                    <a href="https://wa.me/5585988961380" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+                </div>
 
-            <div class="store-card" data-category="beleza">
-                <span class="store-tag">Beleza</span>
-                <h3 class="store-name">Nayanne Nascimento Salão de Beleza</h3>
-                <p class="store-desc">Seu cabelo merece um cuidado especial! Aqui você encontra beleza, cuidado e transformação em um só lugar.
+                <div class="store-card" data-category="beleza">
+                    <span class="store-tag">Beleza</span>
+                    <h3 class="store-name">Nayanne Nascimento Salão de Beleza</h3>
+                    <p class="store-desc">Seu cabelo merece um cuidado especial! Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados.</p>
+                    <a href="https://wa.me/5585921490223" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+                </div>
 
-Nossos serviços:
-• Alisamentos e texturização
-• Loiros e mechas
-• Coloração
-• Corte e escova
-• Hidratação e tratamentos
-• Reconstrução e cuidados capilares
-• Finalizações e produção para ocasiões especiais
+                <div class="store-card" data-category="alimentacao">
+                    <span class="store-tag">Alimentação</span>
+                    <h3 class="store-name">Boomerang Sanduíches</h3>
+                    <p class="store-desc">Hamburgueria com opções de sanduíches e lanches.</p>
+                    <a href="https://wa.me/5585987012328" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+                </div>
 
-Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a beleza e a personalidade de cada cliente. Venha viver sua transformação! Agende seu horário e permita-se ficar ainda mais linda.</p>
-                <a href="https://wa.me/5585921490223" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-            </div>
+                <div class="store-card" data-category="saude">
+                    <span class="store-tag">Saúde</span>
+                    <h3 class="store-name">Farmácia Super Farma</h3>
+                    <p class="store-desc">O super cuidado para sua saúde!</p>
+                    <a href="https://wa.me/5585996656572" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+                </div>
 
-            <div class="store-card" data-category="alimentacao">
-                <span class="store-tag">Alimentação</span>
-                <h3 class="store-name">Boomerang Sanduíches</h3>
-                <p class="store-desc">Hamburgueria com opções de sanduíches e lanches.</p>
-                <a href="https://wa.me/5585987012328" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-            </div>
+                <div class="store-card" data-category="alimentacao">
+                    <span class="store-tag">Alimentação</span>
+                    <h3 class="store-name">Barfruta</h3>
+                    <p class="store-desc">Polpas de frutas de diversos sabores e morango congelado.</p>
+                    <a href="https://wa.me/5585988408564" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+                </div>
 
-            <div class="store-card" data-category="saude">
-                <span class="store-tag">Saúde</span>
-                <h3 class="store-name">Farmácia Super Farma</h3>
-                <p class="store-desc">O super cuidado para sua saúde!</p>
-                <a href="https://wa.me/5585996656572" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-            </div>
+                <div class="store-card" data-category="alimentacao">
+                    <span class="store-tag">Alimentação</span>
+                    <h3 class="store-name">Alemão e Cléa Espetaria e Pratinhos</h3>
+                    <p class="store-desc">Espetos variados e pratinhos tradicionais.</p>
+                    <a href="https://wa.me/5585996277402" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+                </div>
 
-            <div class="store-card" data-category="alimentacao">
-                <span class="store-tag">Alimentação</span>
-                <h3 class="store-name">Barfruta</h3>
-                <p class="store-desc">Trabalhamos com polpas de frutas de diversos sabores, produzidas com qualidade e praticidade, além de morango congelado. Produtos ideais para sucos, vitaminas, sobremesas e preparos em geral.</p>
-                <a href="https://wa.me/5585988408564" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-            </div>
-
-            <div class="store-card" data-category="alimentacao">
-                <span class="store-tag">Alimentação</span>
-                <h3 class="store-name">Alemão e Cléa Espetaria e Pratinhos</h3>
-                <p class="store-desc">Espetos variados e pratinhos tradicionais.</p>
-                <a href="https://wa.me/5585996277402" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-            </div>
-
-            <!-- ESTABELECIMENTO ADICIONADO: AMADAS ARTIGOS FEMENINOS / FARDAMENTOS E ACESSÓRIOS -->
-            <div class="store-card" data-category="outros">
-                <span class="store-tag">Outros</span>
-                <h3 class="store-name">Amadas Artigos Femininos / Fardamentos e Acessórios</h3>
-                <div class="store-address">📍 Rua Newton Craveiro, 120 - Parque Iracema</div>
-                <p class="store-desc">• Moda feminina, masculina e infantil
-• Fardamentos
-• Acessórios</p>
-                <a href="https://wa.me/5585996482898" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+                <div class="store-card" data-category="moda">
+                    <span class="store-tag">Moda</span>
+                    <h3 class="store-name">AMADAS ARTIGOS FEMENINO/FARDAMENTOS E ACESSORIOS</h3>
+                    <div class="store-address">📍 Rua Newton craveiro 120 bairro parque Iracema</div>
+                    <p class="store-desc">• Moda Feminina, Masculina e Infantil&#10;• Fardamentos&#10;• Acessórios</p>
+                    <a href="https://wa.me/5585996482898" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+                </div>
             </div>
 
             <div class="empty-state" id="empty-message">
                 <p>Nenhum estabelecimento encontrado nesta categoria.</p>
-                <a href="#cadastro-section" class="btn-call-to-action">Cadastrar Novo Comércio</a>
+                <button onclick="abrirModalCadastroPublico()" class="btn-call-to-action">Cadastrar Novo Comércio</button>
             </div>
         </div>
 
-        <div class="register-card" id="cadastro-section">
-            <div class="register-title">Cadastre seu Comércio</div>
-            <div class="register-subtitle">Participe gratuitamente do Cajazeiras Mall e alcance novos clientes na nossa região!</div>
+        <!-- NOVO CARTÃO DE BOTÃO PARA CADASTRO (SUBSTITUINDO OS CAMPOS DIRETOS) -->
+        <div class="register-banner-card">
+            <div class="register-banner-title">Cadastre seu Comércio</div>
+            <div class="register-banner-subtitle">Participe gratuitamente do Cajazeiras Mall e alcance novos clientes na nossa região!</div>
+            <button type="button" class="btn-open-register" onclick="abrirModalCadastroPublico()">📝 Cadastre Seu Comércio Aqui</button>
+        </div>
+
+        <div class="footer-admin-btn">
+            <button class="btn-admin-trigger" onclick="abrirPainelAdmin()">⚙️ Painel do Administrador (Incluir Lojas Direct)</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE CADASTRO PÚBLICO DE COMÉRCIO -->
+    <div class="modal-overlay" id="user-register-modal">
+        <div class="modal-body">
+            <div class="modal-title">Cadastre seu Comércio</div>
+            <div class="modal-text">Preencha os dados abaixo para enviar a solicitação de cadastro.</div>
 
             <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
                 <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
                 <input type="hidden" name="_captcha" value="false">
 
-                <div class="form-group">
+                <div class="form-group" style="text-align: left;">
                     <label for="comerciante-nome">Seu Nome:</label>
-                    <input type="text" name="Nome" id="comerciante-nome" required>
+                    <input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="text-align: left;">
                     <label for="loja-nome">Nome do Estabelecimento:</label>
-                    <input type="text" name="Estabelecimento" id="loja-nome" required>
+                    <input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da sua loja/serviço">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="text-align: left;">
                     <label for="loja-categoria">Categoria:</label>
                     <select name="Categoria" id="loja-categoria" required>
                         <option value="">Selecione...</option>
                         <option value="Saúde">Saúde</option>
                         <option value="Reforço Escolar">Reforço Escolar</option>
                         <option value="Beleza">Beleza</option>
+                        <option value="Moda">Moda</option>
                         <option value="Alimentação">Alimentação</option>
                         <option value="Mercado">Mercado</option>
                         <option value="Padaria">Padaria</option>
                         <option value="Eletrônicos">Eletrônicos</option>
                         <option value="Pet Shop">Pet Shop</option>
-                        <option value="Outros">Outros</option>
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="text-align: left;">
                     <label for="loja-whatsapp">WhatsApp do Estabelecimento:</label>
-                    <input type="tel" name="WhatsApp" id="loja-whatsapp" required>
+                    <input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="text-align: left;">
                     <label for="loja-desc">Breve descrição dos produtos/serviços:</label>
-                    <textarea name="Descricao" id="loja-desc" rows="3" required></textarea>
+                    <textarea name="Descricao" id="loja-desc" rows="3" required placeholder="O que seu negócio oferece..."></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Enviar Cadastro</button>
+                <button type="button" class="modal-btn btn-close-modal" onclick="fecharModalCadastroPublico()">Cancelar</button>
             </form>
         </div>
     </div>
 
+    <!-- MODAL DE BOAS-VINDAS -->
     <div class="modal-overlay" id="welcome-modal">
         <div class="modal-body">
             <div class="modal-title">Você é Comerciante na Região?</div>
             <div class="modal-text">
-                Divulgue seu negócio no <strong>Cajazeiras Mall</strong>! A participação é <strong>100% gratuita</strong> e ajuda você a conquistar novos clientes do nosso bairro.
+                Divulgue seu negócio no <strong>Cajazeiras Mall</strong>! A participação é <strong>100% gratuita</strong>.
             </div>
             <button type="button" class="modal-btn" onclick="fecharModalECadastrar()">Quero Cadastrar Meu Negócio!</button>
+        </div>
+    </div>
+
+    <!-- MODAL DO PAINEL DO ADMINISTRADOR -->
+    <div class="modal-overlay" id="admin-modal">
+        <div class="modal-body">
+            <div class="modal-title">Painel de Publicação Direta</div>
+            <div class="modal-text">Cadastre o comércio recebido para publicá-lo imediatamente no App.</div>
+
+            <form id="admin-form" onsubmit="salvarNovoComercioAdmin(event)">
+                <div class="form-group" style="text-align: left;">
+                    <label>Nome do Estabelecimento:</label>
+                    <input type="text" id="admin-nome" required placeholder="Ex: Boutique da Maria">
+                </div>
+
+                <div class="form-group" style="text-align: left;">
+                    <label>Categoria:</label>
+                    <select id="admin-categoria" required>
+                        <option value="saude">Saúde</option>
+                        <option value="reforco">Reforço Escolar</option>
+                        <option value="beleza">Beleza</option>
+                        <option value="moda">Moda</option>
+                        <option value="alimentacao">Alimentação</option>
+                        <option value="mercado">Mercado</option>
+                        <option value="padaria">Padaria</option>
+                        <option value="eletronicos">Eletrônicos</option>
+                        <option value="pet">Pet Shop</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="text-align: left;">
+                    <label>Endereço (Opcional):</label>
+                    <input type="text" id="admin-endereco" placeholder="Ex: Rua Newton Craveiro, 120">
+                </div>
+
+                <div class="form-group" style="text-align: left;">
+                    <label>WhatsApp (Somente números com DDD):</label>
+                    <input type="tel" id="admin-whatsapp" required placeholder="Ex: 85996482898">
+                </div>
+
+                <div class="form-group" style="text-align: left;">
+                    <label>Descrição / Produtos:</label>
+                    <textarea id="admin-desc" rows="3" required placeholder="Detalhes do que é vendido..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">➕ Publicar no Aplicativo</button>
+                <button type="button" class="modal-btn btn-close-modal" onclick="fecharPainelAdmin()">Cancelar</button>
+            </form>
         </div>
     </div>
 
@@ -642,21 +741,33 @@ Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a
             }
         }
 
+        let currentCategory = 'noticias';
+
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('welcome-modal').classList.add('active');
             }, 300);
             carregarNoticiasReais();
+            carregarComerciosSalvos();
         });
+
+        function abrirModalCadastroPublico() {
+            document.getElementById('user-register-modal').classList.add('active');
+        }
+
+        function fecharModalCadastroPublico() {
+            document.getElementById('user-register-modal').classList.remove('active');
+        }
 
         function fecharModalECadastrar() {
             document.getElementById('welcome-modal').classList.remove('active');
-            document.getElementById('cadastro-section').scrollIntoView({ behavior: 'smooth' });
+            abrirModalCadastroPublico();
         }
 
         function filterCategory(category, btnElement) {
+            currentCategory = category;
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
+            if(btnElement) btnElement.classList.add('active');
 
             const newsContainer = document.getElementById('news-container');
             const storeCards = document.querySelectorAll('.store-card');
@@ -721,6 +832,109 @@ Tudo feito com carinho, profissionalismo e atenção aos detalhes, valorizando a
             } catch (e) {
                 document.getElementById('news-male-title').textContent = 'Inovação e Tecnologia';
                 document.getElementById('news-male-desc').textContent = 'Confira as últimas novidades sobre tecnologia e negócios.';
+            }
+        }
+
+        /* --- LÓGICA DO PAINEL DO ADMINISTRADOR E PERSISTÊNCIA --- */
+
+        const ADMIN_PASSWORD = "1234";
+
+        function abrirPainelAdmin() {
+            const pwd = prompt("Digite a senha do Administrador:");
+            if (pwd === ADMIN_PASSWORD) {
+                document.getElementById('admin-modal').classList.add('active');
+            } else if (pwd !== null) {
+                alert("Senha incorreta!");
+            }
+        }
+
+        function fecharPainelAdmin() {
+            document.getElementById('admin-modal').classList.remove('active');
+        }
+
+        function salvarNovoComercioAdmin(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('admin-nome').value;
+            const categoria = document.getElementById('admin-categoria').value;
+            const endereco = document.getElementById('admin-endereco').value;
+            const whatsapp = document.getElementById('admin-whatsapp').value.replace(/\D/g, '');
+            const desc = document.getElementById('admin-desc').value;
+
+            const novoComercio = {
+                id: Date.now(),
+                nome,
+                categoria,
+                endereco,
+                whatsapp,
+                desc
+            };
+
+            let comercios = JSON.parse(localStorage.getItem('comercios_customizados')) || [];
+            comercios.push(novoComercio);
+            localStorage.setItem('comercios_customizados', JSON.stringify(comercios));
+
+            renderizarCardComercio(novoComercio, true);
+
+            document.getElementById('admin-form').reset();
+            fecharPainelAdmin();
+
+            alert("Estabelecimento publicado com sucesso!");
+
+            const btnCat = Array.from(document.querySelectorAll('.cat-btn')).find(b => b.getAttribute('onclick').includes(`'${categoria}'`));
+            if(btnCat) filterCategory(categoria, btnCat);
+        }
+
+        function carregarComerciosSalvos() {
+            let comercios = JSON.parse(localStorage.getItem('comercios_customizados')) || [];
+            comercios.forEach(item => renderizarCardComercio(item, true));
+        }
+
+        function renderizarCardComercio(item, eCustom) {
+            const container = document.getElementById('stores-container');
+
+            const card = document.createElement('div');
+            card.className = 'store-card';
+            card.setAttribute('data-category', item.categoria);
+            if(eCustom) card.setAttribute('data-custom-id', item.id);
+
+            const catMap = {
+                'saude': 'Saúde',
+                'reforco': 'Reforço Escolar',
+                'beleza': 'Beleza',
+                'moda': 'Moda',
+                'alimentacao': 'Alimentação',
+                'mercado': 'Mercado',
+                'padaria': 'Padaria',
+                'eletronicos': 'Eletrônicos',
+                'pet': 'Pet Shop'
+            };
+
+            let enderecoHtml = item.endereco ? `<div class="store-address">📍 ${item.endereco}</div>` : '';
+            let btnDelete = eCustom ? `<button class="btn-delete-store" onclick="removerComercioCustom(${item.id}, this)">Excluir</button>` : '';
+
+            card.innerHTML = `
+                ${btnDelete}
+                <span class="store-tag">${catMap[item.categoria] || item.categoria}</span>
+                <h3 class="store-name">${item.nome}</h3>
+                ${enderecoHtml}
+                <p class="store-desc">${item.desc}</p>
+                <a href="https://wa.me/55${item.whatsapp}" target="_blank" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+            `;
+
+            container.appendChild(card);
+            
+            if(currentCategory !== 'noticias') {
+                filterCategory(currentCategory, document.querySelector('.cat-btn.active'));
+            }
+        }
+
+        function removerComercioCustom(id, btnElement) {
+            if(confirm("Deseja realmente remover este estabelecimento?")) {
+                let comercios = JSON.parse(localStorage.getItem('comercios_customizados')) || [];
+                comercios = comercios.filter(item => item.id !== id);
+                localStorage.setItem('comercios_customizados', JSON.stringify(comercios));
+                btnElement.closest('.store-card').remove();
             }
         }
     </script>
