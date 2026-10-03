@@ -298,7 +298,7 @@
             cursor: pointer;
         }
 
-        /* CARTÃO DE CHAMADA PARA CADASTRO NA TELA PRINCIPAL */
+        /* CARTÃO DE CHAMADA PARA CADASTRO */
         .register-banner-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -407,6 +407,12 @@
             text-decoration: underline;
         }
 
+        .admin-section-divider {
+            border-top: 1px dashed var(--card-border);
+            margin: 20px 0;
+            padding-top: 15px;
+        }
+
         /* MODAIS */
         .modal-overlay {
             position: fixed;
@@ -491,17 +497,9 @@
         <button class="btn-install-app" onclick="instalarApp()">📲 Baixar App no Celular</button>
     </div>
 
-    <nav class="categories-nav">
-        <button class="cat-btn active" onclick="filterCategory('noticias', this)">Notícias</button>
-        <button class="cat-btn" onclick="filterCategory('saude', this)">Saúde</button>
-        <button class="cat-btn" onclick="filterCategory('reforco', this)">Reforço Escolar</button>
-        <button class="cat-btn" onclick="filterCategory('beleza', this)">Beleza</button>
-        <button class="cat-btn" onclick="filterCategory('moda', this)">Moda</button>
-        <button class="cat-btn" onclick="filterCategory('alimentacao', this)">Alimentação</button>
-        <button class="cat-btn" onclick="filterCategory('mercado', this)">Mercado</button>
-        <button class="cat-btn" onclick="filterCategory('padaria', this)">Padaria</button>
-        <button class="cat-btn" onclick="filterCategory('eletronicos', this)">Eletrônicos</button>
-        <button class="cat-btn" onclick="filterCategory('pet', this)">Pet Shop</button>
+    <!-- NAVEGAÇÃO POR CATEGORIAS -->
+    <nav class="categories-nav" id="categories-nav-container">
+        <!-- Gerado via JavaScript -->
     </nav>
 
     <div class="container">
@@ -525,9 +523,8 @@
                 </div>
             </div>
 
-            <!-- CONTAINER ONDE OS ESTABELECIMENTOS FICAM -->
+            <!-- CONTAINER DOS ESTABELECIMENTOS -->
             <div id="stores-container">
-                <!-- Estabelecimentos fixos/padrão -->
                 <div class="store-card" data-category="reforco">
                     <span class="store-tag">Reforço Escolar</span>
                     <h3 class="store-name">Reforço Escolar Tia Sandra</h3>
@@ -592,7 +589,7 @@
             </div>
         </div>
 
-        <!-- NOVO CARTÃO DE BOTÃO PARA CADASTRO (SUBSTITUINDO OS CAMPOS DIRETOS) -->
+        <!-- CARTÃO DE CHAMADA PARA CADASTRO -->
         <div class="register-banner-card">
             <div class="register-banner-title">Cadastre seu Comércio</div>
             <div class="register-banner-subtitle">Participe gratuitamente do Cajazeiras Mall e alcance novos clientes na nossa região!</div>
@@ -600,11 +597,11 @@
         </div>
 
         <div class="footer-admin-btn">
-            <button class="btn-admin-trigger" onclick="abrirPainelAdmin()">⚙️ Painel do Administrador (Incluir Lojas Direct)</button>
+            <button class="btn-admin-trigger" onclick="abrirPainelAdmin()">⚙️ Painel do Administrador (Gerenciar Lojas e Categorias)</button>
         </div>
     </div>
 
-    <!-- MODAL DE CADASTRO PÚBLICO DE COMÉRCIO -->
+    <!-- MODAL DE CADASTRO PÚBLICO -->
     <div class="modal-overlay" id="user-register-modal">
         <div class="modal-body">
             <div class="modal-title">Cadastre seu Comércio</div>
@@ -627,16 +624,7 @@
                 <div class="form-group" style="text-align: left;">
                     <label for="loja-categoria">Categoria:</label>
                     <select name="Categoria" id="loja-categoria" required>
-                        <option value="">Selecione...</option>
-                        <option value="Saúde">Saúde</option>
-                        <option value="Reforço Escolar">Reforço Escolar</option>
-                        <option value="Beleza">Beleza</option>
-                        <option value="Moda">Moda</option>
-                        <option value="Alimentação">Alimentação</option>
-                        <option value="Mercado">Mercado</option>
-                        <option value="Padaria">Padaria</option>
-                        <option value="Eletrônicos">Eletrônicos</option>
-                        <option value="Pet Shop">Pet Shop</option>
+                        <!-- Gerado dinamicamente via JS em ordem alfabética -->
                     </select>
                 </div>
 
@@ -656,24 +644,29 @@
         </div>
     </div>
 
-    <!-- MODAL DE BOAS-VINDAS -->
-    <div class="modal-overlay" id="welcome-modal">
-        <div class="modal-body">
-            <div class="modal-title">Você é Comerciante na Região?</div>
-            <div class="modal-text">
-                Divulgue seu negócio no <strong>Cajazeiras Mall</strong>! A participação é <strong>100% gratuita</strong>.
-            </div>
-            <button type="button" class="modal-btn" onclick="fecharModalECadastrar()">Quero Cadastrar Meu Negócio!</button>
-        </div>
-    </div>
-
     <!-- MODAL DO PAINEL DO ADMINISTRADOR -->
     <div class="modal-overlay" id="admin-modal">
         <div class="modal-body">
-            <div class="modal-title">Painel de Publicação Direta</div>
-            <div class="modal-text">Cadastre o comércio recebido para publicá-lo imediatamente no App.</div>
+            <div class="modal-title">Painel do Administrador</div>
+            <div class="modal-text">Cadastre novas categorias ou publique comércios diretamente no app.</div>
 
+            <!-- FORMULÁRIO DE NOVA CATEGORIA -->
+            <form onsubmit="adicionarNovaCategoriaAdmin(event)" style="margin-bottom: 20px;">
+                <div class="form-group" style="text-align: left;">
+                    <label>➕ Criar Nova Categoria:</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="admin-nova-categoria-nome" placeholder="Ex: Farmácia, Oficina..." required style="margin-bottom:0;">
+                        <button type="submit" class="btn-submit" style="width: auto; margin-top:0; padding: 0 16px; white-space: nowrap;">Criar</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="admin-section-divider"></div>
+
+            <!-- FORMULÁRIO DE PUBLICAÇÃO DE LOJAS -->
             <form id="admin-form" onsubmit="salvarNovoComercioAdmin(event)">
+                <div class="modal-title" style="font-size: 1.1rem; text-align: left; margin-bottom: 12px;">Publicar Novo Estabelecimento</div>
+                
                 <div class="form-group" style="text-align: left;">
                     <label>Nome do Estabelecimento:</label>
                     <input type="text" id="admin-nome" required placeholder="Ex: Boutique da Maria">
@@ -682,15 +675,7 @@
                 <div class="form-group" style="text-align: left;">
                     <label>Categoria:</label>
                     <select id="admin-categoria" required>
-                        <option value="saude">Saúde</option>
-                        <option value="reforco">Reforço Escolar</option>
-                        <option value="beleza">Beleza</option>
-                        <option value="moda">Moda</option>
-                        <option value="alimentacao">Alimentação</option>
-                        <option value="mercado">Mercado</option>
-                        <option value="padaria">Padaria</option>
-                        <option value="eletronicos">Eletrônicos</option>
-                        <option value="pet">Pet Shop</option>
+                        <!-- Gerado dinamicamente via JS em ordem alfabética -->
                     </select>
                 </div>
 
@@ -710,7 +695,7 @@
                 </div>
 
                 <button type="submit" class="btn-submit">➕ Publicar no Aplicativo</button>
-                <button type="button" class="modal-btn btn-close-modal" onclick="fecharPainelAdmin()">Cancelar</button>
+                <button type="button" class="modal-btn btn-close-modal" onclick="fecharPainelAdmin()">Fechar Painel</button>
             </form>
         </div>
     </div>
@@ -741,12 +726,103 @@
             }
         }
 
+        // CATEGORIAS PADRÃO
+        const categoriasPadrao = [
+            { id: 'alimentacao', nome: 'Alimentação' },
+            { id: 'beleza', nome: 'Beleza' },
+            { id: 'eletronicos', nome: 'Eletrônicos' },
+            { id: 'mercado', nome: 'Mercado' },
+            { id: 'moda', nome: 'Moda' },
+            { id: 'padaria', nome: 'Padaria' },
+            { id: 'pet', id_alt: 'pet', nome: 'Pet Shop' },
+            { id: 'reforco', nome: 'Reforço Escolar' },
+            { id: 'saude', nome: 'Saúde' }
+        ];
+
         let currentCategory = 'noticias';
 
+        function obterTodasCategoriasOrdenadas() {
+            let categoriasCustom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
+            
+            // Unir padrão + customizadas garantindo não duplicar por ID
+            let mapa = new Map();
+            categoriasPadrao.forEach(c => mapa.set(c.id, c.nome));
+            categoriasCustom.forEach(c => mapa.set(c.id, c.nome));
+
+            // Converter para Array e ordenar alfabeticamente pelo nome em PT-BR
+            let lista = [];
+            mapa.forEach((nome, id) => lista.push({ id, nome }));
+            lista.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+
+            return lista;
+        }
+
+        function renderizarBarraCategorias() {
+            const nav = document.getElementById('categories-nav-container');
+            const listaOrdenada = obterTodasCategoriasOrdenadas();
+
+            // Sempre 'Notícias' em primeiro lugar
+            let html = `<button class="cat-btn ${currentCategory === 'noticias' ? 'active' : ''}" onclick="filterCategory('noticias', this)">Notícias</button>`;
+
+            listaOrdenada.forEach(cat => {
+                const activeClass = currentCategory === cat.id ? 'active' : '';
+                html += `<button class="cat-btn ${activeClass}" onclick="filterCategory('${cat.id}', this)">${cat.nome}</button>`;
+            });
+
+            nav.innerHTML = html;
+            atualizarSelectsCategorias();
+        }
+
+        function atualizarSelectsCategorias() {
+            const listaOrdenada = obterTodasCategoriasOrdenadas();
+            const selectPublico = document.getElementById('loja-categoria');
+            const selectAdmin = document.getElementById('admin-categoria');
+
+            let optionsPublico = '<option value="">Selecione...</option>';
+            let optionsAdmin = '';
+
+            listaOrdenada.forEach(cat => {
+                optionsPublico += `<option value="${cat.nome}">${cat.nome}</option>`;
+                optionsAdmin += `<option value="${cat.id}">${cat.nome}</option>`;
+            });
+
+            if (selectPublico) selectPublico.innerHTML = optionsPublico;
+            if (selectAdmin) selectAdmin.innerHTML = optionsAdmin;
+        }
+
+        function adicionarNovaCategoriaAdmin(event) {
+            event.preventDefault();
+            const input = document.getElementById('admin-nova-categoria-nome');
+            const nomeCategoria = input.value.trim();
+
+            if (!nomeCategoria) return;
+
+            // Criar ID simplificado sem acentos/espaços
+            const idCategoria = nomeCategoria.toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9]/g, '');
+
+            let categoriasCustom = JSON.parse(localStorage.getItem('categorias_customizadas')) || [];
+            
+            // Verificar se já existe
+            const existe = obterTodasCategoriasOrdenadas().some(c => c.id === idCategoria || c.nome.toLowerCase() === nomeCategoria.toLowerCase());
+            
+            if (existe) {
+                alert('Esta categoria já existe!');
+                return;
+            }
+
+            categoriasCustom.push({ id: idCategoria, nome: nomeCategoria });
+            localStorage.setItem('categorias_customizadas', JSON.stringify(categoriasCustom));
+
+            input.value = '';
+            renderizarBarraCategorias();
+            alert(`Categoria "${nomeCategoria}" criada com sucesso!`);
+        }
+
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('welcome-modal').classList.add('active');
-            }, 300);
+            renderizarBarraCategorias();
             carregarNoticiasReais();
             carregarComerciosSalvos();
         });
@@ -759,15 +835,20 @@
             document.getElementById('user-register-modal').classList.remove('active');
         }
 
-        function fecharModalECadastrar() {
-            document.getElementById('welcome-modal').classList.remove('active');
-            abrirModalCadastroPublico();
-        }
-
         function filterCategory(category, btnElement) {
             currentCategory = category;
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            if(btnElement) btnElement.classList.add('active');
+            if (btnElement) {
+                btnElement.classList.add('active');
+            } else {
+                // Tenta encontrar pelo clique direto se o botão não for passado
+                const btns = document.querySelectorAll('.cat-btn');
+                btns.forEach(b => {
+                    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${category}'`)) {
+                        b.classList.add('active');
+                    }
+                });
+            }
 
             const newsContainer = document.getElementById('news-container');
             const storeCards = document.querySelectorAll('.store-card');
@@ -837,7 +918,7 @@
 
         /* --- LÓGICA DO PAINEL DO ADMINISTRADOR E PERSISTÊNCIA --- */
 
-        const ADMIN_PASSWORD = "1234";
+        const ADMIN_PASSWORD = "#Lis2019";
 
         function abrirPainelAdmin() {
             const pwd = prompt("Digite a senha do Administrador:");
@@ -881,8 +962,7 @@
 
             alert("Estabelecimento publicado com sucesso!");
 
-            const btnCat = Array.from(document.querySelectorAll('.cat-btn')).find(b => b.getAttribute('onclick').includes(`'${categoria}'`));
-            if(btnCat) filterCategory(categoria, btnCat);
+            filterCategory(categoria);
         }
 
         function carregarComerciosSalvos() {
@@ -898,24 +978,16 @@
             card.setAttribute('data-category', item.categoria);
             if(eCustom) card.setAttribute('data-custom-id', item.id);
 
-            const catMap = {
-                'saude': 'Saúde',
-                'reforco': 'Reforço Escolar',
-                'beleza': 'Beleza',
-                'moda': 'Moda',
-                'alimentacao': 'Alimentação',
-                'mercado': 'Mercado',
-                'padaria': 'Padaria',
-                'eletronicos': 'Eletrônicos',
-                'pet': 'Pet Shop'
-            };
+            const todasCategorias = obterTodasCategoriasOrdenadas();
+            const catObj = todasCategorias.find(c => c.id === item.categoria);
+            const nomeCategoriaExibicao = catObj ? catObj.nome : item.categoria;
 
             let enderecoHtml = item.endereco ? `<div class="store-address">📍 ${item.endereco}</div>` : '';
             let btnDelete = eCustom ? `<button class="btn-delete-store" onclick="removerComercioCustom(${item.id}, this)">Excluir</button>` : '';
 
             card.innerHTML = `
                 ${btnDelete}
-                <span class="store-tag">${catMap[item.categoria] || item.categoria}</span>
+                <span class="store-tag">${nomeCategoriaExibicao}</span>
                 <h3 class="store-name">${item.nome}</h3>
                 ${enderecoHtml}
                 <p class="store-desc">${item.desc}</p>
@@ -925,7 +997,7 @@
             container.appendChild(card);
             
             if(currentCategory !== 'noticias') {
-                filterCategory(currentCategory, document.querySelector('.cat-btn.active'));
+                filterCategory(currentCategory);
             }
         }
 
