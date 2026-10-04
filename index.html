@@ -311,6 +311,28 @@
             color: var(--text-dark);
         }
 
+        .password-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-input-wrapper input {
+            padding-right: 40px;
+        }
+
+        .btn-toggle-pass {
+            position: absolute;
+            right: 8px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px;
+            color: var(--text-muted);
+            line-height: 1;
+        }
+
         .btn-submit {
             width: 100%;
             background-color: var(--accent-green);
@@ -321,6 +343,19 @@
             font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            background-color: #64748b;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
         }
 
         .modal-overlay {
@@ -628,7 +663,13 @@
   <div class="modal-title">Acesso Restrito</div>
   <div class="modal-text">Digite a senha do Administrador.</div>
   <form onsubmit="entrar(event)">
-    <div class="form-group"><label for="admin-pass-input">Senha de Acesso:</label><input type="password" id="admin-pass-input" required placeholder="Digite sua senha..." autocomplete="current-password"></div>
+    <div class="form-group">
+      <label for="admin-pass-input">Senha de Acesso:</label>
+      <div class="password-input-wrapper">
+        <input type="password" id="admin-pass-input" required placeholder="Digite sua senha..." autocomplete="current-password">
+        <button type="button" class="btn-toggle-pass" onclick="alternarVisibilidadeSenha('admin-pass-input', this)">👁️</button>
+      </div>
+    </div>
     <div id="login-error-msg" class="login-error-msg"></div>
     <button type="submit" class="btn-submit" id="btn-entrar" style="margin-top:10px">Entrar</button>
     <button type="button" class="modal-btn btn-close-modal" onclick="fechar('admin-login-modal')">Cancelar</button>
@@ -654,7 +695,33 @@
   <div class="admin-tabs-title">Categorias</div>
   <form onsubmit="novaCategoria(event)"><div style="display:flex;gap:6px"><input type="text" id="admin-nova-categoria" placeholder="Nova categoria..." required maxlength="40" style="padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;width:100%"><button type="submit" class="btn-submit" style="width:auto;padding:0 12px">Criar</button></div></form>
   <div class="category-manage-list" id="admin-lista-categorias"></div>
+  <div class="admin-section-divider"></div>
+  <div class="admin-tabs-title">Segurança</div>
+  <button type="button" class="btn-secondary" onclick="abrirModalTrocarSenha()">🔑 Alterar Senha de Admin</button>
   <button type="button" class="modal-btn btn-close-modal" onclick="sairAdmin()" style="margin-top:12px">Sair do painel</button>
+</div></div>
+
+<div class="modal-overlay" id="change-pass-modal"><div class="modal-body">
+  <div class="modal-title">Alterar Senha do Admin</div>
+  <div class="modal-text">Defina a nova senha de acesso ao painel.</div>
+  <form onsubmit="salvarNovaSenha(event)">
+    <div class="form-group">
+      <label for="new-pass-input">Nova Senha:</label>
+      <div class="password-input-wrapper">
+        <input type="password" id="new-pass-input" required placeholder="Digite a nova senha...">
+        <button type="button" class="btn-toggle-pass" onclick="alternarVisibilidadeSenha('new-pass-input', this)">👁️</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="confirm-pass-input">Confirmar Nova Senha:</label>
+      <div class="password-input-wrapper">
+        <input type="password" id="confirm-pass-input" required placeholder="Confirme a nova senha...">
+        <button type="button" class="btn-toggle-pass" onclick="alternarVisibilidadeSenha('confirm-pass-input', this)">👁️</button>
+      </div>
+    </div>
+    <button type="submit" class="btn-submit" style="margin-top:10px">Salvar Nova Senha</button>
+    <button type="button" class="modal-btn btn-close-modal" onclick="fechar('change-pass-modal')">Cancelar</button>
+  </form>
 </div></div>
 
 <div class="modal-overlay" id="custom-dialog-modal"><div class="modal-body">
@@ -796,6 +863,21 @@ function fechar(id){$(id).classList.remove("active")}
 function abrirCadastro(){abrir("user-register-modal")}
 function guardar(d){try{localStorage.setItem("cm_dados",JSON.stringify({categorias:d.categorias,comercios:d.comercios}))}catch(e){}}
 
+function alternarVisibilidadeSenha(inputId, btnElement){
+  const input = $(inputId);
+  if (input.type === "password") {
+    input.type = "text";
+    btnElement.textContent = "🙈";
+  } else {
+    input.type = "password";
+    btnElement.textContent = "👁️";
+  }
+}
+
+function obterSenhaAtual(){
+  return localStorage.getItem("cm_admin_pass") || "#Mall2026";
+}
+
 function chamar(obj){
   return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(obj)}).then(function(r){return r.json()});
 }
@@ -905,7 +987,7 @@ function abrirLogin(){
 function entrar(e){
   e.preventDefault();
   const pass = $("admin-pass-input").value;
-  const SENHA_CORRETA = "#Mall2026";
+  const SENHA_CORRETA = obterSenhaAtual();
 
   if(apiOn()){
     chamar({acao:"login",senha:pass}).then(res => {
@@ -932,6 +1014,47 @@ function entrar(e){
       $("login-error-msg").textContent = "Senha incorreta!";
       $("login-error-msg").style.display = "block";
     }
+  }
+}
+
+function abrirModalTrocarSenha(){
+  $("new-pass-input").value = "";
+  $("confirm-pass-input").value = "";
+  abrir("change-pass-modal");
+}
+
+function salvarNovaSenha(e){
+  e.preventDefault();
+  const nova = $("new-pass-input").value;
+  const confirma = $("confirm-pass-input").value;
+
+  if(!nova){
+    mostrarAlerta("Erro", "A nova senha não pode estar em branco.");
+    return;
+  }
+
+  if(nova !== confirma){
+    mostrarAlerta("Erro", "As senhas digitadas não coincidem.");
+    return;
+  }
+
+  if(apiOn()){
+    chamar({acao:"alterarSenha",senhaAntiga:SENHA_ADMIN,novaSenha:nova}).then(res => {
+      if(res.sucesso){
+        SENHA_ADMIN = nova;
+        fechar("change-pass-modal");
+        mostrarAlerta("Sucesso", "Senha alterada com sucesso no servidor!");
+      } else {
+        mostrarAlerta("Erro", res.mensagem || "Não foi possível alterar a senha no servidor.");
+      }
+    }).catch(() => {
+      mostrarAlerta("Erro", "Falha de comunicação ao tentar alterar a senha no servidor.");
+    });
+  } else {
+    localStorage.setItem("cm_admin_pass", nova);
+    SENHA_ADMIN = nova;
+    fechar("change-pass-modal");
+    mostrarAlerta("Sucesso", "Senha do administrador alterada com sucesso!");
   }
 }
 
