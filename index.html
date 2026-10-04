@@ -1,517 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cajazeiras Mall</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-color: #f8fafc;
-            --surface-color: #ffffff;
-            --primary-color: #0f172a;
-            --primary-light: #1e293b;
-            --accent-color: #2563eb;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --radius-lg: 20px;
-            --radius-md: 14px;
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 480px;
-            background-color: var(--surface-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 0 0 40px rgba(0,0,0,0.03);
-        }
-
-        header {
-            padding: 20px 20px 12px 20px;
-            background: var(--surface-color);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .brand-title {
-            font-size: 1.25rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
-        }
-
-        .btn-admin-access {
-            background: #f1f5f9;
-            border: none;
-            padding: 8px 12px;
-            border-radius: var(--radius-md);
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-main);
-            cursor: pointer;
-        }
-
-        .main-content {
-            padding: 20px;
-            flex: 1;
-        }
-
-        .install-banner {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white;
-            padding: 14px 16px;
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .install-banner button {
-            background: white;
-            color: #2563eb;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
-
-        .btn-voltar {
-            background: none;
-            border: none;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--accent-color);
-            cursor: pointer;
-            margin-bottom: 16px;
-            display: none;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text-main);
-        }
-
-        /* Grelha de Categorias com Novos Ícones */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-        }
-
-        .cat-grid-card {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 18px 14px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .cat-grid-card:active {
-            transform: scale(0.98);
-        }
-
-        .cat-grid-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-        }
-
-        .cat-grid-title {
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        /* Cartões de Lojas */
-        .stores-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .store-card-featured {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 16px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .store-name-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .btn-whatsapp {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #25d366;
-            color: white;
-            text-decoration: none;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            width: 100%;
-            margin-top: 8px;
-        }
-
-        /* Modais */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 100;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            width: 100%;
-            max-width: 420px;
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .modal-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .btn-close-modal {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--text-muted);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .form-control:focus {
-            border-color: var(--accent-color);
-        }
-
-        .btn-primary {
-            width: 100%;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 6px;
-        }
-
-        .password-input-container {
-            position: relative;
-        }
-
-        .btn-toggle-password {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .category-manage-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.85rem;
-        }
-
-        .cat-item-actions button {
-            border: none;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-left: 4px;
-        }
-
-        .btn-cat-edit { background: #e0f2fe; color: #0284c7; }
-        .btn-cat-delete { background: #ffe4e6; color: #e11d48; }
-
-        .carregando {
-            text-align: center;
-            color: var(--text-muted);
-            padding: 20px;
-            font-size: 0.9rem;
-        }
-
-        /* Diálogo Personalizado */
-        .custom-dialog-btns {
-            display: flex;
-            gap: 10px;
-            margin-top: 16px;
-        }
-
-        .btn-dialog-cancel {
-            flex: 1;
-            background: #f1f5f9;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .btn-dialog-confirm {
-            flex: 1;
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .btn-dialog-danger {
-            flex: 1;
-            background: #e11d48;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="app-container">
-        <header>
-            <div class="brand-title">Cajazeiras Mall</div>
-            <button class="btn-admin-access" onclick="abrirLogin()">Área do Lojista</button>
-        </header>
-
-        <main class="main-content">
-            <div id="installContainer" class="install-banner" style="display: none;">
-                <div>
-                    <strong style="font-size: 0.85rem; display: block;">Instalar Aplicativo</strong>
-                    <span style="font-size: 0.75rem; opacity: 0.9;">Acesse mais rápido direto da sua tela inicial</span>
-                </div>
-                <button onclick="instalarApp()">Instalar</button>
-            </div>
-
-            <button id="btn-voltar-container" class="btn-voltar" onclick="voltarParaCategorias()">← Voltar às Categorias</button>
-
-            <h2 id="main-section-title" class="section-title">Navegue por Categorias</h2>
-
-            <div id="categories-grid-container" class="categories-grid"></div>
-
-            <div id="stores-container" class="stores-list"></div>
-        </main>
-    </div>
-
-    <!-- Modal Login Admin -->
-    <div id="admin-login-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Acesso do Lojista</h3>
-                <button class="btn-close-modal" onclick="fechar('admin-login-modal')">✕</button>
-            </div>
-            <form onsubmit="entrar(event)">
-                <div class="form-group">
-                    <label>Senha de Acesso</label>
-                    <div class="password-input-container">
-                        <input type="password" id="admin-pass-input" class="form-control" placeholder="Digite sua senha" required>
-                        <button type="button" class="btn-toggle-password" onclick="alternarVisibilidadeSenha('admin-pass-input', this)">👁️</button>
-                    </div>
-                </div>
-                <div id="login-error-msg" style="color: #e11d48; font-size: 0.8rem; margin-bottom: 10px; display: none;"></div>
-                <button type="submit" class="btn-primary">Entrar</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal Painel Admin -->
-    <div id="admin-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Painel de Gestão</h3>
-                <button class="btn-close-modal" onclick="sairAdmin()">✕</button>
-            </div>
-            
-            <div style="margin-bottom: 20px;">
-                <button type="button" onclick="abrirModalTrocarSenha()" style="background: none; border: none; color: var(--accent-color); font-size: 0.8rem; font-weight: 700; cursor: pointer;">🔑 Alterar Senha</button>
-            </div>
-
-            <!-- Form Cadastrar/Editar Comércio -->
-            <form id="admin-form" onsubmit="salvarComercio(event)" style="margin-bottom: 24px; background: #f8fafc; padding: 14px; border-radius: var(--radius-md);">
-                <strong id="admin-form-titulo" style="display: block; font-size: 0.9rem; margin-bottom: 10px;">Publicar estabelecimento</strong>
-                <div class="form-group">
-                    <input type="text" id="admin-nome" class="form-control" placeholder="Nome do Estabelecimento" required>
-                </div>
-                <div class="form-group">
-                    <select id="admin-categoria" class="form-control" required></select>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="admin-whatsapp" class="form-control" placeholder="WhatsApp (somente números)" required>
-                </div>
-                <div class="form-group">
-                    <textarea id="admin-desc" class="form-control" placeholder="Descrição dos serviços / produtos" rows="3" required></textarea>
-                </div>
-                <button type="submit" id="admin-btn-salvar" class="btn-primary">➕ Publicar</button>
-                <button type="button" id="admin-btn-cancelar-edicao" onclick="limparForm()" style="display: none; background: none; border: none; width: 100%; margin-top: 8px; color: var(--text-muted); font-size: 0.8rem; cursor: pointer;">Cancelar Edição</button>
-            </form>
-
-            <!-- Nova Categoria -->
-            <form onsubmit="novaCategoria(event)" style="margin-bottom: 24px;">
-                <strong style="display: block; font-size: 0.85rem; margin-bottom: 8px;">Nova Categoria</strong>
-                <div style="display: flex; gap: 8px;">
-                    <input type="text" id="admin-nova-categoria" class="form-control" placeholder="Nome da Categoria" required>
-                    <button type="submit" class="btn-primary" style="width: auto; margin-top: 0; white-space: nowrap;">Adicionar</button>
-                </div>
-            </form>
-
-            <strong style="display: block; font-size: 0.85rem; margin-bottom: 8px;">Comércios Cadastrados</strong>
-            <div id="admin-lista-comercios" style="margin-bottom: 20px;"></div>
-
-            <strong style="display: block; font-size: 0.85rem; margin-bottom: 8px;">Categorias Existentes</strong>
-            <div id="admin-lista-categorias"></div>
-        </div>
-    </div>
-
-    <!-- Modal Alterar Senha -->
-    <div id="change-pass-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Alterar Senha</h3>
-                <button class="btn-close-modal" onclick="fechar('change-pass-modal')">✕</button>
-            </div>
-            <form onsubmit="salvarNovaSenha(event)">
-                <div class="form-group">
-                    <label>Nova Senha</label>
-                    <div class="password-input-container">
-                        <input type="password" id="new-pass-input" class="form-control" required>
-                        <button type="button" class="btn-toggle-password" onclick="alternarVisibilidadeSenha('new-pass-input', this)">👁️</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Confirmar Nova Senha</label>
-                    <div class="password-input-container">
-                        <input type="password" id="confirm-pass-input" class="form-control" required>
-                        <button type="button" class="btn-toggle-password" onclick="alternarVisibilidadeSenha('confirm-pass-input', this)">👁️</button>
-                    </div>
-                </div>
-                <button type="submit" class="btn-primary">Salvar Nova Senha</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal Diálogo Personalizado -->
-    <div id="custom-dialog-modal" class="modal">
-        <div class="modal-content">
-            <h3 id="custom-dialog-title" class="modal-title" style="margin-bottom: 8px;"></h3>
-            <p id="custom-dialog-desc" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;"></p>
-            <div id="custom-dialog-input-container"></div>
-            <div id="custom-dialog-btns" class="custom-dialog-btns"></div>
-        </div>
-    </div>
-
-    <script src="config.js?v=8"></script>
-    <script>
+<script src="config.js?v=8"></script>
+<script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js?v=8').then(reg => {
@@ -585,452 +73,441 @@
             }
         }
 
-        var API = (typeof CONFIG !== 'undefined' && CONFIG.API) ? CONFIG.API : "";
+var API = (typeof CONFIG !== 'undefined' && CONFIG.API) ? CONFIG.API : "";
 
-        var PADRAO = {
-            categorias: ["Alimentação", "Beleza", "Moda", "Reforço Escolar", "Saúde"],
-            comercios: [
-                {id:"1",nome:"Reforço Escolar Tia Sandra",categoria:"Reforço Escolar",whatsapp:"85997354638",desc:"Trabalho com reforço escolar para educação infantil e ensino fundamental I."},
-                {id:"2",nome:"Jamille Araújo Espaço da Beleza e do Bronze",categoria:"Beleza",whatsapp:"85988961380",desc:"Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua e bronze."},
-                {id:"3",nome:"Nayanne Nascimento Salão de Beleza",categoria:"Beleza",whatsapp:"85921490223",desc:"Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados."},
-                {id:"4",nome:"Boomerang Sanduíches",categoria:"Alimentação",whatsapp:"85987012328",desc:"Hamburgueria com opções de sanduíches e lanches."},
-                {id:"5",nome:"Farmácia Super Farma",categoria:"Saúde",whatsapp:"85996656572",desc:"O super cuidado para sua saúde!"},
-                {id:"6",nome:"Barfruta",categoria:"Alimentação",whatsapp:"85988408564",desc:"Polpas de frutas de diversos sabores e morango congelado."},
-                {id:"7",nome:"Alemão e Cléa Espetaria e Pratinhos",categoria:"Alimentação",whatsapp:"85996277402",desc:"Espetos variados e pratinhos tradicionais."},
-                {id:"8",nome:"Amadas Artigos Femininos, Fardamentos e Acessórios",categoria:"Moda",whatsapp:"85996482898",desc:"• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios"}
-            ]
-        };
+var PADRAO = {categorias:["Alimentação","Beleza","Moda","Reforço Escolar","Saúde"],comercios:[
+ {id:"1",nome:"Reforço Escolar Tia Sandra",categoria:"Reforço Escolar",whatsapp:"85997354638",desc:"Trabalho com reforço escolar para educação infantil e ensino fundamental I."},
+ {id:"2",nome:"Jamille Araújo Espaço da Beleza e do Bronze",categoria:"Beleza",whatsapp:"85988961380",desc:"Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua e bronze."},
+ {id:"3",nome:"Nayanne Nascimento Salão de Beleza",categoria:"Beleza",whatsapp:"85921490223",desc:"Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados."},
+ {id:"4",nome:"Boomerang Sanduíches",categoria:"Alimentação",whatsapp:"85987012328",desc:"Hamburgueria com opções de sanduíches e lanches."},
+ {id:"5",nome:"Farmácia Super Farma",categoria:"Saúde",whatsapp:"85996656572",desc:"O super cuidado para sua saúde!"},
+ {id:"6",nome:"Barfruta",categoria:"Alimentação",whatsapp:"85988408564",desc:"Polpas de frutas de diversos sabores e morango congelado."},
+ {id:"7",nome:"Alemão e Cléa Espetaria e Pratinhos",categoria:"Alimentação",whatsapp:"85996277402",desc:"Espetos variados e pratinhos tradicionais."},
+ {id:"8",nome:"Amadas Artigos Femininos, Fardamentos e Acessórios",categoria:"Moda",whatsapp:"85996482898",desc:"• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios"}]};
 
-        var CORES_CAT = [
-            {bg:"#ffefe2", text:"#e05600"}, // Laranja / Alimentação
-            {bg:"#fdebf3", text:"#d61f69"}, // Rosa / Beleza
-            {bg:"#f3e8ff", text:"#7e22ce"}, // Roxo / Moda
-            {bg:"#e6f7ed", text:"#10b981"}, // Verde / Serviços
-            {bg:"#e0f2fe", text:"#0284c7"}, // Azul / Casa
-            {bg:"#e0e7ff", text:"#4338ca"}, // Índigo / Tecnologia
-            {bg:"#fef3c7", text:"#d97706"}, // Amarelo / Mercados
-            {bg:"#ffe4e6", text:"#e11d48"}  // Vermelho / Saúde
-        ];
+var CORES_CAT=[
+  {bg:"#ffefe2", text:"#e05600"}, // Laranja / Alimentação
+  {bg:"#fdebf3", text:"#d61f69"}, // Rosa / Beleza
+  {bg:"#f3e8ff", text:"#7e22ce"}, // Roxo / Moda
+  {bg:"#e6f7ed", text:"#10b981"}, // Verde / Serviços
+  {bg:"#e0f2fe", text:"#0284c7"}, // Azul / Casa
+  {bg:"#e0e7ff", text:"#4338ca"}, // Índigo / Tecnologia
+  {bg:"#fef3c7", text:"#d97706"}, // Amarelo / Mercados
+  {bg:"#ffe4e6", text:"#e11d48"}  // Vermelho / Saúde
+];
 
-        // Ícones SVG Vetoriais Modernos (Estilo Feather / Lucide)
-        var SVGS = {
-            utensils: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2"/><path d="M15 2v16"/><path d="M21 2v8a2 2 0 0 1-2 2h-1.5a1.5 1.5 0 0 1-1.5-1.5V2"/><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/></svg>`,
-            sparkles: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>`,
-            shirt: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>`,
-            wrench: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
-            home: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-            tv: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`,
-            shoppingCart: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>`,
-            cross: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2a1 1 0 0 1 2 0v7h7a1 1 0 0 1 0 2h-7v7a1 1 0 0 1-2 0v-7H4a1 1 0 0 1 0-2h7V2z"/></svg>`,
-            book: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>`,
-            store: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2V7"/></svg>`
-        };
+// Ícones SVG Vetoriais Modernos e Minimalistas
+var SVGS = {
+  utensils: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
+  sparkles: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>`,
+  shirt: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>`,
+  wrench: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+  home: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+  tv: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`,
+  shoppingCart: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>`,
+  cross: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2a1 1 0 0 1 2 0v7h7a1 1 0 0 1 0 2h-7v7a1 1 0 0 1-2 0v-7H4a1 1 0 0 1 0-2h7V2z"/></svg>`,
+  book: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>`,
+  store: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2V7"/></svg>`
+};
 
-        var MAPA_ICONES = [
-            ["alimen", SVGS.utensils],
-            ["comida", SVGS.utensils],
-            ["restaur", SVGS.utensils],
-            ["lanche", SVGS.utensils],
-            ["beleza", SVGS.sparkles],
-            ["salão", SVGS.sparkles],
-            ["estética", SVGS.sparkles],
-            ["moda", SVGS.shirt],
-            ["roupa", SVGS.shirt],
-            ["serviço", SVGS.wrench],
-            ["auto", SVGS.wrench],
-            ["oficina", SVGS.wrench],
-            ["casa", SVGS.home],
-            ["constru", SVGS.home],
-            ["tecno", SVGS.tv],
-            ["eletr", SVGS.tv],
-            ["mercad", SVGS.shoppingCart],
-            ["mercearia", SVGS.shoppingCart],
-            ["saúde", SVGS.cross],
-            ["farm", SVGS.cross],
-            ["clínica", SVGS.cross],
-            ["reforço", SVGS.book],
-            ["escola", SVGS.book],
-            ["curso", SVGS.book]
-        ];
+var MAPA_ICONES = [
+  ["alimen", SVGS.utensils],
+  ["comida", SVGS.utensils],
+  ["restaur", SVGS.utensils],
+  ["lanche", SVGS.utensils],
+  ["beleza", SVGS.sparkles],
+  ["salão", SVGS.sparkles],
+  ["estética", SVGS.sparkles],
+  ["moda", SVGS.shirt],
+  ["roupa", SVGS.shirt],
+  ["serviço", SVGS.wrench],
+  ["auto", SVGS.wrench],
+  ["oficina", SVGS.wrench],
+  ["casa", SVGS.home],
+  ["constru", SVGS.home],
+  ["tecno", SVGS.tv],
+  ["eletr", SVGS.tv],
+  ["mercad", SVGS.shoppingCart],
+  ["mercearia", SVGS.shoppingCart],
+  ["saúde", SVGS.cross],
+  ["farm", SVGS.cross],
+  ["clínica", SVGS.cross],
+  ["reforço", SVGS.book],
+  ["escola", SVGS.book],
+  ["curso", SVGS.book]
+];
 
-        function iconeDe(n) {
-            var t = String(n).toLowerCase();
-            for(var i = 0; i < MAPA_ICONES.length; i++) {
-                if(t.indexOf(MAPA_ICONES[i][0]) > -1) return MAPA_ICONES[i][1];
-            }
-            return SVGS.store;
+function iconeDe(n){
+  var t = String(n).toLowerCase();
+  for(var i=0; i<MAPA_ICONES.length; i++){
+    if(t.indexOf(MAPA_ICONES[i][0]) > -1) return MAPA_ICONES[i][1];
+  }
+  return SVGS.store;
+}
+
+function corDe(n){
+  var h=0;
+  for(var i=0; i<n.length; i++) h += n.charCodeAt(i);
+  return CORES_CAT[h % CORES_CAT.length];
+}
+
+var DATA=null, SENHA_ADMIN=null, CAT_ATUAL=null, EDIT_ID=null;
+function $(i){return document.getElementById(i)}
+function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function apiOn(){return API.indexOf("https://")===0}
+function zapLink(n){var d=String(n).replace(/\D/g,"");if(d.length<=11)d="55"+d;return "https://wa.me/"+d}
+function abrir(id){$(id).classList.add("active")}
+function fechar(id){$(id).classList.remove("active")}
+function abrirCadastro(){abrir("user-register-modal")}
+function guardar(d){try{localStorage.setItem("cm_dados",JSON.stringify({categorias:d.categorias,comercios:d.comercios}))}catch(e){}}
+
+function alternarVisibilidadeSenha(inputId, btnElement){
+  const input = $(inputId);
+  if (input.type === "password") {
+    input.type = "text";
+    btnElement.textContent = "🙈";
+  } else {
+    input.type = "password";
+    btnElement.textContent = "👁️";
+  }
+}
+
+function obterSenhaAtual(){
+  return localStorage.getItem("cm_admin_pass") || "#Mall2026";
+}
+
+function chamar(obj){
+  return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(obj)}).then(function(r){return r.json()});
+}
+
+function carregar(){
+  if (!history.state || !history.state.home) {
+    history.replaceState({ home: true, categoria: null }, "", window.location.pathname);
+  }
+
+  var cache=null;try{cache=JSON.parse(localStorage.getItem("cm_dados"))}catch(e){}
+  DATA=cache||(apiOn()?{categorias:[],comercios:[],carregando:true}:PADRAO);
+  desenhar();
+  if(!apiOn())return;
+  fetch(API+"?acao=listar").then(function(r){return r.json()}).then(function(d){
+    if(d&&d.comercios){DATA={categorias:d.categorias,comercios:d.comercios};guardar(DATA);desenhar()}
+  }).catch(function(){ if(DATA.carregando){DATA=PADRAO;desenhar()} });
+}
+
+function selecionarCategoria(cat, registrarHistorico = true){
+  CAT_ATUAL = cat;
+  if(registrarHistorico && cat){
+    history.pushState({ home: false, categoria: cat }, "", "#cat=" + encodeURIComponent(cat));
+  }
+  desenhar();
+}
+
+function voltarParaCategorias(registrarHistorico = true){
+  CAT_ATUAL = null;
+  if(registrarHistorico){
+    history.pushState({ home: true, categoria: null }, "", window.location.pathname);
+  }
+  desenhar();
+}
+
+window.addEventListener("popstate", function(e) {
+  if (e.state && e.state.categoria) {
+    selecionarCategoria(e.state.categoria, false);
+  } else {
+    voltarParaCategorias(false);
+  }
+});
+
+function desenhar(){
+  if(!DATA) return;
+  
+  const containerGrid = $("categories-grid-container");
+  const containerLoja = $("stores-container");
+  const btnVoltar = $("btn-voltar-container");
+  const tituloSecao = $("main-section-title");
+  const secaoEstatica = $("static-featured-section");
+
+  const selCadastro = $("loja-categoria");
+  if(selCadastro && DATA.categorias){
+    selCadastro.innerHTML = DATA.categorias.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  }
+
+  if(CAT_ATUAL) {
+    btnVoltar.style.display = "block";
+    containerGrid.style.display = "none";
+    if(secaoEstatica) secaoEstatica.style.display = "none";
+    tituloSecao.textContent = CAT_ATUAL;
+
+    const lojas = (DATA.comercios || []).filter(c => c.categoria === CAT_ATUAL);
+    if(lojas.length === 0) {
+      containerLoja.innerHTML = '<div class="carregando">Nenhum estabelecimento nesta categoria.</div>';
+    } else {
+      containerLoja.innerHTML = lojas.map(l => `
+        <div class="store-card-featured">
+          <div class="store-card-body">
+            <span style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${esc(l.categoria)}</span>
+            <div class="store-name-title" style="margin-top: 4px;">${esc(l.nome)}</div>
+            <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; white-space: pre-line;">${esc(l.desc)}</div>
+            <a href="${zapLink(l.whatsapp)}" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+          </div>
+        </div>
+      `).join('');
+    }
+  } else {
+    btnVoltar.style.display = "none";
+    containerLoja.innerHTML = "";
+    containerGrid.style.display = "grid";
+    if(secaoEstatica) secaoEstatica.style.display = "block";
+    tituloSecao.textContent = "Navegue por Categorias";
+
+    if(DATA.carregando) {
+      containerGrid.innerHTML = '<div class="carregando">Carregando dados...</div>';
+      return;
+    }
+
+    containerGrid.innerHTML = (DATA.categorias || []).map(cat => {
+      const esquemaCor = corDe(cat);
+      const iconSvg = iconeDe(cat);
+      return `
+        <div class="cat-grid-card" onclick="selecionarCategoria('${esc(cat)}')">
+          <div class="cat-grid-icon" style="background:${esquemaCor.bg}; color:${esquemaCor.text}">
+            ${iconSvg}
+          </div>
+          <div class="cat-grid-title">${esc(cat)}</div>
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+function abrirLogin(){
+  $("login-error-msg").style.display = "none";
+  $("admin-pass-input").value = "";
+  abrir("admin-login-modal");
+}
+
+function entrar(e){
+  e.preventDefault();
+  const pass = $("admin-pass-input").value.trim();
+  const SENHA_CORRETA = obterSenhaAtual();
+
+  if(apiOn()){
+    chamar({acao:"login",senha:pass}).then(res => {
+      if(res.sucesso){
+        SENHA_ADMIN = pass;
+        fechar("admin-login-modal");
+        carregarPainelAdmin();
+        abrir("admin-modal");
+      } else {
+        if(pass === SENHA_CORRETA) {
+          SENHA_ADMIN = pass;
+          fechar("admin-login-modal");
+          carregarPainelAdmin();
+          abrir("admin-modal");
+        } else {
+          $("login-error-msg").textContent = "Senha incorreta!";
+          $("login-error-msg").style.display = "block";
         }
+      }
+    }).catch(() => {
+      if(pass === SENHA_CORRETA) {
+        SENHA_ADMIN = pass;
+        fechar("admin-login-modal");
+        carregarPainelAdmin();
+        abrir("admin-modal");
+      } else {
+        $("login-error-msg").textContent = "Senha incorreta ou erro de conexão.";
+        $("login-error-msg").style.display = "block";
+      }
+    });
+  } else {
+    if(pass === SENHA_CORRETA){
+      SENHA_ADMIN = pass;
+      fechar("admin-login-modal");
+      carregarPainelAdmin();
+      abrir("admin-modal");
+    } else {
+      $("login-error-msg").textContent = "Senha incorreta!";
+      $("login-error-msg").style.display = "block";
+    }
+  }
+}
 
-        function corDe(n) {
-            var h = 0;
-            for(var i = 0; i < n.length; i++) h += n.charCodeAt(i);
-            return CORES_CAT[h % CORES_CAT.length];
-        }
+function abrirModalTrocarSenha(){
+  $("new-pass-input").value = "";
+  $("confirm-pass-input").value = "";
+  abrir("change-pass-modal");
+}
 
-        var DATA = null, SENHA_ADMIN = null, CAT_ATUAL = null, EDIT_ID = null;
-        function $(i){ return document.getElementById(i); }
-        function esc(t){ return String(t==null?"":t).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
-        function apiOn(){ return API.indexOf("https://") === 0; }
-        function zapLink(n){ var d = String(n).replace(/\D/g,""); if(d.length <= 11) d = "55" + d; return "https://wa.me/" + d; }
-        function abrir(id){ $(id).classList.add("active"); }
-        function fechar(id){ $(id).classList.remove("active"); }
-        function guardar(d){ try { localStorage.setItem("cm_dados", JSON.stringify({categorias: d.categorias, comercios: d.comercios})); } catch(e){} }
+function salvarNovaSenha(e){
+  e.preventDefault();
+  const nova = $("new-pass-input").value.trim();
+  const confirma = $("confirm-pass-input").value.trim();
 
-        function alternarVisibilidadeSenha(inputId, btnElement){
-            const input = $(inputId);
-            if (input.type === "password") {
-                input.type = "text";
-                btnElement.textContent = "🙈";
-            } else {
-                input.type = "password";
-                btnElement.textContent = "👁️";
-            }
-        }
+  if(!nova){
+    mostrarAlerta("Erro", "A nova senha não pode estar em branco.");
+    return;
+  }
 
-        function obterSenhaAtual(){
-            return localStorage.getItem("cm_admin_pass") || "#Mall2026";
-        }
+  if(nova !== confirma){
+    mostrarAlerta("Erro", "As senhas digitadas não coincidem.");
+    return;
+  }
 
-        function chamar(obj){
-            return fetch(API, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(obj)}).then(r => r.json());
-        }
+  localStorage.setItem("cm_admin_pass", nova);
+  SENHA_ADMIN = nova;
 
-        function carregar(){
-            if (!history.state || !history.state.home) {
-                history.replaceState({ home: true, categoria: null }, "", window.location.pathname);
-            }
+  if(apiOn()){
+    chamar({acao:"alterarSenha",senhaAntiga:SENHA_ADMIN,novaSenha:nova}).catch(() => {});
+  }
 
-            var cache = null;
-            try { cache = JSON.parse(localStorage.getItem("cm_dados")); } catch(e){}
-            DATA = cache || (apiOn() ? {categorias:[], comercios:[], carregando:true} : PADRAO);
-            desenhar();
-            
-            if(!apiOn()) return;
-            fetch(API + "?acao=listar").then(r => r.json()).then(d => {
-                if(d && d.comercios){
-                    DATA = {categorias: d.categorias, comercios: d.comercios};
-                    guardar(DATA);
-                    desenhar();
-                }
-            }).catch(() => {
-                if(DATA.carregando){
-                    DATA = PADRAO;
-                    desenhar();
-                }
-            });
-        }
+  fechar("change-pass-modal");
+  mostrarAlerta("Sucesso", "Senha do administrador alterada com sucesso localmente!");
+}
 
-        function selecionarCategoria(cat, registrarHistorico = true){
-            CAT_ATUAL = cat;
-            if(registrarHistorico && cat){
-                history.pushState({ home: false, categoria: cat }, "", "#cat=" + encodeURIComponent(cat));
-            }
-            desenhar();
-        }
+function carregarPainelAdmin(){
+  const selCat = $("admin-categoria");
+  selCat.innerHTML = (DATA.categorias || []).map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
 
-        function voltarParaCategorias(registrarHistorico = true){
-            CAT_ATUAL = null;
-            if(registrarHistorico){
-                history.pushState({ home: true, categoria: null }, "", window.location.pathname);
-            }
-            desenhar();
-        }
+  const listaComercios = $("admin-lista-comercios");
+  listaComercios.innerHTML = (DATA.comercios || []).map(l => `
+    <div class="category-manage-item">
+      <span>${esc(l.nome)} (${esc(l.categoria)})</span>
+      <div class="cat-item-actions">
+        <button class="btn-cat-edit" onclick="editarComercio('${l.id}')">Editar</button>
+        <button class="btn-cat-delete" onclick="excluirComercio('${l.id}')">Excluir</button>
+      </div>
+    </div>
+  `).join('');
 
-        window.addEventListener("popstate", function(e) {
-            if (e.state && e.state.categoria) {
-                selecionarCategoria(e.state.categoria, false);
-            } else {
-                voltarParaCategorias(false);
-            }
-        });
+  const listaCategorias = $("admin-lista-categorias");
+  listaCategorias.innerHTML = (DATA.categorias || []).map(c => `
+    <div class="category-manage-item">
+      <span>${esc(c)}</span>
+      <div class="cat-item-actions">
+        <button class="btn-cat-delete" onclick="excluirCategoria('${esc(c)}')">Excluir</button>
+      </div>
+    </div>
+  `).join('');
+}
 
-        function desenhar(){
-            if(!DATA) return;
-            
-            const containerGrid = $("categories-grid-container");
-            const containerLoja = $("stores-container");
-            const btnVoltar = $("btn-voltar-container");
-            const tituloSecao = $("main-section-title");
+function salvarComercio(e){
+  e.preventDefault();
+  const item = {
+    id: EDIT_ID || String(Date.now()),
+    nome: $("admin-nome").value,
+    categoria: $("admin-categoria").value,
+    whatsapp: $("admin-whatsapp").value,
+    desc: $("admin-desc").value
+  };
 
-            const selCadastro = $("admin-categoria");
-            if(selCadastro && DATA.categorias){
-                selCadastro.innerHTML = DATA.categorias.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
-            }
-
-            if(CAT_ATUAL) {
-                btnVoltar.style.display = "block";
-                containerGrid.style.display = "none";
-                tituloSecao.textContent = CAT_ATUAL;
-
-                const lojas = (DATA.comercios || []).filter(c => c.categoria === CAT_ATUAL);
-                if(lojas.length === 0) {
-                    containerLoja.innerHTML = '<div class="carregando">Nenhum estabelecimento nesta categoria.</div>';
-                } else {
-                    containerLoja.innerHTML = lojas.map(l => `
-                        <div class="store-card-featured">
-                            <span style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${esc(l.categoria)}</span>
-                            <div class="store-name-title" style="margin-top: 4px;">${esc(l.nome)}</div>
-                            <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; margin-bottom: 12px; white-space: pre-line;">${esc(l.desc)}</div>
-                            <a href="${zapLink(l.whatsapp)}" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-                        </div>
-                    `).join('');
-                }
-            } else {
-                btnVoltar.style.display = "none";
-                containerLoja.innerHTML = "";
-                containerGrid.style.display = "grid";
-                tituloSecao.textContent = "Navegue por Categorias";
-
-                if(DATA.carregando) {
-                    containerGrid.innerHTML = '<div class="carregando">Carregando dados...</div>';
-                    return;
-                }
-
-                containerGrid.innerHTML = (DATA.categorias || []).map(cat => {
-                    const esquemaCor = corDe(cat);
-                    const iconSvg = iconeDe(cat);
-                    return `
-                        <div class="cat-grid-card" onclick="selecionarCategoria('${esc(cat)}')">
-                            <div class="cat-grid-icon" style="background:${esquemaCor.bg}; color:${esquemaCor.text}">
-                                ${iconSvg}
-                            </div>
-                            <div class="cat-grid-title">${esc(cat)}</div>
-                        </div>
-                    `;
-                }).join('');
-            }
-        }
-
-        function abrirLogin(){
-            $("login-error-msg").style.display = "none";
-            $("admin-pass-input").value = "";
-            abrir("admin-login-modal");
-        }
-
-        function entrar(e){
-            e.preventDefault();
-            const pass = $("admin-pass-input").value.trim();
-            const SENHA_CORRETA = obterSenhaAtual();
-
-            if(apiOn()){
-                chamar({acao:"login", senha:pass}).then(res => {
-                    if(res.sucesso){
-                        SENHA_ADMIN = pass;
-                        fechar("admin-login-modal");
-                        carregarPainelAdmin();
-                        abrir("admin-modal");
-                    } else {
-                        if(pass === SENHA_CORRETA) {
-                            SENHA_ADMIN = pass;
-                            fechar("admin-login-modal");
-                            carregarPainelAdmin();
-                            abrir("admin-modal");
-                        } else {
-                            $("login-error-msg").textContent = "Senha incorreta!";
-                            $("login-error-msg").style.display = "block";
-                        }
-                    }
-                }).catch(() => {
-                    if(pass === SENHA_CORRETA) {
-                        SENHA_ADMIN = pass;
-                        fechar("admin-login-modal");
-                        carregarPainelAdmin();
-                        abrir("admin-modal");
-                    } else {
-                        $("login-error-msg").textContent = "Senha incorreta ou erro de conexão.";
-                        $("login-error-msg").style.display = "block";
-                    }
-                });
-            } else {
-                if(pass === SENHA_CORRETA){
-                    SENHA_ADMIN = pass;
-                    fechar("admin-login-modal");
-                    carregarPainelAdmin();
-                    abrir("admin-modal");
-                } else {
-                    $("login-error-msg").textContent = "Senha incorreta!";
-                    $("login-error-msg").style.display = "block";
-                }
-            }
-        }
-
-        function abrirModalTrocarSenha(){
-            $("new-pass-input").value = "";
-            $("confirm-pass-input").value = "";
-            abrir("change-pass-modal");
-        }
-
-        function salvarNovaSenha(e){
-            e.preventDefault();
-            const nova = $("new-pass-input").value.trim();
-            const confirma = $("confirm-pass-input").value.trim();
-
-            if(!nova){
-                mostrarAlerta("Erro", "A nova senha não pode estar em branco.");
-                return;
-            }
-
-            if(nova !== confirma){
-                mostrarAlerta("Erro", "As senhas digitadas não coincidem.");
-                return;
-            }
-
-            localStorage.setItem("cm_admin_pass", nova);
-            SENHA_ADMIN = nova;
-
-            if(apiOn()){
-                chamar({acao:"alterarSenha", senhaAntiga:SENHA_ADMIN, novaSenha:nova}).catch(() => {});
-            }
-
-            fechar("change-pass-modal");
-            mostrarAlerta("Sucesso", "Senha do administrador alterada com sucesso localmente!");
-        }
-
-        function carregarPainelAdmin(){
-            const selCat = $("admin-categoria");
-            selCat.innerHTML = (DATA.categorias || []).map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
-
-            const listaComercios = $("admin-lista-comercios");
-            listaComercios.innerHTML = (DATA.comercios || []).map(l => `
-                <div class="category-manage-item">
-                    <span>${esc(l.nome)} (${esc(l.categoria)})</span>
-                    <div class="cat-item-actions">
-                        <button class="btn-cat-edit" onclick="editarComercio('${l.id}')">Editar</button>
-                        <button class="btn-cat-delete" onclick="excluirComercio('${l.id}')">Excluir</button>
-                    </div>
-                </div>
-            `).join('');
-
-            const listaCategorias = $("admin-lista-categorias");
-            listaCategorias.innerHTML = (DATA.categorias || []).map(c => `
-                <div class="category-manage-item">
-                    <span>${esc(c)}</span>
-                    <div class="cat-item-actions">
-                        <button class="btn-cat-delete" onclick="excluirCategoria('${esc(c)}')">Excluir</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function salvarComercio(e){
-            e.preventDefault();
-            const item = {
-                id: EDIT_ID || String(Date.now()),
-                nome: $("admin-nome").value,
-                categoria: $("admin-categoria").value,
-                whatsapp: $("admin-whatsapp").value,
-                desc: $("admin-desc").value
-            };
-
-            if(apiOn()){
-                chamar({acao:"salvarComercio", senha:SENHA_ADMIN, comercio:item}).then(res => {
-                    if(res.sucesso){
-                        mostrarAlerta("Sucesso", "Estabelecimento publicado com sucesso!");
-                        limparForm();
-                        carregar();
-                        carregarPainelAdmin();
-                    }
-                });
-            } else {
-                if(EDIT_ID){
-                    const idx = DATA.comercios.findIndex(c => c.id === EDIT_ID);
-                    if(idx > -1) DATA.comercios[idx] = item;
-                } else {
-                    DATA.comercios.push(item);
-                }
-                guardar(DATA);
-                limparForm();
-                desenhar();
-                carregarPainelAdmin();
-            }
-        }
-
-        function editarComercio(id){
-            const l = DATA.comercios.find(c => c.id === id);
-            if(!l) return;
-            EDIT_ID = id;
-            $("admin-nome").value = l.nome;
-            $("admin-categoria").value = l.categoria;
-            $("admin-whatsapp").value = l.whatsapp;
-            $("admin-desc").value = l.desc;
-            $("admin-form-titulo").textContent = "Editar estabelecimento";
-            $("admin-btn-salvar").textContent = "💾 Salvar alterações";
-            $("admin-btn-cancelar-edicao").style.display = "block";
-        }
-
-        function limparForm(){
-            EDIT_ID = null;
-            $("admin-form").reset();
-            $("admin-form-titulo").textContent = "Publicar estabelecimento";
-            $("admin-btn-salvar").textContent = "➕ Publicar";
-            $("admin-btn-cancelar-edicao").style.display = "none";
-        }
-
-        function excluirComercio(id){
-            mostrarConfirmacao("Excluir", "Deseja remover este estabelecimento?", () => {
-                if(apiOn()){
-                    chamar({acao:"excluirComercio", senha:SENHA_ADMIN, id:id}).then(res => {
-                        if(res.sucesso){
-                            carregar();
-                            carregarPainelAdmin();
-                        }
-                    });
-                } else {
-                    DATA.comercios = DATA.comercios.filter(c => c.id !== id);
-                    guardar(DATA);
-                    desenhar();
-                    carregarPainelAdmin();
-                }
-            }, true);
-        }
-
-        function novaCategoria(e){
-            e.preventDefault();
-            const nova = $("admin-nova-categoria").value.trim();
-            if(!nova) return;
-
-            if(apiOn()){
-                chamar({acao:"salvarCategoria", senha:SENHA_ADMIN, categoria:nova}).then(res => {
-                    if(res.sucesso){
-                        $("admin-nova-categoria").value = "";
-                        carregar();
-                        carregarPainelAdmin();
-                    }
-                });
-            } else {
-                if(!DATA.categorias.includes(nova)) DATA.categorias.push(nova);
-                guardar(DATA);
-                $("admin-nova-categoria").value = "";
-                desenhar();
-                carregarPainelAdmin();
-            }
-        }
-
-        function excluirCategoria(cat){
-            mostrarConfirmacao("Excluir Categoria", `Deseja apagar a categoria "${cat}"?`, () => {
-                if(apiOn()){
-                    chamar({acao:"excluirCategoria", senha:SENHA_ADMIN, categoria:cat}).then(res => {
-                        if(res.sucesso){
-                            carregar();
-                            carregarPainelAdmin();
-                        }
-                    });
-                } else {
-                    DATA.categorias = DATA.categorias.filter(c => c !== cat);
-                    guardar(DATA);
-                    desenhar();
-                    carregarPainelAdmin();
-                }
-            }, true);
-        }
-
-        function sairAdmin(){
-            SENHA_ADMIN = null;
-            limparForm();
-            fechar("admin-modal");
-        }
-
+  if(apiOn()){
+    chamar({acao:"salvarComercio",senha:SENHA_ADMIN,comercio:item}).then(res => {
+      if(res.sucesso){
+        mostrarAlerta("Sucesso", "Estabelecimento publicado com sucesso!");
+        limparForm();
         carregar();
-    </script>
-</body>
-</html>
+        carregarPainelAdmin();
+      }
+    });
+  } else {
+    if(EDIT_ID){
+      const idx = DATA.comercios.findIndex(c => c.id === EDIT_ID);
+      if(idx > -1) DATA.comercios[idx] = item;
+    } else {
+      DATA.comercios.push(item);
+    }
+    guardar(DATA);
+    limparForm();
+    desenhar();
+    carregarPainelAdmin();
+  }
+}
+
+function editarComercio(id){
+  const l = DATA.comercios.find(c => c.id === id);
+  if(!l) return;
+  EDIT_ID = id;
+  $("admin-nome").value = l.nome;
+  $("admin-categoria").value = l.categoria;
+  $("admin-whatsapp").value = l.whatsapp;
+  $("admin-desc").value = l.desc;
+  $("admin-form-titulo").textContent = "Editar estabelecimento";
+  $("admin-btn-salvar").textContent = "💾 Salvar alterações";
+  $("admin-btn-cancelar-edicao").style.display = "block";
+}
+
+function limparForm(){
+  EDIT_ID = null;
+  $("admin-form").reset();
+  $("admin-form-titulo").textContent = "Publicar estabelecimento";
+  $("admin-btn-salvar").textContent = "➕ Publicar";
+  $("admin-btn-cancelar-edicao").style.display = "none";
+}
+
+function excluirComercio(id){
+  mostrarConfirmacao("Excluir", "Deseja remover este estabelecimento?", () => {
+    if(apiOn()){
+      chamar({acao:"excluirComercio",senha:SENHA_ADMIN,id:id}).then(res => {
+        if(res.sucesso){
+          carregar();
+          carregarPainelAdmin();
+        }
+      });
+    } else {
+      DATA.comercios = DATA.comercios.filter(c => c.id !== id);
+      guardar(DATA);
+      desenhar();
+      carregarPainelAdmin();
+    }
+  }, true);
+}
+
+function novaCategoria(e){
+  e.preventDefault();
+  const nova = $("admin-nova-categoria").value.trim();
+  if(!nova) return;
+
+  if(apiOn()){
+    chamar({acao:"salvarCategoria",senha:SENHA_ADMIN,categoria:nova}).then(res => {
+      if(res.sucesso){
+        $("admin-nova-categoria").value = "";
+        carregar();
+        carregarPainelAdmin();
+      }
+    });
+  } else {
+    if(!DATA.categorias.includes(nova)) DATA.categorias.push(nova);
+    guardar(DATA);
+    $("admin-nova-categoria").value = "";
+    desenhar();
+    carregarPainelAdmin();
+  }
+}
+
+function excluirCategoria(cat){
+  mostrarConfirmacao("Excluir Categoria", `Deseja apagar a categoria "${cat}"?`, () => {
+    if(apiOn()){
+      chamar({acao:"excluirCategoria",senha:SENHA_ADMIN,categoria:cat}).then(res => {
+        if(res.sucesso){
+          carregar();
+          carregarPainelAdmin();
+        }
+      });
+    } else {
+      DATA.categorias = DATA.categorias.filter(c => c !== cat);
+      guardar(DATA);
+      desenhar();
+      carregarPainelAdmin();
+    }
+  }, true);
+}
+
+function sairAdmin(){
+  SENHA_ADMIN = null;
+  limparForm();
+  fechar("admin-modal");
+}
+
+carregar();
+</script>
