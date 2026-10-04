@@ -1,21 +1,22 @@
-const CACHE_NAME = 'cajazeiras-v6';
+const CACHE_NAME = 'cajazeiras-v8';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './config.js',
-  './manifest.json?v=5',
-  './icon-192.png'
+  './config.js?v=8',
+  './manifest.json?v=8',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
-// Instalação do Service Worker e cache dos ficheiros essenciais
+// Instalação do Service Worker e cache inicial de recursos estáticos
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
+  self.skipWaiting();
 });
 
 // Ativação e limpeza de caches antigos
@@ -29,27 +30,24 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    }).then(() => self.clients.claim())
+    })
   );
+  self.clients.claim();
 });
 
-// Interceção de requisições (Network First para API/páginas, Fallback para Cache)
+// Interceção de requisições
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
+  // Ignora requisições para a API do Google Apps Script para evitar cache inadequado de dados dinâmicos
+  if (event.request.url.includes('script.google.com')) {
+    return;
+  }
 
   event.respondWith(
-    fetch(event.request)
-      .then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-        }
-        return networkResponse;
-      })
-      .catch(() => {
-        return caches.match(event.request);
-      })
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request);
+    })
   );
 });
