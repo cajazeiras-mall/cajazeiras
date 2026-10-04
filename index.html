@@ -312,6 +312,12 @@
             color: var(--text-dark);
         }
 
+        .cat-grid-count {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
         /* CARDS DE DESTAQUES E ESTABELECIMENTOS */
         .stores-grid {
             display: grid;
@@ -1469,10 +1475,13 @@ function desenhar(){
     containerGrid.innerHTML = categoriasExibidas.map(cat => {
       const cores = corDe(cat);
       const icon = iconeDe(cat);
+      const totalComercios = (DATA.comercios || []).filter(c => c.categoria === cat).length;
+      const textoComercios = totalComercios === 1 ? '1 comércio' : `${totalComercios} comércios`;
       return `
         <div class="cat-grid-card" onclick="selecionarCategoria('${esc(cat)}')">
           <div class="cat-grid-icon" style="background:${cores[0]}15; color:${cores[0]}">${icon}</div>
           <div class="cat-grid-title">${esc(cat)}</div>
+          <div class="cat-grid-count">${textoComercios}</div>
         </div>
       `;
     }).join('');
