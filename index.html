@@ -1,116 +1,1078 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cajazeiras Mall</title>
-  <link rel="manifest" href="manifest.json?v=8">
-  <meta name="theme-color" content="#0d6efd">
-  <style>
-    :root {
-      --primary: #0d6efd;
-      --bg: #f8f9fa;
-      --card-bg: #ffffff;
-      --text: #212529;
-      --subtext: #6c757d;
-    }
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      margin: 0;
-      padding: 16px;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      color: var(--primary);
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 12px;
-    }
-    .card {
-      background: var(--card-bg);
-      padding: 16px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      text-align: center;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cajazeiras Mall by Fortaleza - Comércio Local</title>
+<link rel="manifest" href="manifest.json?v=8">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="theme-color" content="#ffffff">
+<style>
+        :root {
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --primary-color: #0f172a;
+            --brand-blue: #2563eb;
+            --brand-blue-hover: #1d4ed8;
+            --accent-green: #25d366;
+            --accent-green-hover: #128c7e;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html, body {
+            min-height: 100vh;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid var(--card-border);
+            padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+        }
+
+        .app-logo-header {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+        }
+
+        .header-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--primary-color);
+            line-height: 1.1;
+        }
+
+        .header-title span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* Botão do WhatsApp no Cabeçalho */
+        .btn-header-whatsapp {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-green);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .btn-header-whatsapp:active {
+            transform: scale(0.95);
+        }
+
+        .btn-header-whatsapp-content {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            line-height: 1;
+        }
+
+        .btn-header-whatsapp-sub {
+            font-size: 0.6rem;
+            font-weight: 600;
+            opacity: 0.95;
+            margin-top: 2px;
+            letter-spacing: 0.2px;
+            text-transform: uppercase;
+        }
+
+        .install-bar {
+            display: block;
+            background: #ffffff;
+            border-bottom: 1px solid var(--card-border);
+            padding: 8px 16px;
+            text-align: center;
+        }
+
+        .btn-install-app {
+            background: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--primary-color);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .phone-icon {
+            color: var(--brand-blue);
+            font-size: 1rem;
+            display: inline-block;
+        }
+
+        .container {
+            flex: 1;
+            padding: 16px;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        #content-list {
+            flex: 1;
+        }
+
+        .btn-voltar-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f1f5f9;
+            border: 1px solid var(--card-border);
+            color: var(--primary-color);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        .store-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: block;
+            position: relative;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .store-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .store-name {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .store-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.35;
+            white-space: pre-line;
+        }
+
+        .btn-whatsapp {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-green);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+        }
+
+        .register-banner-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .btn-open-register {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            background-color: var(--brand-blue);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-open-register:hover {
+            background-color: var(--brand-blue-hover);
+        }
+
+        footer {
+            text-align: center;
+            padding: 16px 12px 24px 12px;
+            background: var(--bg-main);
+            border-top: 1px solid var(--card-border);
+            margin-top: auto;
+        }
+
+        .btn-admin-trigger {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            background: #ffffff;
+            color: var(--text-dark);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--accent-green);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-body {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 440px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header-branding {
+            text-align: center;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .modal-title {
+            font-size: 1.15rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .modal-text {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .modal-btn {
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-close-modal {
+            background: #e2e8f0;
+            color: var(--text-dark);
+            margin-top: 8px;
+        }
+
+        .admin-section-divider {
+            border-top: 1px dashed var(--card-border);
+            margin: 14px 0;
+            padding-top: 12px;
+        }
+
+        .login-error-msg {
+            color: #ef4444;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .category-manage-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 6px;
+            margin-top: 8px;
+            background: #f8fafc;
+        }
+
+        .category-manage-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 8px;
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            margin-bottom: 4px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .category-manage-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .cat-item-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .btn-cat-edit {
+            background: #fef3c7;
+            color: #b45309;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-cat-delete {
+            background: #fee2e2;
+            color: #ef4444;
+            border: none;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .custom-dialog-btns {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .btn-dialog-cancel {
+            background: #e2e8f0;
+            color: var(--text-dark);
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-dialog-confirm {
+            background: var(--brand-blue);
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-dialog-danger {
+            background: #ef4444;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .admin-tabs-title {
+            font-size: .78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            margin: 6px 0;
+        }
+
+        .carregando {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 20px;
+            font-size: .9rem;
+        }
+
+        /* ===== CARTÕES DE CATEGORIAS (visual colorido) ===== */
+        .categories-grid { 
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 14px; 
+            margin-bottom: 16px;
+        }
+        .cat-grid-card {
+            position: relative; 
+            overflow: hidden; 
+            width: 100%;
+            font: inherit; 
+            border: 0; 
+            border-radius: 20px;
+            padding: 22px 12px 16px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #ffffff; 
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.1s ease;
+        }
+        .cat-grid-card::before {
+            content: ""; 
+            position: absolute; 
+            top: 0; left: 0; right: 0; 
+            height: 6px;
+            background: linear-gradient(90deg, var(--c1), var(--c2));
+        }
+        .cat-grid-card:active { transform: scale(0.96); }
+        .cat-grid-icon {
+            width: 64px; 
+            height: 64px; 
+            border-radius: 50%;
+            display: grid; 
+            place-items: center; 
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, var(--c1), var(--c2));
+            box-shadow: 0 6px 14px var(--sombra); 
+            margin-bottom: 4px;
+        }
+        .cat-grid-title { font-size: 0.95rem; font-weight: 800; color: var(--text-dark); text-align: center; }
+        .cat-grid-count { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); }
+</style>
 </head>
 <body>
+<header>
+  <div class="header-brand">
+    <img src="icon-192.png" alt="Logo" class="app-logo-header">
+    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
+  </div>
+  <a href="https://wa.me/5585996461047" target="_blank" rel="noopener" class="btn-header-whatsapp">
+    <div class="btn-header-whatsapp-content">💬 WhatsApp</div>
+    <div class="btn-header-whatsapp-sub">Atendimento ao cliente</div>
+  </a>
+</header>
 
-  <header>
-    <h1>Cajazeiras Mall</h1>
-  </header>
+<div class="install-bar" id="installContainer"><button class="btn-install-app" onclick="instalarApp()"><span class="phone-icon">📲</span> Baixar App no Celular</button></div>
 
-  <main id="app">
-    <div class="grid" id="categorias"></div>
-  </main>
+<div class="container">
+  <div id="btn-voltar-container" style="display:none">
+    <button class="btn-voltar-home" onclick="voltarParaCategorias()">⬅ Ver todas as categorias</button>
+  </div>
+  <h2 class="section-title" id="main-section-title">Categorias</h2>
+  
+  <div id="categories-grid-container" class="categories-grid"></div>
 
-  <script src="config.js?v=8"></script>
-  <script>
-    const PADRAO = {
-      categorias: ["Alimentação", "Serviços", "Vestuário", "Saúde", "Outros"],
-      comercios: []
-    };
+  <div id="content-list">
+    <div id="stores-container"></div>
+  </div>
 
-    function apiOn() {
-      return typeof CONFIG !== 'undefined' && CONFIG.API;
-    }
+  <div class="register-banner-card"><button type="button" class="btn-open-register" onclick="abrirCadastro()">📝 Cadastre Seu Comércio Aqui</button></div>
+</div>
 
-    function renderizar(dados) {
-      const container = document.getElementById('categorias');
-      if (!container || !dados.categorias) return;
-      
-      container.innerHTML = dados.categorias.map(cat => `
-        <div class="card">${cat}</div>
+<footer><button class="btn-admin-trigger" onclick="abrirLogin()">⚙ Painel do Administrador</button></footer>
+
+<div class="modal-overlay" id="user-register-modal"><div class="modal-body">
+  <div class="modal-header-branding">
+    <img src="icon-192.png" alt="Logo" style="width:36px;height:36px">
+    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
+  </div>
+  <div class="modal-title">Cadastre seu Comércio</div>
+  <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
+  <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
+    <input type="hidden" name="_captcha" value="false">
+    <div class="form-group"><label for="comerciante-nome">Seu Nome:</label><input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo"></div>
+    <div class="form-group"><label for="loja-nome">Nome do Estabelecimento:</label><input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da loja/serviço"></div>
+    <div class="form-group"><label for="loja-categoria">Categoria:</label><select name="Categoria" id="loja-categoria" required></select></div>
+    <div class="form-group"><label for="loja-whatsapp">WhatsApp:</label><input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX"></div>
+    <div class="form-group"><label for="loja-desc">Descrição:</label><textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea></div>
+    <button type="submit" class="btn-submit">Enviar Cadastro</button>
+    <button type="button" class="modal-btn btn-close-modal" onclick="fechar('user-register-modal')">Cancelar</button>
+  </form>
+</div></div>
+
+<div class="modal-overlay" id="admin-login-modal"><div class="modal-body">
+  <div class="modal-header-branding">
+    <img src="icon-192.png" alt="Logo" style="width:36px;height:36px">
+    <div class="header-title">Cajazeiras Mall<span>by Fortaleza</span></div>
+  </div>
+  <div class="modal-title">Acesso Restrito</div>
+  <div class="modal-text">Digite a senha do Administrador.</div>
+  <form onsubmit="entrar(event)">
+    <div class="form-group"><label for="admin-pass-input">Senha de Acesso:</label><input type="password" id="admin-pass-input" required placeholder="Digite sua senha..." autocomplete="current-password"></div>
+    <div id="login-error-msg" class="login-error-msg"></div>
+    <button type="submit" class="btn-submit" id="btn-entrar" style="margin-top:10px">Entrar</button>
+    <button type="button" class="modal-btn btn-close-modal" onclick="fechar('admin-login-modal')">Cancelar</button>
+  </form>
+</div></div>
+
+<div class="modal-overlay" id="admin-modal"><div class="modal-body">
+  <div class="modal-title">Painel do Administrador</div>
+  <div class="modal-text">As mudanças aparecem para todos os visitantes.</div>
+  <form id="admin-form" onsubmit="salvarComercio(event)">
+    <div class="admin-tabs-title" id="admin-form-titulo">Publicar estabelecimento</div>
+    <div class="form-group"><label>Nome:</label><input type="text" id="admin-nome" required maxlength="90"></div>
+    <div class="form-group"><label>Categoria:</label><select id="admin-categoria" required></select></div>
+    <div class="form-group"><label>WhatsApp:</label><input type="tel" id="admin-whatsapp" required placeholder="85996482898"></div>
+    <div class="form-group"><label>Descrição:</label><textarea id="admin-desc" rows="3" required maxlength="500"></textarea></div>
+    <button type="submit" class="btn-submit" id="admin-btn-salvar">➕ Publicar</button>
+    <button type="button" class="modal-btn btn-close-modal" id="admin-btn-cancelar-edicao" style="display:none" onclick="limparForm()">Cancelar edição</button>
+  </form>
+  <div class="admin-section-divider"></div>
+  <div class="admin-tabs-title">Comércios publicados</div>
+  <div class="category-manage-list" id="admin-lista-comercios"></div>
+  <div class="admin-section-divider"></div>
+  <div class="admin-tabs-title">Categorias</div>
+  <form onsubmit="novaCategoria(event)"><div style="display:flex;gap:6px"><input type="text" id="admin-nova-categoria" placeholder="Nova categoria..." required maxlength="40" style="padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;width:100%"><button type="submit" class="btn-submit" style="width:auto;padding:0 12px">Criar</button></div></form>
+  <div class="category-manage-list" id="admin-lista-categorias"></div>
+  <button type="button" class="modal-btn btn-close-modal" onclick="sairAdmin()" style="margin-top:12px">Sair do painel</button>
+</div></div>
+
+<div class="modal-overlay" id="custom-dialog-modal"><div class="modal-body">
+  <div class="modal-title" id="custom-dialog-title">Aviso</div>
+  <div class="modal-text" id="custom-dialog-desc"></div>
+  <div class="form-group" id="custom-dialog-input-container" style="display:none;text-align:left"><input type="text" id="custom-dialog-input"></div>
+  <div class="custom-dialog-btns" id="custom-dialog-btns"></div>
+</div></div>
+
+<script src="config.js?v=8"></script>
+<script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js?v=8').then(reg => {
+                    reg.update();
+                });
+            });
+        }
+
+        let deferredPrompt;
+        if (window.matchMedia('(display-mode: standalone)').matches) document.getElementById('installContainer').style.display = 'none';
+        window.addEventListener('appinstalled', () => { document.getElementById('installContainer').style.display = 'none'; });
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installContainer').style.display = 'block';
+        });
+
+        function mostrarAlerta(titulo, mensagem, aoFechar) {
+            const modal = document.getElementById('custom-dialog-modal');
+            document.getElementById('custom-dialog-title').textContent = titulo;
+            document.getElementById('custom-dialog-desc').textContent = mensagem;
+            document.getElementById('custom-dialog-input-container').style.display = 'none';
+
+            const btns = document.getElementById('custom-dialog-btns');
+            btns.innerHTML = `<button type="button" class="btn-dialog-confirm" id="dialog-btn-ok">OK</button>`;
+
+            modal.classList.add('active');
+
+            document.getElementById('dialog-btn-ok').onclick = () => {
+                modal.classList.remove('active');
+                if (aoFechar) aoFechar();
+            };
+        }
+
+        function mostrarConfirmacao(titulo, mensagem, aoConfirmar, ePerigoso = false) {
+            const modal = document.getElementById('custom-dialog-modal');
+            document.getElementById('custom-dialog-title').textContent = titulo;
+            document.getElementById('custom-dialog-desc').textContent = mensagem;
+            document.getElementById('custom-dialog-input-container').style.display = 'none';
+
+            const btns = document.getElementById('custom-dialog-btns');
+            const classeConfirm = ePerigoso ? 'btn-dialog-danger' : 'btn-dialog-confirm';
+            btns.innerHTML = `
+                <button type="button" class="btn-dialog-cancel" id="dialog-btn-cancel">Cancelar</button>
+                <button type="button" class="${classeConfirm}" id="dialog-btn-confirm">Confirmar</button>
+            `;
+
+            modal.classList.add('active');
+
+            document.getElementById('dialog-btn-cancel').onclick = () => {
+                modal.classList.remove('active');
+            };
+
+            document.getElementById('dialog-btn-confirm').onclick = () => {
+                modal.classList.remove('active');
+                if (aoConfirmar) aoConfirmar();
+            };
+        }
+
+        function mostrarPrompt(titulo, mensagem, valorInicial, aoConfirmar) {
+            const modal = document.getElementById('custom-dialog-modal');
+            document.getElementById('custom-dialog-title').textContent = titulo;
+            document.getElementById('custom-dialog-desc').textContent = mensagem;
+            
+            const inputContainer = document.getElementById('custom-dialog-input-container');
+            const input = document.getElementById('custom-dialog-input');
+            inputContainer.style.display = 'block';
+            input.value = valorInicial || '';
+
+            const btns = document.getElementById('custom-dialog-btns');
+            btns.innerHTML = `
+                <button type="button" class="btn-dialog-cancel" id="dialog-btn-cancel">Cancelar</button>
+                <button type="button" class="btn-dialog-confirm" id="dialog-btn-save">Salvar</button>
+            `;
+
+            modal.classList.add('active');
+            setTimeout(() => input.focus(), 100);
+
+            document.getElementById('dialog-btn-cancel').onclick = () => {
+                modal.classList.remove('active');
+            };
+
+            document.getElementById('dialog-btn-save').onclick = () => {
+                const valor = input.value.trim();
+                modal.classList.remove('active');
+                if (aoConfirmar) aoConfirmar(valor);
+            };
+        }
+
+        function instalarApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('installContainer').style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                mostrarAlerta("Instalação do Aplicativo", "Para instalar como app no celular, abra no Chrome (Android) ou Safari (iPhone) e clique no menu do navegador para selecionar 'Instalar aplicativo'.");
+            }
+        }
+
+var API = (typeof CONFIG !== 'undefined' && CONFIG.API) ? CONFIG.API : "";
+
+var PADRAO = {categorias:["Alimentação","Beleza","Moda","Reforço Escolar","Saúde"],comercios:[
+ {id:"1",nome:"Reforço Escolar Tia Sandra",categoria:"Reforço Escolar",whatsapp:"85997354638",desc:"Trabalho com reforço escolar para educação infantil e ensino fundamental I."},
+ {id:"2",nome:"Jamille Araújo Espaço da Beleza e do Bronze",categoria:"Beleza",whatsapp:"85988961380",desc:"Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua e bronze."},
+ {id:"3",nome:"Nayanne Nascimento Salão de Beleza",categoria:"Beleza",whatsapp:"85921490223",desc:"Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados."},
+ {id:"4",nome:"Boomerang Sanduíches",categoria:"Alimentação",whatsapp:"85987012328",desc:"Hamburgueria com opções de sanduíches e lanches."},
+ {id:"5",nome:"Farmácia Super Farma",categoria:"Saúde",whatsapp:"85996656572",desc:"O super cuidado para sua saúde!"},
+ {id:"6",nome:"Barfruta",categoria:"Alimentação",whatsapp:"85988408564",desc:"Polpas de frutas de diversos sabores e morango congelado."},
+ {id:"7",nome:"Alemão e Cléa Espetaria e Pratinhos",categoria:"Alimentação",whatsapp:"85996277402",desc:"Espetos variados e pratinhos tradicionais."},
+ {id:"8",nome:"Amadas Artigos Femininos, Fardamentos e Acessórios",categoria:"Moda",whatsapp:"85996482898",desc:"• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios"}]};
+
+var CORES_CAT=[["#f97316","#fbbf24","rgba(249,115,22,.35)"],["#ec4899","#f472b6","rgba(236,72,153,.35)"],["#6366f1","#818cf8","rgba(99,102,241,.35)"],["#10b981","#34d399","rgba(16,185,129,.35)"],["#0ea5e9","#38bdf8","rgba(14,165,233,.35)"],["#8b5cf6","#c084fc","rgba(139,92,246,.35)"],["#ef4444","#fb7185","rgba(239,68,68,.35)"],["#14b8a6","#2dd4bf","rgba(20,184,166,.35)"]];
+var ICONES_PALAVRAS=[["alimen","🍔"],["comida","🍔"],["restaur","🍽️"],["lanche","🍔"],["beleza","💅"],["salão","💅"],["estética","💅"],["eletr","📱"],["mercado","🛒"],["moda","👗"],["roupa","👗"],["padaria","🥖"],["pet","🐾"],["reforço","📚"],["escola","📚"],["curso","📚"],["saúde","💊"],["farm","💊"],["clínica","🩺"],["serviço","🛠️"],["automó","🚗"],["carro","🚗"],["casa","🏠"],["constru","🏗️"],["esporte","🏋️"],["academia","🏋"],["festa","🎉"],["evento","🎉"]];
+function iconeDe(n){var t=String(n).toLowerCase();for(var i=0;i<ICONES_PALAVRAS.length;i++){if(t.indexOf(ICONES_PALAVRAS[i][0])>-1)return ICONES_PALAVRAS[i][1]}return "🏪"}
+function corDe(n){var h=0;for(var i=0;i<n.length;i++)h+=n.charCodeAt(i);return CORES_CAT[h%CORES_CAT.length]}
+
+var DATA=null, SENHA_ADMIN=null, CAT_ATUAL=null, EDIT_ID=null;
+function $(i){return document.getElementById(i)}
+function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function apiOn(){return API.indexOf("https://")===0}
+function zapLink(n){var d=String(n).replace(/\D/g,"");if(d.length<=11)d="55"+d;return "https://wa.me/"+d}
+function abrir(id){$(id).classList.add("active")}
+function fechar(id){$(id).classList.remove("active")}
+function abrirCadastro(){abrir("user-register-modal")}
+function guardar(d){try{localStorage.setItem("cm_dados",JSON.stringify({categorias:d.categorias,comercios:d.comercios}))}catch(e){}}
+
+function chamar(obj){
+  return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(obj)}).then(function(r){return r.json()});
+}
+
+function carregar(){
+  if (!history.state || !history.state.home) {
+    history.replaceState({ home: true, categoria: null }, "", window.location.pathname);
+  }
+
+  var cache=null;try{cache=JSON.parse(localStorage.getItem("cm_dados"))}catch(e){}
+  DATA=cache||(apiOn()?{categorias:[],comercios:[],carregando:true}:PADRAO);
+  desenhar();
+  if(!apiOn())return;
+  fetch(API+"?acao=listar").then(function(r){return r.json()}).then(function(d){
+    if(d&&d.comercios){DATA={categorias:d.categorias,comercios:d.comercios};guardar(DATA);desenhar()}
+  }).catch(function(){ if(DATA.carregando){DATA=PADRAO;desenhar()} });
+}
+
+function selecionarCategoria(cat, registrarHistorico = true){
+  CAT_ATUAL = cat;
+  if(registrarHistorico && cat){
+    history.pushState({ home: false, categoria: cat }, "", "#cat=" + encodeURIComponent(cat));
+  }
+  desenhar();
+}
+
+function voltarParaCategorias(registrarHistorico = true){
+  CAT_ATUAL = null;
+  if(registrarHistorico){
+    history.pushState({ home: true, categoria: null }, "", window.location.pathname);
+  }
+  desenhar();
+}
+
+window.addEventListener("popstate", function(e) {
+  if (e.state && e.state.categoria) {
+    selecionarCategoria(e.state.categoria, false);
+  } else {
+    voltarParaCategorias(false);
+  }
+});
+
+function desenhar(){
+  if(!DATA) return;
+  
+  const containerGrid = $("categories-grid-container");
+  const containerLoja = $("stores-container");
+  const btnVoltar = $("btn-voltar-container");
+  const tituloSecao = $("main-section-title");
+
+  // Preenche select do modal de cadastro
+  const selCadastro = $("loja-categoria");
+  if(selCadastro && DATA.categorias){
+    selCadastro.innerHTML = DATA.categorias.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  }
+
+  if(CAT_ATUAL) {
+    btnVoltar.style.display = "block";
+    containerGrid.style.display = "none";
+    tituloSecao.textContent = CAT_ATUAL;
+
+    const lojas = (DATA.comercios || []).filter(c => c.categoria === CAT_ATUAL);
+    if(lojas.length === 0) {
+      containerLoja.innerHTML = '<div class="carregando">Nenhum estabelecimento nesta categoria.</div>';
+    } else {
+      containerLoja.innerHTML = lojas.map(l => `
+        <div class="store-card">
+          <span class="store-tag">${esc(l.categoria)}</span>
+          <div class="store-name">${esc(l.nome)}</div>
+          <div class="store-desc">${esc(l.desc)}</div>
+          <a href="${zapLink(l.whatsapp)}" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+        </div>
       `).join('');
     }
+  } else {
+    btnVoltar.style.display = "none";
+    containerLoja.innerHTML = "";
+    containerGrid.style.display = "grid";
+    tituloSecao.textContent = "Categorias";
 
-    async function carregar() {
-      const cache = localStorage.getItem('cajazeiras_data');
-      
-      // AJUSTE REALIZADO: Garante o fallback imediato para PADRAO caso não haja cache prévio
-      let DATA = cache ? JSON.parse(cache) : PADRAO;
-      renderizar(DATA);
+    if(DATA.carregando) {
+      containerGrid.innerHTML = '<div class="carregando" style="grid-column: 1/-1;">Carregando dados...</div>';
+      return;
+    }
 
-      if (apiOn()) {
-        try {
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), CONFIG.FETCH_TIMEOUT || 5000);
+    containerGrid.innerHTML = (DATA.categorias || []).map(cat => {
+      const qtd = (DATA.comercios || []).filter(c => c.categoria === cat).length;
+      const cores = corDe(cat);
+      const icon = iconeDe(cat);
+      return `
+        <button class="cat-grid-card" onclick="selecionarCategoria('${esc(cat)}')" style="--c1:${cores[0]};--c2:${cores[1]};--sombra:${cores[2]}">
+          <div class="cat-grid-icon">${icon}</div>
+          <div class="cat-grid-title">${esc(cat)}</div>
+          <div class="cat-grid-count">${qtd} ${qtd === 1 ? 'local' : 'locais'}</div>
+        </button>
+      `;
+    }).join('');
+  }
+}
 
-          const res = await fetch(CONFIG.API, { signal: controller.signal });
-          clearTimeout(timeoutId);
+function abrirLogin(){
+  $("login-error-msg").style.display = "none";
+  $("admin-pass-input").value = "";
+  abrir("admin-login-modal");
+}
 
-          if (res.ok) {
-            const dadosNovos = await res.json();
-            localStorage.setItem('cajazeiras_data', JSON.stringify(dadosNovos));
-            renderizar(dadosNovos);
-          }
-        } catch (err) {
-          console.warn("Falha ao carregar API, mantendo dados locais/cache:", err);
-        }
+function entrar(e){
+  e.preventDefault();
+  const pass = $("admin-pass-input").value;
+  if(apiOn()){
+    chamar({acao:"login",senha:pass}).then(res => {
+      if(res.sucesso){
+        SENHA_ADMIN = pass;
+        fechar("admin-login-modal");
+        carregarPainelAdmin();
+        abrir("admin-modal");
+      } else {
+        $("login-error-msg").textContent = "Senha incorreta!";
+        $("login-error-msg").style.display = "block";
       }
-    }
+    }).catch(() => {
+      $("login-error-msg").textContent = "Erro de conexão com o servidor.";
+      $("login-error-msg").style.display = "block";
+    });
+  } else {
+    SENHA_ADMIN = pass;
+    fechar("admin-login-modal");
+    carregarPainelAdmin();
+    abrir("admin-modal");
+  }
+}
 
-    // Registo do Service Worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=8').then(reg => {
-          reg.update();
-        });
+function carregarPainelAdmin(){
+  const selCat = $("admin-categoria");
+  selCat.innerHTML = (DATA.categorias || []).map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+
+  const listaComercios = $("admin-lista-comercios");
+  listaComercios.innerHTML = (DATA.comercios || []).map(l => `
+    <div class="category-manage-item">
+      <span>${esc(l.nome)} (${esc(l.categoria)})</span>
+      <div class="cat-item-actions">
+        <button class="btn-cat-edit" onclick="editarComercio('${l.id}')">Editar</button>
+        <button class="btn-cat-delete" onclick="excluirComercio('${l.id}')">Excluir</button>
+      </div>
+    </div>
+  `).join('');
+
+  const listaCategorias = $("admin-lista-categorias");
+  listaCategorias.innerHTML = (DATA.categorias || []).map(c => `
+    <div class="category-manage-item">
+      <span>${esc(c)}</span>
+      <div class="cat-item-actions">
+        <button class="btn-cat-delete" onclick="excluirCategoria('${esc(c)}')">Excluir</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function salvarComercio(e){
+  e.preventDefault();
+  const item = {
+    id: EDIT_ID || String(Date.now()),
+    nome: $("admin-nome").value,
+    categoria: $("admin-categoria").value,
+    whatsapp: $("admin-whatsapp").value,
+    desc: $("admin-desc").value
+  };
+
+  if(apiOn()){
+    chamar({acao:"salvarComercio",senha:SENHA_ADMIN,comercio:item}).then(res => {
+      if(res.sucesso){
+        mostrarAlerta("Sucesso", "Estabelecimento publicado com sucesso!");
+        limparForm();
+        carregar();
+        carregarPainelAdmin();
+      }
+    });
+  } else {
+    if(EDIT_ID){
+      const idx = DATA.comercios.findIndex(c => c.id === EDIT_ID);
+      if(idx > -1) DATA.comercios[idx] = item;
+    } else {
+      DATA.comercios.push(item);
+    }
+    guardar(DATA);
+    limparForm();
+    desenhar();
+    carregarPainelAdmin();
+  }
+}
+
+function editarComercio(id){
+  const l = DATA.comercios.find(c => c.id === id);
+  if(!l) return;
+  EDIT_ID = id;
+  $("admin-nome").value = l.nome;
+  $("admin-categoria").value = l.categoria;
+  $("admin-whatsapp").value = l.whatsapp;
+  $("admin-desc").value = l.desc;
+  $("admin-form-titulo").textContent = "Editar estabelecimento";
+  $("admin-btn-salvar").textContent = "💾 Salvar alterações";
+  $("admin-btn-cancelar-edicao").style.display = "block";
+}
+
+function limparForm(){
+  EDIT_ID = null;
+  $("admin-form").reset();
+  $("admin-form-titulo").textContent = "Publicar estabelecimento";
+  $("admin-btn-salvar").textContent = "➕ Publicar";
+  $("admin-btn-cancelar-edicao").style.display = "none";
+}
+
+function excluirComercio(id){
+  mostrarConfirmacao("Excluir", "Deseja remover este estabelecimento?", () => {
+    if(apiOn()){
+      chamar({acao:"excluirComercio",senha:SENHA_ADMIN,id:id}).then(res => {
+        if(res.sucesso){
+          carregar();
+          carregarPainelAdmin();
+        }
       });
+    } else {
+      DATA.comercios = DATA.comercios.filter(c => c.id !== id);
+      guardar(DATA);
+      desenhar();
+      carregarPainelAdmin();
     }
+  }, true);
+}
 
-    carregar();
-  </script>
+function novaCategoria(e){
+  e.preventDefault();
+  const nova = $("admin-nova-categoria").value.trim();
+  if(!nova) return;
+
+  if(apiOn()){
+    chamar({acao:"salvarCategoria",senha:SENHA_ADMIN,categoria:nova}).then(res => {
+      if(res.sucesso){
+        $("admin-nova-categoria").value = "";
+        carregar();
+        carregarPainelAdmin();
+      }
+    });
+  } else {
+    if(!DATA.categorias.includes(nova)) DATA.categorias.push(nova);
+    guardar(DATA);
+    $("admin-nova-categoria").value = "";
+    desenhar();
+    carregarPainelAdmin();
+  }
+}
+
+function excluirCategoria(cat){
+  mostrarConfirmacao("Excluir Categoria", `Deseja apagar a categoria "${cat}"?`, () => {
+    if(apiOn()){
+      chamar({acao:"excluirCategoria",senha:SENHA_ADMIN,categoria:cat}).then(res => {
+        if(res.sucesso){
+          carregar();
+          carregarPainelAdmin();
+        }
+      });
+    } else {
+      DATA.categorias = DATA.categorias.filter(c => c !== cat);
+      guardar(DATA);
+      desenhar();
+      carregarPainelAdmin();
+    }
+  }, true);
+}
+
+function sairAdmin(){
+  SENHA_ADMIN = null;
+  limparForm();
+  fechar("admin-modal");
+}
+
+carregar();
+</script>
 </body>
 </html>
