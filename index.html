@@ -1209,9 +1209,6 @@
     <div class="admin-tabs-title">Categorias</div>
     <form onsubmit="novaCategoria(event)"><div style="display:flex;gap:6px"><input type="text" id="admin-nova-categoria" placeholder="Nova categoria..." required maxlength="40" style="padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;width:100%"><button type="submit" class="btn-submit" style="width:auto;padding:0 12px">Criar</button></div></form>
     <div class="category-manage-list" id="admin-lista-categorias"></div>
-    <div class="admin-section-divider"></div>
-    <div class="admin-tabs-title">Segurança</div>
-    <button type="button" class="btn-secondary" onclick="abrirModalTrocarSenha()">🔑 Alterar Senha de Admin</button>
     <button type="button" class="modal-btn btn-close-modal" onclick="sairAdmin()" style="margin-top:12px">Sair do painel</button>
   </div>
 </div>
@@ -1589,13 +1586,13 @@ function entrar(e){
   btn.disabled = true;
   chamar({acao:"login",senha:pass}).then(res => {
     btn.disabled = false;
-    if(res && res.sucesso){
+    if(res && res.ok){
       SENHA_ADMIN = pass;
       fechar("admin-login-modal");
-      carregarPainelAdmin();
+      aplicarEstado(res);
       abrir("admin-modal");
     } else {
-      erro.textContent = "Senha incorreta!";
+      erro.textContent = (res && res.erro) ? res.erro : "Senha incorreta!";
       erro.style.display = "block";
     }
   }).catch(() => {
@@ -1605,7 +1602,23 @@ function entrar(e){
   });
 }
 
+function aplicarEstado(res){
+  if(res && res.categorias && res.comercios){
+    DATA = {categorias:res.categorias, comercios:res.comercios};
+    guardar(DATA);
+    desenhar();
+  }
+  carregarPainelAdmin();
+}
+function msgErro(res){
+  return (res && res.erro) ? res.erro : "Não foi possível concluir. Entre no painel novamente.";
+}
+
 function abrirModalTrocarSenha(){
+  mostrarAlerta("Trocar senha", "A senha fica guardada no Google Apps Script. Para trocar: abra o projeto, edite a linha var SENHA = '...' no topo, salve e publique uma nova versão (Implantar > Gerenciar implantações > Editar > Nova versão).");
+}
+
+function abrirModalTrocarSenhaAntigo(){
   $("new-pass-input").value = "";
   $("confirm-pass-input").value = "";
   abrir("change-pass-modal");
@@ -1613,34 +1626,8 @@ function abrirModalTrocarSenha(){
 
 function salvarNovaSenha(e){
   e.preventDefault();
-  const nova = $("new-pass-input").value.trim();
-  const confirma = $("confirm-pass-input").value.trim();
-
-  if(nova.length < 8){
-    mostrarAlerta("Erro", "A nova senha precisa ter pelo menos 8 caracteres.");
-    return;
-  }
-  if(nova !== confirma){
-    mostrarAlerta("Erro", "As senhas digitadas não coincidem.");
-    return;
-  }
-  if(!apiOn() || !SENHA_ADMIN){
-    mostrarAlerta("Erro", "Sessão expirada. Entre no painel novamente.");
-    return;
-  }
-
-  const antiga = SENHA_ADMIN;
-  chamar({acao:"alterarSenha",senhaAntiga:antiga,novaSenha:nova}).then(res => {
-    if(res && res.sucesso){
-      SENHA_ADMIN = nova;
-      fechar("change-pass-modal");
-      mostrarAlerta("Sucesso", "Senha do administrador alterada com sucesso.");
-    } else {
-      mostrarAlerta("Erro", "O servidor não aceitou a alteração. Altere a senha direto no Google Apps Script.");
-    }
-  }).catch(() => {
-    mostrarAlerta("Erro", "Erro de conexão. Tente novamente.");
-  });
+  fechar("change-pass-modal");
+  abrirModalTrocarSenha();
 }
 
 function carregarPainelAdmin(){
@@ -1672,7 +1659,7 @@ function carregarPainelAdmin(){
 function salvarComercio(e){
   e.preventDefault();
   const item = {
-    id: EDIT_ID || String(Date.now()),
+    id: EDIT_ID || "",
     nome: $("admin-nome").value,
     categoria: $("admin-categoria").value,
     whatsapp: $("admin-whatsapp").value,
@@ -1680,13 +1667,13 @@ function salvarComercio(e){
   };
 
   if(apiOn()){
-    chamar({acao:"salvarComercio",senha:SENHA_ADMIN,comercio:item}).then(res => {
-      if(res.sucesso){
+    chamar({acao:"salvar",senha:SENHA_ADMIN,comercio:item}).then(res => {
+      if(res && res.ok){
         mostrarAlerta("Sucesso", "Estabelecimento publicado com sucesso!");
         limparForm();
-        carregar(carregarPainelAdmin);
+        aplicarEstado(res);
       } else {
-        mostrarAlerta("Erro", "Não foi possível publicar. Entre no painel novamente.");
+        mostrarAlerta("Erro", msgErro(res));
       }
     }).catch(() => mostrarAlerta("Erro", "Erro de conexão. Tente novamente."));
   } else {
@@ -1727,11 +1714,9 @@ function limparForm(){
 function excluirComercio(id){
   mostrarConfirmacao("Excluir", "Deseja remover este estabelecimento?", () => {
     if(apiOn()){
-      chamar({acao:"excluirComercio",senha:SENHA_ADMIN,id:id}).then(res => {
-        if(res.sucesso){
-          carregar(carregarPainelAdmin);
-        }
-      });
+      chamar({acao:"excluir",senha:SENHA_ADMIN,id:id}).then(res => {
+        if(res && res.ok){ aplicarEstado(res); } else { mostrarAlerta("Erro", msgErro(res)); }
+      }).catch(() => mostrarAlerta("Erro", "Erro de conexão. Tente novamente."));
     } else {
       DATA.comercios = DATA.comercios.filter(c => c.id !== id);
       guardar(DATA);
@@ -1747,12 +1732,14 @@ function novaCategoria(e){
   if(!nova) return;
 
   if(apiOn()){
-    chamar({acao:"salvarCategoria",senha:SENHA_ADMIN,categoria:nova}).then(res => {
-      if(res.sucesso){
+    chamar({acao:"cat_add",senha:SENHA_ADMIN,nome:nova}).then(res => {
+      if(res && res.ok){
         $("admin-nova-categoria").value = "";
-        carregar(carregarPainelAdmin);
+        aplicarEstado(res);
+      } else {
+        mostrarAlerta("Erro", msgErro(res));
       }
-    });
+    }).catch(() => mostrarAlerta("Erro", "Erro de conexão. Tente novamente."));
   } else {
     if(!DATA.categorias.includes(nova)) DATA.categorias.push(nova);
     guardar(DATA);
@@ -1765,11 +1752,9 @@ function novaCategoria(e){
 function excluirCategoria(cat){
   mostrarConfirmacao("Excluir Categoria", `Deseja apagar a categoria "${cat}"?`, () => {
     if(apiOn()){
-      chamar({acao:"excluirCategoria",senha:SENHA_ADMIN,categoria:cat}).then(res => {
-        if(res.sucesso){
-          carregar(carregarPainelAdmin);
-        }
-      });
+      chamar({acao:"cat_del",senha:SENHA_ADMIN,nome:cat}).then(res => {
+        if(res && res.ok){ aplicarEstado(res); } else { mostrarAlerta("Erro", msgErro(res)); }
+      }).catch(() => mostrarAlerta("Erro", "Erro de conexão. Tente novamente."));
     } else {
       DATA.categorias = DATA.categorias.filter(c => c !== cat);
       guardar(DATA);
