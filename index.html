@@ -18,127 +18,6 @@
       color: #333;
     }
 
-    /* Cabeçalho do App */
-    .app-header {
-      background-color: #0d1b2a;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .app-header img {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-    }
-
-    .app-header h1 {
-      color: #ffffff;
-      font-size: 1.15rem;
-    }
-
-    .app-header h1 span {
-      color: #fca311;
-    }
-
-    /* Banner de Instalação do App */
-    .install-banner {
-      background-color: #ffffff;
-      padding: 10px;
-      text-align: center;
-      border-bottom: 1px solid #e1e4e8;
-    }
-
-    .install-banner a {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background-color: #f0f2f5;
-      color: #333;
-      padding: 6px 16px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      border: 1px solid #d0d7de;
-    }
-
-    /* Seção Hero Mantida (Com imagem de fundo, textos originais, levemente mais compacta) */
-    .hero-section {
-      background: linear-gradient(rgba(13, 27, 42, 0.45), rgba(13, 27, 42, 0.45)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231b263b" width="100" height="100"/></svg>');
-      background-size: cover;
-      background-position: center;
-      padding: 22px 16px;
-      color: #fff;
-    }
-
-    .hero-container {
-      max-width: 600px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .hero-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      line-height: 1.1;
-    }
-
-    .hero-title span {
-      color: #fca311;
-    }
-
-    .hero-subtitle {
-      font-size: 0.85rem;
-      color: #f1f1f1;
-      margin-bottom: 4px;
-    }
-
-    /* Botão no mesmo estilo e local exato da antiga barra de pesquisa, chamando para cadastro */
-    .hero-search-btn {
-      background-color: #ffffff;
-      border-radius: 30px;
-      padding: 12px 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: #555;
-      font-size: 0.9rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      transition: background-color 0.2s;
-    }
-
-    .hero-search-btn:hover {
-      background-color: #f8f9fa;
-    }
-
-    .hero-search-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: #fca311;
-      flex-shrink: 0;
-    }
-
-    .hero-search-btn span {
-      color: #222;
-      font-weight: bold;
-    }
-
-    .hero-footer-text {
-      font-size: 0.82rem;
-      font-style: italic;
-      color: #ffffff;
-      margin-top: 4px;
-      border-bottom: 2px solid #fca311;
-      display: inline-block;
-      padding-bottom: 2px;
-      font-weight: 500;
-    }
-
     /* Container de Categorias */
     .categories-section {
       max-width: 1200px;
@@ -216,35 +95,8 @@
       text-align: center;
     }
 
-    /* RESPONSIVO PARA CELULAR (3 botões menores em 1 linha e Hero compacto) */
+    /* RESPONSIVO PARA CELULAR (3 botões menores em 1 linha) */
     @media (max-width: 768px) {
-      .hero-section {
-        padding: 16px 12px;
-      }
-
-      .hero-title {
-        font-size: 1.25rem;
-      }
-
-      .hero-subtitle {
-        font-size: 0.78rem;
-        margin-bottom: 2px;
-      }
-
-      .hero-search-btn {
-        padding: 10px 14px;
-        font-size: 0.82rem;
-      }
-
-      .hero-search-btn svg {
-        width: 18px;
-        height: 18px;
-      }
-
-      .hero-footer-text {
-        font-size: 0.75rem;
-      }
-
       .categories-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
@@ -274,36 +126,6 @@
 </head>
 <body>
 
-  <!-- Cabeçalho -->
-  <header class="app-header">
-    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect fill='%23fca311' width='24' height='24' rx='4'/></svg>" alt="Logo">
-    <h1>Cajazeiras <span>Mall</span></h1>
-  </header>
-
-  <!-- Banner Baixar App -->
-  <div class="install-banner">
-    <a href="#">
-      📱 Baixar App no Celular
-    </a>
-  </div>
-
-  <!-- Seção Hero Compacta (Mantém layout, cores, imagem de fundo e textos exatos, substituindo a pesquisa pelo botão de cadastro) -->
-  <section class="hero-section">
-    <div class="hero-container">
-      <div class="hero-title">Cajazeiras <span>Mall</span></div>
-      <div class="hero-subtitle">O comércio de Cajazeiras reunido em um só lugar.</div>
-      
-      <!-- Botão com o mesmo estilo da barra de pesquisa chamando para o cadastro -->
-      <a href="#" class="hero-search-btn">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-        <span>Clique aqui e cadastre seu negócio!</span>
-      </a>
-
-      <div class="hero-footer-text">Compre local. Fortaleza o nosso bairro.</div>
-    </div>
-  </section>
-
-  <!-- Seção de Categorias -->
   <section class="categories-section">
     <div class="categories-header">
       <h2>Navegue por Categorias</h2>
