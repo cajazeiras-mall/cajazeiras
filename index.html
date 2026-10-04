@@ -2,25 +2,28 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cajazeiras Mall by Fortaleza - O comércio local num só lugar</title>
-    <link rel="manifest" href="manifest.json?v=8">
-    <link rel="icon" type="image/png" href="icon-192.png">
-    <meta name="theme-color" content="#0f172a">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cajazeiras Mall</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-main: #f8fafc;
-            --card-bg: #ffffff;
-            --card-border: #e2e8f0;
+            --bg-color: #f8fafc;
+            --surface-color: #ffffff;
             --primary-color: #0f172a;
-            --brand-yellow: #ffb800;
-            --brand-blue: #2563eb;
-            --brand-blue-hover: #1d4ed8;
-            --accent-green: #25d366;
-            --accent-green-hover: #128c7e;
-            --text-dark: #0f172a;
+            --primary-light: #1e293b;
+            --accent-color: #2563eb;
+            --text-main: #0f172a;
             --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
         }
 
         * {
@@ -28,1188 +31,487 @@
             margin: 0;
             padding: 0;
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        html, body {
-            min-height: 100vh;
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
         }
 
-        /* HEADER SUPERIOR */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--surface-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.03);
+        }
+
         header {
-            background: #0f172a;
-            padding: 14px 24px;
+            padding: 20px 20px 12px 20px;
+            background: var(--surface-color);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 10;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-        }
-
-        .app-logo-header {
-            width: 44px;
-            height: 44px;
-            object-fit: contain;
-        }
-
-        .header-title-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header-title {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: -0.5px;
-            line-height: 1;
-        }
-
-        .header-title span {
-            color: var(--brand-yellow);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav-link {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 600;
-            transition: color 0.2s;
-            cursor: pointer;
-        }
-
-        .nav-link:hover {
-            color: #ffffff;
-        }
-
-        .header-search {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .header-search input {
-            background: #1e293b;
-            border: 1px solid #334155;
-            padding: 8px 16px 8px 36px;
-            border-radius: 20px;
-            color: #fff;
-            font-size: 0.82rem;
-            width: 220px;
-            outline: none;
-        }
-
-        .header-search::before {
-            content: "🔍";
-            position: absolute;
-            left: 12px;
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-
-        /* HERO BANNER - FORTALEZA AO FUNDO */
-        .hero-banner {
-            position: relative;
-            background: linear-gradient(180deg, rgba(15,23,42,0.65) 0%, rgba(15,23,42,0.85) 100%), 
-                        url('https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
-            padding: 60px 24px;
-            color: #ffffff;
-            text-align: left;
-            overflow: hidden;
-        }
-
-        .hero-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 10px;
-        }
-
-        .hero-title span {
-            color: var(--brand-yellow);
-        }
-
-        .hero-subtitle {
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: #e2e8f0;
-            max-width: 480px;
-            margin-bottom: 24px;
-            line-height: 1.4;
-        }
-
-        .search-box {
-            background: #ffffff;
-            border-radius: 30px;
-            padding: 6px 16px;
-            display: flex;
-            align-items: center;
-            max-width: 480px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            cursor: pointer;
-        }
-
-        .search-box input {
-            border: none;
-            outline: none;
-            width: 100%;
-            padding: 10px;
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            background: transparent;
-            cursor: pointer;
-        }
-
-        .hero-stamp {
-            position: absolute;
-            right: 0;
-            bottom: 10px;
-            font-size: 2.2rem;
-            font-weight: 800;
-            font-style: italic;
-            color: rgba(255,255,255,0.9);
-            text-align: right;
-            line-height: 1.1;
-            transform: rotate(-3deg);
-            pointer-events: none;
-        }
-
-        .hero-stamp span {
-            display: block;
-            border-bottom: 3px solid var(--brand-yellow);
-            padding-bottom: 4px;
-        }
-
-        /* CONTAINER PRINCIPAL */
-        .main-container {
-            max-width: 1100px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-
-        .section-header-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-        }
-
-        .section-title-main {
+        .brand-title {
             font-size: 1.25rem;
             font-weight: 800;
-            color: var(--primary-color);
+            letter-spacing: -0.5px;
+            color: var(--text-main);
         }
 
-        .see-all-btn {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--brand-blue);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* BARRA DE INSTALAÇÃO PWA */
-        .install-bar {
-            background: #ffffff;
-            border-bottom: 1px solid var(--card-border);
-            padding: 10px 16px;
-            text-align: center;
-        }
-
-        .btn-install-app {
+        .btn-admin-access {
             background: #f1f5f9;
-            border: 1px solid var(--card-border);
-            color: var(--primary-color);
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
+            border: none;
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-main);
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
         }
 
-        /* GRID DE CATEGORIAS DINÂMICAS E ESTÁTICAS */
-        .categories-grid { 
+        .main-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .install-banner {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .install-banner button {
+            background: white;
+            color: #2563eb;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .btn-voltar {
+            background: none;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            cursor: pointer;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+
+        /* Grelha de Categorias com Novos Ícones */
+        .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); 
-            gap: 12px; 
-            margin-bottom: 35px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
         }
 
         .cat-grid-card {
             background: #ffffff;
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 16px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 18px 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: transform 0.15s, box-shadow 0.15s;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
         }
 
-        .cat-grid-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+        .cat-grid-card:active {
+            transform: scale(0.98);
         }
 
         .cat-grid-icon {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            display: grid;
-            place-items: center;
-            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
         }
 
         .cat-grid-title {
-            font-size: 0.78rem;
+            font-size: 0.92rem;
             font-weight: 700;
-            color: var(--text-dark);
+            color: var(--text-main);
         }
 
-        /* CARDS DE DESTAQUES E ESTABELECIMENTOS */
-        .stores-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 16px;
-            margin-bottom: 35px;
+        /* Cartões de Lojas */
+        .stores-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
         .store-card-featured {
             background: #ffffff;
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .store-img-wrapper {
-            position: relative;
-            height: 130px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .store-logo-overlay {
-            position: absolute;
-            right: 12px;
-            bottom: -15px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #000;
-            border: 2px solid #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: 800;
-            font-size: 0.65rem;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            overflow: hidden;
-        }
-
-        .store-card-body {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
             padding: 16px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            box-shadow: var(--shadow-sm);
         }
 
         .store-name-title {
             font-size: 1rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 4px;
-        }
-
-        .store-cat-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .store-rating {
-            font-size: 0.75rem;
             font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 12px;
+            color: var(--text-main);
         }
 
         .btn-whatsapp {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            background-color: var(--accent-green);
-            color: #ffffff;
-            text-align: center;
-            padding: 10px;
-            border-radius: 8px;
+            background-color: #25d366;
+            color: white;
             text-decoration: none;
-            font-weight: 700;
+            padding: 10px 14px;
+            border-radius: 10px;
             font-size: 0.85rem;
-            margin-top: auto;
-            transition: background-color 0.2s;
-        }
-
-        .btn-whatsapp:hover {
-            background-color: var(--accent-green-hover);
-        }
-
-        /* BANNER DE CADASTRO DO COMÉRCIO */
-        .register-banner-cta {
-            background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
-            border-radius: 16px;
-            padding: 24px 30px;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-        }
-
-        .cta-content {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .cta-icon {
-            font-size: 3.2rem;
-            background: var(--brand-yellow);
-            width: 70px;
-            height: 70px;
-            border-radius: 14px;
-            display: grid;
-            place-items: center;
-            flex-shrink: 0;
-        }
-
-        .cta-text h3 {
-            font-size: 1.3rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .cta-text p {
-            font-size: 0.88rem;
-            color: #94a3b8;
-        }
-
-        .btn-cta-action {
-            background: var(--brand-yellow);
-            color: #0f172a;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: transform 0.2s;
-        }
-
-        .btn-cta-action:hover {
-            transform: scale(1.03);
-        }
-
-        /* SEÇÃO COMO FUNCIONA */
-        .how-it-works-section {
-            margin-bottom: 40px;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .step-card {
-            background: #ffffff;
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 16px;
-            position: relative;
-        }
-
-        .step-number {
-            width: 24px;
-            height: 24px;
-            background: var(--brand-yellow);
-            color: #0f172a;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            font-weight: 800;
-            font-size: 0.75rem;
-            margin-bottom: 12px;
-        }
-
-        .step-icon {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-        }
-
-        .step-title {
-            font-size: 0.9rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .step-desc {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            line-height: 1.3;
-        }
-
-        /* BANNER APP MOBILE */
-        .app-download-banner {
-            background: #0f172a;
-            border-radius: 16px;
-            padding: 24px;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        .app-download-text h3 {
-            font-size: 1.1rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .app-download-text p {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            margin-bottom: 12px;
-        }
-
-        .app-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .app-btn-mock {
-            background: #1e293b;
-            border: 1px solid #334155;
-            color: #fff;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 0.75rem;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
         }
 
-        /* FOOTER */
-        footer {
-            background: #090d16;
-            color: #64748b;
-            padding: 30px 20px;
-            border-top: 1px solid #1e293b;
-            font-size: 0.8rem;
-        }
-
-        .footer-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #fff;
-            font-weight: 800;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 16px;
-        }
-
-        .footer-links a {
-            color: #94a3b8;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .btn-admin-trigger {
-            background: transparent;
-            border: none;
-            color: #64748b;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        /* MODAIS E PAINÉIS */
-        .modal-overlay {
+        /* Modais */
+        .modal {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(4px);
-            display: flex;
+            z-index: 100;
+            display: none;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
-            padding: 16px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
+            padding: 20px;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
+        .modal.active {
+            display: flex;
         }
 
-        .modal-body {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
-            max-width: 440px;
+        .modal-content {
+            background: white;
             width: 100%;
+            max-width: 420px;
+            border-radius: var(--radius-lg);
+            padding: 24px;
             max-height: 90vh;
             overflow-y: auto;
         }
 
-        .modal-header-branding {
-            text-align: center;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--card-border);
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
         }
 
         .modal-title {
-            font-size: 1.15rem;
-            color: var(--primary-color);
-            font-weight: 800;
-            margin-bottom: 4px;
-            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
         }
 
-        .modal-text {
-            font-size: 0.82rem;
+        .btn-close-modal {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
             color: var(--text-muted);
-            margin-bottom: 14px;
-            text-align: center;
         }
 
         .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            margin-bottom: 4px;
-            color: var(--primary-color);
-            text-transform: uppercase;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 0.88rem;
-            background: #ffffff;
-            color: var(--text-dark);
-        }
-
-        .password-input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .password-input-wrapper input {
-            padding-right: 40px;
-        }
-
-        .btn-toggle-pass {
-            position: absolute;
-            right: 8px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-            padding: 4px;
+            margin-bottom: 6px;
             color: var(--text-muted);
-            line-height: 1;
         }
 
-        .btn-submit {
+        .form-control {
             width: 100%;
-            background-color: var(--accent-green);
-            color: #ffffff;
-            border: none;
             padding: 12px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            outline: none;
         }
 
-        .btn-secondary {
+        .form-control:focus {
+            border-color: var(--accent-color);
+        }
+
+        .btn-primary {
             width: 100%;
-            background-color: #64748b;
-            color: #ffffff;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-
-        .modal-btn {
             background: var(--primary-color);
-            color: #ffffff;
+            color: white;
             border: none;
             padding: 12px;
-            border-radius: 20px;
-            font-size: 0.88rem;
+            border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
-            width: 100%;
+            margin-top: 6px;
         }
 
-        .btn-close-modal {
-            background: #e2e8f0;
-            color: var(--text-dark);
-            margin-top: 8px;
+        .password-input-container {
+            position: relative;
         }
 
-        .admin-section-divider {
-            border-top: 1px dashed var(--card-border);
-            margin: 14px 0;
-            padding-top: 12px;
-        }
-
-        .login-error-msg {
-            color: #ef4444;
-            font-size: 0.78rem;
-            font-weight: 700;
-            text-align: center;
-            margin-top: 8px;
-            display: none;
-        }
-
-        .category-manage-list {
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 6px;
-            margin-top: 8px;
-            background: #f8fafc;
+        .btn-toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
         .category-manage-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 6px 8px;
-            background: #ffffff;
-            border: 1px solid var(--card-border);
+            padding: 10px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .cat-item-actions button {
+            border: none;
+            padding: 4px 8px;
             border-radius: 6px;
-            margin-bottom: 4px;
-            font-size: 0.82rem;
-            font-weight: 600;
-        }
-
-        .cat-item-actions {
-            display: flex;
-            gap: 4px;
-        }
-
-        .btn-cat-edit {
-            background: #fef3c7;
-            color: #b45309;
-            border: none;
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 700;
             cursor: pointer;
+            margin-left: 4px;
         }
 
-        .btn-cat-delete {
-            background: #fee2e2;
-            color: #ef4444;
-            border: none;
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .btn-voltar-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #f1f5f9;
-            border: 1px solid var(--card-border);
-            color: var(--primary-color);
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-bottom: 12px;
-        }
-
-        .custom-dialog-btns {
-            display: flex;
-            gap: 8px;
-            margin-top: 14px;
-        }
-
-        .btn-dialog-cancel {
-            background: #e2e8f0;
-            color: var(--text-dark);
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .btn-dialog-confirm {
-            background: var(--brand-blue);
-            color: #ffffff;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .btn-dialog-danger {
-            background: #ef4444;
-            color: #ffffff;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .admin-tabs-title {
-            font-size: .78rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--primary-color);
-            margin: 6px 0;
-        }
+        .btn-cat-edit { background: #e0f2fe; color: #0284c7; }
+        .btn-cat-delete { background: #ffe4e6; color: #e11d48; }
 
         .carregando {
             text-align: center;
             color: var(--text-muted);
             padding: 20px;
-            font-size: .9rem;
-            grid-column: 1 / -1;
+            font-size: 0.9rem;
         }
 
-        @media (max-width: 768px) {
-            .nav-links, .header-search { display: none; }
-            .hero-title { font-size: 2rem; }
-            .hero-stamp { position: relative; right: auto; bottom: auto; margin-top: 20px; transform: none; font-size: 1.4rem; }
-            .steps-grid { grid-template-columns: repeat(2, 1fr); }
-            .register-banner-cta { flex-direction: column; text-align: center; }
-            .cta-content { flex-direction: column; }
-            .app-download-banner { flex-direction: column; text-align: center; gap: 16px; }
+        /* Diálogo Personalizado */
+        .custom-dialog-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .btn-dialog-cancel {
+            flex: 1;
+            background: #f1f5f9;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-dialog-confirm {
+            flex: 1;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-dialog-danger {
+            flex: 1;
+            background: #e11d48;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-<!-- HEADER PRINCIPAL -->
-<header>
-  <div class="header-brand" onclick="voltarParaCategorias()">
-    <img src="icon-192.png" alt="Logo" class="app-logo-header">
-    <div class="header-title-container">
-        <div class="header-title">Cajazeiras <span>Mall</span></div>
-    </div>
-  </div>
+    <div class="app-container">
+        <header>
+            <div class="brand-title">Cajazeiras Mall</div>
+            <button class="btn-admin-access" onclick="abrirLogin()">Área do Lojista</button>
+        </header>
 
-  <nav class="nav-links">
-    <a class="nav-link" onclick="voltarParaCategorias()">Início</a>
-    <a class="nav-link" onclick="abrirCadastro()">Categorias</a>
-    <a class="nav-link" onclick="abrirCadastro()">Lojas</a>
-    <a class="nav-link" onclick="abrirCadastro()">Sobre</a>
-    <a class="nav-link" onclick="abrirCadastro()">Fale Conosco</a>
-  </nav>
-
-  <div class="header-search">
-    <input type="text" placeholder="Buscar estabelecimentos..." onclick="abrirCadastro()">
-  </div>
-</header>
-
-<!-- BARRA DE INSTALAÇÃO PWA -->
-<div class="install-bar" id="installContainer">
-    <button class="btn-install-app" onclick="instalarApp()"><span class="phone-icon">📲</span> Baixar App no Celular</button>
-</div>
-
-<!-- HERO BANNER COM FORTALEZA AO FUNDO -->
-<section class="hero-banner">
-    <div class="hero-container">
-        <h1 class="hero-title">Cajazeiras <span>Mall</span></h1>
-        <p class="hero-subtitle">O comércio de Cajazeiras reunido em um só lugar.</p>
-        
-        <div class="search-box" onclick="abrirCadastro()">
-            <span>🔍</span>
-            <input type="text" placeholder="O que você procura?" readonly>
-        </div>
-
-        <div class="hero-stamp">
-            Compre local.<br>
-            <span>Fortaleza o nosso bairro.</span>
-        </div>
-    </div>
-</section>
-
-<!-- CONTEÚDO PRINCIPAL -->
-<main class="main-container">
-
-    <!-- BOTÃO VOLTAR EM NAVEGAÇÃO -->
-    <div id="btn-voltar-container" style="display:none">
-        <button class="btn-voltar-home" onclick="voltarParaCategorias()">⬅ Ver todas as categorias</button>
-    </div>
-
-    <!-- SEÇÃO CATEGORIAS -->
-    <div class="section-header-flex">
-        <h2 class="section-title-main" id="main-section-title">Navegue por Categorias</h2>
-        <a class="see-all-btn" onclick="abrirCadastro()">Ver todas →</a>
-    </div>
-
-    <!-- GRID DE CATEGORIAS DINÂMICAS -->
-    <div id="categories-grid-container" class="categories-grid"></div>
-
-    <!-- SEÇÃO DE LOJAS / CONTEÚDO DA CATEGORIA SELECIONADA -->
-    <div id="content-list">
-        <div id="stores-container" class="stores-grid"></div>
-    </div>
-
-    <!-- SEÇÃO ESTÁTICA DE DESTAQUES -->
-    <div id="static-featured-section">
-        <div class="section-header-flex">
-            <h2 class="section-title-main">Destaques de Cajazeiras</h2>
-            <a class="see-all-btn" onclick="abrirCadastro()">Ver todos os estabelecimentos →</a>
-        </div>
-
-        <div class="stores-grid">
-            <!-- Card 1 -->
-            <div class="store-card-featured" onclick="abrirCadastro()">
-                <div class="store-img-wrapper" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500');">
-                    <div class="store-logo-overlay">TOP LANCHES</div>
+        <main class="main-content">
+            <div id="installContainer" class="install-banner" style="display: none;">
+                <div>
+                    <strong style="font-size: 0.85rem; display: block;">Instalar Aplicativo</strong>
+                    <span style="font-size: 0.75rem; opacity: 0.9;">Acesse mais rápido direto da sua tela inicial</span>
                 </div>
-                <div class="store-card-body">
-                    <div class="store-name-title">Top Lanches</div>
-                    <div class="store-cat-label">🍔 Alimentação</div>
-                    <div class="store-rating">⭐ 4.8 (124 avaliações)</div>
-                    <a class="btn-whatsapp" onclick="event.stopPropagation(); abrirCadastro();">💬 Falar no WhatsApp</a>
-                </div>
+                <button onclick="instalarApp()">Instalar</button>
             </div>
 
-            <!-- Card 2 -->
-            <div class="store-card-featured" onclick="abrirCadastro()">
-                <div class="store-img-wrapper" style="background-image: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=500');">
-                    <div class="store-logo-overlay">BELLA FACE</div>
-                </div>
-                <div class="store-card-body">
-                    <div class="store-name-title">Bella Face Estética</div>
-                    <div class="store-cat-label">💅 Beleza</div>
-                    <div class="store-rating">⭐ 4.9 (98 avaliações)</div>
-                    <a class="btn-whatsapp" onclick="event.stopPropagation(); abrirCadastro();">💬 Falar no WhatsApp</a>
-                </div>
-            </div>
+            <button id="btn-voltar-container" class="btn-voltar" onclick="voltarParaCategorias()">← Voltar às Categorias</button>
 
-            <!-- Card 3 -->
-            <div class="store-card-featured" onclick="abrirCadastro()">
-                <div class="store-img-wrapper" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=500');">
-                    <div class="store-logo-overlay">MODA</div>
-                </div>
-                <div class="store-card-body">
-                    <div class="store-name-title">Moda & Estilo</div>
-                    <div class="store-cat-label">👗 Moda</div>
-                    <div class="store-rating">⭐ 4.7 (76 avaliações)</div>
-                    <a class="btn-whatsapp" onclick="event.stopPropagation(); abrirCadastro();">💬 Falar no WhatsApp</a>
-                </div>
-            </div>
+            <h2 id="main-section-title" class="section-title">Navegue por Categorias</h2>
 
-            <!-- Card 4 -->
-            <div class="store-card-featured" onclick="abrirCadastro()">
-                <div class="store-img-wrapper" style="background-image: url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=500');">
-                    <div class="store-logo-overlay">AUTO CENTER</div>
-                </div>
-                <div class="store-card-body">
-                    <div class="store-name-title">Auto Center Cajazeiras</div>
-                    <div class="store-cat-label">🛠️ Serviços</div>
-                    <div class="store-rating">⭐ 4.6 (61 avaliações)</div>
-                    <a class="btn-whatsapp" onclick="event.stopPropagation(); abrirCadastro();">💬 Falar no WhatsApp</a>
-                </div>
+            <div id="categories-grid-container" class="categories-grid"></div>
+
+            <div id="stores-container" class="stores-list"></div>
+        </main>
+    </div>
+
+    <!-- Modal Login Admin -->
+    <div id="admin-login-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Acesso do Lojista</h3>
+                <button class="btn-close-modal" onclick="fechar('admin-login-modal')">✕</button>
             </div>
+            <form onsubmit="entrar(event)">
+                <div class="form-group">
+                    <label>Senha de Acesso</label>
+                    <div class="password-input-container">
+                        <input type="password" id="admin-pass-input" class="form-control" placeholder="Digite sua senha" required>
+                        <button type="button" class="btn-toggle-password" onclick="alternarVisibilidadeSenha('admin-pass-input', this)">👁️</button>
+                    </div>
+                </div>
+                <div id="login-error-msg" style="color: #e11d48; font-size: 0.8rem; margin-bottom: 10px; display: none;"></div>
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
         </div>
     </div>
 
-    <!-- BANNER CTA DE CADASTRO -->
-    <section class="register-banner-cta">
-        <div class="cta-content">
-            <div class="cta-icon">🏪</div>
-            <div class="cta-text">
-                <h3>Tem um negócio em Cajazeiras?</h3>
-                <p>Cadastre sua empresa gratuitamente e aumente sua visibilidade no bairro.</p>
+    <!-- Modal Painel Admin -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Painel de Gestão</h3>
+                <button class="btn-close-modal" onclick="sairAdmin()">✕</button>
             </div>
-        </div>
-        <button class="btn-cta-action" onclick="abrirCadastro()">Cadastrar meu comércio</button>
-    </section>
-
-    <!-- SEÇÃO COMO FUNCIONA -->
-    <section class="how-it-works-section">
-        <h2 class="section-title-main">Como funciona?</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">É simples, rápido e gratuito.</p>
-
-        <div class="steps-grid">
-            <div class="step-card" onclick="abrirCadastro()">
-                <div class="step-number">1</div>
-                <div class="step-icon">🔍</div>
-                <div class="step-title">Busque</div>
-                <div class="step-desc">Encontre o que precisa no nosso catálogo.</div>
+            
+            <div style="margin-bottom: 20px;">
+                <button type="button" onclick="abrirModalTrocarSenha()" style="background: none; border: none; color: var(--accent-color); font-size: 0.8rem; font-weight: 700; cursor: pointer;">🔑 Alterar Senha</button>
             </div>
-            <div class="step-card" onclick="abrirCadastro()">
-                <div class="step-number">2</div>
-                <div class="step-icon">🏪</div>
-                <div class="step-title">Escolha</div>
-                <div class="step-desc">Veja informações, fotos e avaliações dos comércios.</div>
-            </div>
-            <div class="step-card" onclick="abrirCadastro()">
-                <div class="step-number">3</div>
-                <div class="step-icon">💬</div>
-                <div class="step-title">Fale</div>
-                <div class="step-desc">Entre em contato direto pelo WhatsApp.</div>
-            </div>
-            <div class="step-card" onclick="abrirCadastro()">
-                <div class="step-number">4</div>
-                <div class="step-icon">🛍️</div>
-                <div class="step-title">Conquiste</div>
-                <div class="step-desc">Compre, contrate e valorize o comércio local.</div>
-            </div>
-        </div>
-    </section>
 
-    <!-- BANNER APP MOBILE -->
-    <section class="app-download-banner">
-        <div class="app-download-text">
-            <h3>Leve o Cajazeiras Mall com você</h3>
-            <p>Baixe o aplicativo e tenha todos os estabelecimentos do bairro no seu celular.</p>
-        </div>
-        <div class="app-buttons">
-            <button class="app-btn-mock" onclick="instalarApp()">▶ Google Play</button>
-            <button class="app-btn-mock" onclick="instalarApp()">🍎 App Store</button>
-        </div>
-    </section>
+            <!-- Form Cadastrar/Editar Comércio -->
+            <form id="admin-form" onsubmit="salvarComercio(event)" style="margin-bottom: 24px; background: #f8fafc; padding: 14px; border-radius: var(--radius-md);">
+                <strong id="admin-form-titulo" style="display: block; font-size: 0.9rem; margin-bottom: 10px;">Publicar estabelecimento</strong>
+                <div class="form-group">
+                    <input type="text" id="admin-nome" class="form-control" placeholder="Nome do Estabelecimento" required>
+                </div>
+                <div class="form-group">
+                    <select id="admin-categoria" class="form-control" required></select>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="admin-whatsapp" class="form-control" placeholder="WhatsApp (somente números)" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="admin-desc" class="form-control" placeholder="Descrição dos serviços / produtos" rows="3" required></textarea>
+                </div>
+                <button type="submit" id="admin-btn-salvar" class="btn-primary">➕ Publicar</button>
+                <button type="button" id="admin-btn-cancelar-edicao" onclick="limparForm()" style="display: none; background: none; border: none; width: 100%; margin-top: 8px; color: var(--text-muted); font-size: 0.8rem; cursor: pointer;">Cancelar Edição</button>
+            </form>
 
-</main>
+            <!-- Nova Categoria -->
+            <form onsubmit="novaCategoria(event)" style="margin-bottom: 24px;">
+                <strong style="display: block; font-size: 0.85rem; margin-bottom: 8px;">Nova Categoria</strong>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="admin-nova-categoria" class="form-control" placeholder="Nome da Categoria" required>
+                    <button type="submit" class="btn-primary" style="width: auto; margin-top: 0; white-space: nowrap;">Adicionar</button>
+                </div>
+            </form>
 
-<!-- FOOTER DA PÁGINA -->
-<footer>
-    <div class="footer-content">
-        <div class="footer-brand">
-            <img src="icon-192.png" alt="Logo" style="width: 24px; height: 24px;">
-            <span>Cajazeiras Mall</span>
-        </div>
-        <div>📍 Cajazeiras - Fortaleza, CE • O comércio local mais perto de você.</div>
-        <div class="footer-links">
-            <a onclick="abrirCadastro()">Termos de Uso</a>
-            <a onclick="abrirCadastro()">Política de Privacidade</a>
-            <button class="btn-admin-trigger" onclick="abrirLogin()">⚙ Painel do Administrador</button>
+            <strong style="display: block; font-size: 0.85rem; margin-bottom: 8px;">Comércios Cadastrados</strong>
+            <div id="admin-lista-comercios" style="margin-bottom: 20px;"></div>
+
+            <strong style="display: block; font-size: 0.85rem; margin-bottom: 8px;">Categorias Existentes</strong>
+            <div id="admin-lista-categorias"></div>
         </div>
     </div>
-</footer>
 
-<!-- MODAL REGISTO DE UTILIZADOR -->
-<div class="modal-overlay" id="user-register-modal">
-  <div class="modal-body">
-    <div class="modal-header-branding">
-      <img src="icon-192.png" alt="Logo" style="width:36px;height:36px">
-      <div class="header-title" style="color:#0f172a">Cajazeiras <span style="color:#f59e0b">Mall</span></div>
+    <!-- Modal Alterar Senha -->
+    <div id="change-pass-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Alterar Senha</h3>
+                <button class="btn-close-modal" onclick="fechar('change-pass-modal')">✕</button>
+            </div>
+            <form onsubmit="salvarNovaSenha(event)">
+                <div class="form-group">
+                    <label>Nova Senha</label>
+                    <div class="password-input-container">
+                        <input type="password" id="new-pass-input" class="form-control" required>
+                        <button type="button" class="btn-toggle-password" onclick="alternarVisibilidadeSenha('new-pass-input', this)">👁️</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Nova Senha</label>
+                    <div class="password-input-container">
+                        <input type="password" id="confirm-pass-input" class="form-control" required>
+                        <button type="button" class="btn-toggle-password" onclick="alternarVisibilidadeSenha('confirm-pass-input', this)">👁️</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Salvar Nova Senha</button>
+            </form>
+        </div>
     </div>
-    <div class="modal-title">Cadastre seu Comércio</div>
-    <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
-    <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
-      <input type="hidden" name="_captcha" value="false">
-      <div class="form-group"><label for="comerciante-nome">Seu Nome:</label><input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo"></div>
-      <div class="form-group"><label for="loja-nome">Nome do Estabelecimento:</label><input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da loja/serviço"></div>
-      <div class="form-group"><label for="loja-categoria">Categoria:</label><select name="Categoria" id="loja-categoria" required></select></div>
-      <div class="form-group"><label for="loja-whatsapp">WhatsApp:</label><input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX"></div>
-      <div class="form-group"><label for="loja-desc">Descrição:</label><textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea></div>
-      <button type="submit" class="btn-submit">Enviar Cadastro</button>
-      <button type="button" class="modal-btn btn-close-modal" onclick="fechar('user-register-modal')">Cancelar</button>
-    </form>
-  </div>
-</div>
 
-<!-- MODAL LOGIN ADMIN -->
-<div class="modal-overlay" id="admin-login-modal">
-  <div class="modal-body">
-    <div class="modal-header-branding">
-      <img src="icon-192.png" alt="Logo" style="width:36px;height:36px">
-      <div class="header-title" style="color:#0f172a">Cajazeiras <span style="color:#f59e0b">Mall</span></div>
+    <!-- Modal Diálogo Personalizado -->
+    <div id="custom-dialog-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="custom-dialog-title" class="modal-title" style="margin-bottom: 8px;"></h3>
+            <p id="custom-dialog-desc" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;"></p>
+            <div id="custom-dialog-input-container"></div>
+            <div id="custom-dialog-btns" class="custom-dialog-btns"></div>
+        </div>
     </div>
-    <div class="modal-title">Acesso Restrito</div>
-    <div class="modal-text">Digite a senha do Administrador.</div>
-    <form onsubmit="entrar(event)">
-      <div class="form-group">
-        <label for="admin-pass-input">Senha de Acesso:</label>
-        <div class="password-input-wrapper">
-          <input type="password" id="admin-pass-input" required placeholder="Digite sua senha..." autocomplete="current-password">
-          <button type="button" class="btn-toggle-pass" onclick="alternarVisibilidadeSenha('admin-pass-input', this)">👁️</button>
-        </div>
-      </div>
-      <div id="login-error-msg" class="login-error-msg"></div>
-      <button type="submit" class="btn-submit" id="btn-entrar" style="margin-top:10px">Entrar</button>
-      <button type="button" class="modal-btn btn-close-modal" onclick="fechar('admin-login-modal')">Cancelar</button>
-    </form>
-  </div>
-</div>
 
-<!-- MODAL PAINEL ADMIN -->
-<div class="modal-overlay" id="admin-modal">
-  <div class="modal-body">
-    <div class="modal-title">Painel do Administrador</div>
-    <div class="modal-text">As mudanças aparecem para todos os visitantes.</div>
-    <form id="admin-form" onsubmit="salvarComercio(event)">
-      <div class="admin-tabs-title" id="admin-form-titulo">Publicar estabelecimento</div>
-      <div class="form-group"><label>Nome:</label><input type="text" id="admin-nome" required maxlength="90"></div>
-      <div class="form-group"><label>Categoria:</label><select id="admin-categoria" required></select></div>
-      <div class="form-group"><label>WhatsApp:</label><input type="tel" id="admin-whatsapp" required placeholder="85996482898"></div>
-      <div class="form-group"><label>Descrição:</label><textarea id="admin-desc" rows="3" required maxlength="500"></textarea></div>
-      <button type="submit" class="btn-submit" id="admin-btn-salvar">➕ Publicar</button>
-      <button type="button" class="modal-btn btn-close-modal" id="admin-btn-cancelar-edicao" style="display:none" onclick="limparForm()">Cancelar edição</button>
-    </form>
-    <div class="admin-section-divider"></div>
-    <div class="admin-tabs-title">Comércios publicados</div>
-    <div class="category-manage-list" id="admin-lista-comercios"></div>
-    <div class="admin-section-divider"></div>
-    <div class="admin-tabs-title">Categorias</div>
-    <form onsubmit="novaCategoria(event)"><div style="display:flex;gap:6px"><input type="text" id="admin-nova-categoria" placeholder="Nova categoria..." required maxlength="40" style="padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;width:100%"><button type="submit" class="btn-submit" style="width:auto;padding:0 12px">Criar</button></div></form>
-    <div class="category-manage-list" id="admin-lista-categorias"></div>
-    <div class="admin-section-divider"></div>
-    <div class="admin-tabs-title">Segurança</div>
-    <button type="button" class="btn-secondary" onclick="abrirModalTrocarSenha()">🔑 Alterar Senha de Admin</button>
-    <button type="button" class="modal-btn btn-close-modal" onclick="sairAdmin()" style="margin-top:12px">Sair do painel</button>
-  </div>
-</div>
-
-<!-- MODAL ALTERAR SENHA -->
-<div class="modal-overlay" id="change-pass-modal">
-  <div class="modal-body">
-    <div class="modal-title">Alterar Senha do Admin</div>
-    <div class="modal-text">Defina a nova senha de acesso ao painel.</div>
-    <form onsubmit="salvarNovaSenha(event)">
-      <div class="form-group">
-        <label for="new-pass-input">Nova Senha:</label>
-        <div class="password-input-wrapper">
-          <input type="password" id="new-pass-input" required placeholder="Digite a nova senha...">
-          <button type="button" class="btn-toggle-pass" onclick="alternarVisibilidadeSenha('new-pass-input', this)">👁️</button>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="confirm-pass-input">Confirmar Nova Senha:</label>
-        <div class="password-input-wrapper">
-          <input type="password" id="confirm-pass-input" required placeholder="Confirme a nova senha...">
-          <button type="button" class="btn-toggle-pass" onclick="alternarVisibilidadeSenha('confirm-pass-input', this)">👁️</button>
-        </div>
-      </div>
-      <button type="submit" class="btn-submit" style="margin-top:10px">Salvar Nova Senha</button>
-      <button type="button" class="modal-btn btn-close-modal" onclick="fechar('change-pass-modal')">Cancelar</button>
-    </form>
-  </div>
-</div>
-
-<!-- MODAL CAIXA DE DIÁLOGO CUSTOM -->
-<div class="modal-overlay" id="custom-dialog-modal">
-  <div class="modal-body">
-    <div class="modal-title" id="custom-dialog-title">Aviso</div>
-    <div class="modal-text" id="custom-dialog-desc"></div>
-    <div class="form-group" id="custom-dialog-input-container" style="display:none;text-align:left"><input type="text" id="custom-dialog-input"></div>
-    <div class="custom-dialog-btns" id="custom-dialog-btns"></div>
-  </div>
-</div>
-
-<!-- SCRIPTS DE LÓGICA E INTEGRAÇÃO -->
-<script src="config.js?v=8"></script>
-<script>
+    <script src="config.js?v=8"></script>
+    <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js?v=8').then(reg => {
@@ -1283,380 +585,452 @@
             }
         }
 
-var API = (typeof CONFIG !== 'undefined' && CONFIG.API) ? CONFIG.API : "";
+        var API = (typeof CONFIG !== 'undefined' && CONFIG.API) ? CONFIG.API : "";
 
-var PADRAO = {categorias:["Alimentação","Beleza","Moda","Reforço Escolar","Saúde"],comercios:[
- {id:"1",nome:"Reforço Escolar Tia Sandra",categoria:"Reforço Escolar",whatsapp:"85997354638",desc:"Trabalho com reforço escolar para educação infantil e ensino fundamental I."},
- {id:"2",nome:"Jamille Araújo Espaço da Beleza e do Bronze",categoria:"Beleza",whatsapp:"85988961380",desc:"Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua e bronze."},
- {id:"3",nome:"Nayanne Nascimento Salão de Beleza",categoria:"Beleza",whatsapp:"85921490223",desc:"Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados."},
- {id:"4",nome:"Boomerang Sanduíches",categoria:"Alimentação",whatsapp:"85987012328",desc:"Hamburgueria com opções de sanduíches e lanches."},
- {id:"5",nome:"Farmácia Super Farma",categoria:"Saúde",whatsapp:"85996656572",desc:"O super cuidado para sua saúde!"},
- {id:"6",nome:"Barfruta",categoria:"Alimentação",whatsapp:"85988408564",desc:"Polpas de frutas de diversos sabores e morango congelado."},
- {id:"7",nome:"Alemão e Cléa Espetaria e Pratinhos",categoria:"Alimentação",whatsapp:"85996277402",desc:"Espetos variados e pratinhos tradicionais."},
- {id:"8",nome:"Amadas Artigos Femininos, Fardamentos e Acessórios",categoria:"Moda",whatsapp:"85996482898",desc:"• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios"}]};
+        var PADRAO = {
+            categorias: ["Alimentação", "Beleza", "Moda", "Reforço Escolar", "Saúde"],
+            comercios: [
+                {id:"1",nome:"Reforço Escolar Tia Sandra",categoria:"Reforço Escolar",whatsapp:"85997354638",desc:"Trabalho com reforço escolar para educação infantil e ensino fundamental I."},
+                {id:"2",nome:"Jamille Araújo Espaço da Beleza e do Bronze",categoria:"Beleza",whatsapp:"85988961380",desc:"Cílios, sobrancelhas, depilação, unhas, massagem relaxante, limpeza de pele, banho de lua e bronze."},
+                {id:"3",nome:"Nayanne Nascimento Salão de Beleza",categoria:"Beleza",whatsapp:"85921490223",desc:"Serviços de alisamentos, loiros, coloração, corte, hidratação, reconstrução e penteados."},
+                {id:"4",nome:"Boomerang Sanduíches",categoria:"Alimentação",whatsapp:"85987012328",desc:"Hamburgueria com opções de sanduíches e lanches."},
+                {id:"5",nome:"Farmácia Super Farma",categoria:"Saúde",whatsapp:"85996656572",desc:"O super cuidado para sua saúde!"},
+                {id:"6",nome:"Barfruta",categoria:"Alimentação",whatsapp:"85988408564",desc:"Polpas de frutas de diversos sabores e morango congelado."},
+                {id:"7",nome:"Alemão e Cléa Espetaria e Pratinhos",categoria:"Alimentação",whatsapp:"85996277402",desc:"Espetos variados e pratinhos tradicionais."},
+                {id:"8",nome:"Amadas Artigos Femininos, Fardamentos e Acessórios",categoria:"Moda",whatsapp:"85996482898",desc:"• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios"}
+            ]
+        };
 
-var CORES_CAT=[["#f97316","#fbbf24"],["#ec4899","#f472b6"],["#6366f1","#818cf8"],["#10b981","#34d399"],["#0ea5e9","#38bdf8"],["#8b5cf6","#c084fc"],["#ef4444","#fb7185"],["#14b8a6","#2dd4bf"]];
-var ICONES_PALAVRAS=[["alimen","🍔"],["comida","🍔"],["restaur","🍽️"],["lanche","🍔"],["beleza","💅"],["salão","💅"],["estética","💅"],["eletr","📱"],["mercado","🛒"],["moda","👗"],["roupa","👗"],["padaria","🥖"],["pet","🐾"],["reforço","📚"],["escola","📚"],["curso","📚"],["saúde","💊"],["farm","💊"],["clínica","🩺"],["serviço","🛠️"],["automó","🚗"],["carro","🚗"],["casa","🏠"],["constru","🏗️"],["esporte","🏋️"],["academia","🏋"],["festa","🎉"],["evento","🎉"]];
-function iconeDe(n){var t=String(n).toLowerCase();for(var i=0;i<ICONES_PALAVRAS.length;i++){if(t.indexOf(ICONES_PALAVRAS[i][0])>-1)return ICONES_PALAVRAS[i][1]}return "🏪"}
-function corDe(n){var h=0;for(var i=0;i<n.length;i++)h+=n.charCodeAt(i);return CORES_CAT[h%CORES_CAT.length]}
+        var CORES_CAT = [
+            {bg:"#ffefe2", text:"#e05600"}, // Laranja / Alimentação
+            {bg:"#fdebf3", text:"#d61f69"}, // Rosa / Beleza
+            {bg:"#f3e8ff", text:"#7e22ce"}, // Roxo / Moda
+            {bg:"#e6f7ed", text:"#10b981"}, // Verde / Serviços
+            {bg:"#e0f2fe", text:"#0284c7"}, // Azul / Casa
+            {bg:"#e0e7ff", text:"#4338ca"}, // Índigo / Tecnologia
+            {bg:"#fef3c7", text:"#d97706"}, // Amarelo / Mercados
+            {bg:"#ffe4e6", text:"#e11d48"}  // Vermelho / Saúde
+        ];
 
-var DATA=null, SENHA_ADMIN=null, CAT_ATUAL=null, EDIT_ID=null;
-function $(i){return document.getElementById(i)}
-function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-function apiOn(){return API.indexOf("https://")===0}
-function zapLink(n){var d=String(n).replace(/\D/g,"");if(d.length<=11)d="55"+d;return "https://wa.me/"+d}
-function abrir(id){$(id).classList.add("active")}
-function fechar(id){$(id).classList.remove("active")}
-function abrirCadastro(){abrir("user-register-modal")}
-function guardar(d){try{localStorage.setItem("cm_dados",JSON.stringify({categorias:d.categorias,comercios:d.comercios}))}catch(e){}}
+        // Ícones SVG Vetoriais Modernos (Estilo Feather / Lucide)
+        var SVGS = {
+            utensils: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2"/><path d="M15 2v16"/><path d="M21 2v8a2 2 0 0 1-2 2h-1.5a1.5 1.5 0 0 1-1.5-1.5V2"/><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/></svg>`,
+            sparkles: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>`,
+            shirt: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>`,
+            wrench: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+            home: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+            tv: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`,
+            shoppingCart: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>`,
+            cross: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2a1 1 0 0 1 2 0v7h7a1 1 0 0 1 0 2h-7v7a1 1 0 0 1-2 0v-7H4a1 1 0 0 1 0-2h7V2z"/></svg>`,
+            book: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>`,
+            store: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2V7"/></svg>`
+        };
 
-function alternarVisibilidadeSenha(inputId, btnElement){
-  const input = $(inputId);
-  if (input.type === "password") {
-    input.type = "text";
-    btnElement.textContent = "🙈";
-  } else {
-    input.type = "password";
-    btnElement.textContent = "👁️";
-  }
-}
+        var MAPA_ICONES = [
+            ["alimen", SVGS.utensils],
+            ["comida", SVGS.utensils],
+            ["restaur", SVGS.utensils],
+            ["lanche", SVGS.utensils],
+            ["beleza", SVGS.sparkles],
+            ["salão", SVGS.sparkles],
+            ["estética", SVGS.sparkles],
+            ["moda", SVGS.shirt],
+            ["roupa", SVGS.shirt],
+            ["serviço", SVGS.wrench],
+            ["auto", SVGS.wrench],
+            ["oficina", SVGS.wrench],
+            ["casa", SVGS.home],
+            ["constru", SVGS.home],
+            ["tecno", SVGS.tv],
+            ["eletr", SVGS.tv],
+            ["mercad", SVGS.shoppingCart],
+            ["mercearia", SVGS.shoppingCart],
+            ["saúde", SVGS.cross],
+            ["farm", SVGS.cross],
+            ["clínica", SVGS.cross],
+            ["reforço", SVGS.book],
+            ["escola", SVGS.book],
+            ["curso", SVGS.book]
+        ];
 
-function obterSenhaAtual(){
-  return localStorage.getItem("cm_admin_pass") || "#Mall2026";
-}
-
-function chamar(obj){
-  return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(obj)}).then(function(r){return r.json()});
-}
-
-function carregar(){
-  if (!history.state || !history.state.home) {
-    history.replaceState({ home: true, categoria: null }, "", window.location.pathname);
-  }
-
-  var cache=null;try{cache=JSON.parse(localStorage.getItem("cm_dados"))}catch(e){}
-  DATA=cache||(apiOn()?{categorias:[],comercios:[],carregando:true}:PADRAO);
-  desenhar();
-  if(!apiOn())return;
-  fetch(API+"?acao=listar").then(function(r){return r.json()}).then(function(d){
-    if(d&&d.comercios){DATA={categorias:d.categorias,comercios:d.comercios};guardar(DATA);desenhar()}
-  }).catch(function(){ if(DATA.carregando){DATA=PADRAO;desenhar()} });
-}
-
-function selecionarCategoria(cat, registrarHistorico = true){
-  CAT_ATUAL = cat;
-  if(registrarHistorico && cat){
-    history.pushState({ home: false, categoria: cat }, "", "#cat=" + encodeURIComponent(cat));
-  }
-  desenhar();
-}
-
-function voltarParaCategorias(registrarHistorico = true){
-  CAT_ATUAL = null;
-  if(registrarHistorico){
-    history.pushState({ home: true, categoria: null }, "", window.location.pathname);
-  }
-  desenhar();
-}
-
-window.addEventListener("popstate", function(e) {
-  if (e.state && e.state.categoria) {
-    selecionarCategoria(e.state.categoria, false);
-  } else {
-    voltarParaCategorias(false);
-  }
-});
-
-function desenhar(){
-  if(!DATA) return;
-  
-  const containerGrid = $("categories-grid-container");
-  const containerLoja = $("stores-container");
-  const btnVoltar = $("btn-voltar-container");
-  const tituloSecao = $("main-section-title");
-  const secaoEstatica = $("static-featured-section");
-
-  const selCadastro = $("loja-categoria");
-  if(selCadastro && DATA.categorias){
-    selCadastro.innerHTML = DATA.categorias.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
-  }
-
-  if(CAT_ATUAL) {
-    btnVoltar.style.display = "block";
-    containerGrid.style.display = "none";
-    if(secaoEstatica) secaoEstatica.style.display = "none";
-    tituloSecao.textContent = CAT_ATUAL;
-
-    const lojas = (DATA.comercios || []).filter(c => c.categoria === CAT_ATUAL);
-    if(lojas.length === 0) {
-      containerLoja.innerHTML = '<div class="carregando">Nenhum estabelecimento nesta categoria.</div>';
-    } else {
-      containerLoja.innerHTML = lojas.map(l => `
-        <div class="store-card-featured">
-          <div class="store-card-body">
-            <span style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${esc(l.categoria)}</span>
-            <div class="store-name-title" style="margin-top: 4px;">${esc(l.nome)}</div>
-            <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; white-space: pre-line;">${esc(l.desc)}</div>
-            <a href="${zapLink(l.whatsapp)}" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a>
-          </div>
-        </div>
-      `).join('');
-    }
-  } else {
-    btnVoltar.style.display = "none";
-    containerLoja.innerHTML = "";
-    containerGrid.style.display = "grid";
-    if(secaoEstatica) secaoEstatica.style.display = "block";
-    tituloSecao.textContent = "Navegue por Categorias";
-
-    if(DATA.carregando) {
-      containerGrid.innerHTML = '<div class="carregando">Carregando dados...</div>';
-      return;
-    }
-
-    containerGrid.innerHTML = (DATA.categorias || []).map(cat => {
-      const cores = corDe(cat);
-      const icon = iconeDe(cat);
-      return `
-        <div class="cat-grid-card" onclick="selecionarCategoria('${esc(cat)}')">
-          <div class="cat-grid-icon" style="background:${cores[0]}15; color:${cores[0]}">${icon}</div>
-          <div class="cat-grid-title">${esc(cat)}</div>
-        </div>
-      `;
-    }).join('');
-  }
-}
-
-function abrirLogin(){
-  $("login-error-msg").style.display = "none";
-  $("admin-pass-input").value = "";
-  abrir("admin-login-modal");
-}
-
-function entrar(e){
-  e.preventDefault();
-  const pass = $("admin-pass-input").value.trim();
-  const SENHA_CORRETA = obterSenhaAtual();
-
-  if(apiOn()){
-    chamar({acao:"login",senha:pass}).then(res => {
-      if(res.sucesso){
-        SENHA_ADMIN = pass;
-        fechar("admin-login-modal");
-        carregarPainelAdmin();
-        abrir("admin-modal");
-      } else {
-        if(pass === SENHA_CORRETA) {
-          SENHA_ADMIN = pass;
-          fechar("admin-login-modal");
-          carregarPainelAdmin();
-          abrir("admin-modal");
-        } else {
-          $("login-error-msg").textContent = "Senha incorreta!";
-          $("login-error-msg").style.display = "block";
+        function iconeDe(n) {
+            var t = String(n).toLowerCase();
+            for(var i = 0; i < MAPA_ICONES.length; i++) {
+                if(t.indexOf(MAPA_ICONES[i][0]) > -1) return MAPA_ICONES[i][1];
+            }
+            return SVGS.store;
         }
-      }
-    }).catch(() => {
-      if(pass === SENHA_CORRETA) {
-        SENHA_ADMIN = pass;
-        fechar("admin-login-modal");
-        carregarPainelAdmin();
-        abrir("admin-modal");
-      } else {
-        $("login-error-msg").textContent = "Senha incorreta ou erro de conexão.";
-        $("login-error-msg").style.display = "block";
-      }
-    });
-  } else {
-    if(pass === SENHA_CORRETA){
-      SENHA_ADMIN = pass;
-      fechar("admin-login-modal");
-      carregarPainelAdmin();
-      abrir("admin-modal");
-    } else {
-      $("login-error-msg").textContent = "Senha incorreta!";
-      $("login-error-msg").style.display = "block";
-    }
-  }
-}
 
-function abrirModalTrocarSenha(){
-  $("new-pass-input").value = "";
-  $("confirm-pass-input").value = "";
-  abrir("change-pass-modal");
-}
+        function corDe(n) {
+            var h = 0;
+            for(var i = 0; i < n.length; i++) h += n.charCodeAt(i);
+            return CORES_CAT[h % CORES_CAT.length];
+        }
 
-function salvarNovaSenha(e){
-  e.preventDefault();
-  const nova = $("new-pass-input").value.trim();
-  const confirma = $("confirm-pass-input").value.trim();
+        var DATA = null, SENHA_ADMIN = null, CAT_ATUAL = null, EDIT_ID = null;
+        function $(i){ return document.getElementById(i); }
+        function esc(t){ return String(t==null?"":t).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+        function apiOn(){ return API.indexOf("https://") === 0; }
+        function zapLink(n){ var d = String(n).replace(/\D/g,""); if(d.length <= 11) d = "55" + d; return "https://wa.me/" + d; }
+        function abrir(id){ $(id).classList.add("active"); }
+        function fechar(id){ $(id).classList.remove("active"); }
+        function guardar(d){ try { localStorage.setItem("cm_dados", JSON.stringify({categorias: d.categorias, comercios: d.comercios})); } catch(e){} }
 
-  if(!nova){
-    mostrarAlerta("Erro", "A nova senha não pode estar em branco.");
-    return;
-  }
+        function alternarVisibilidadeSenha(inputId, btnElement){
+            const input = $(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                btnElement.textContent = "🙈";
+            } else {
+                input.type = "password";
+                btnElement.textContent = "👁️";
+            }
+        }
 
-  if(nova !== confirma){
-    mostrarAlerta("Erro", "As senhas digitadas não coincidem.");
-    return;
-  }
+        function obterSenhaAtual(){
+            return localStorage.getItem("cm_admin_pass") || "#Mall2026";
+        }
 
-  localStorage.setItem("cm_admin_pass", nova);
-  SENHA_ADMIN = nova;
+        function chamar(obj){
+            return fetch(API, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(obj)}).then(r => r.json());
+        }
 
-  if(apiOn()){
-    chamar({acao:"alterarSenha",senhaAntiga:SENHA_ADMIN,novaSenha:nova}).catch(() => {});
-  }
+        function carregar(){
+            if (!history.state || !history.state.home) {
+                history.replaceState({ home: true, categoria: null }, "", window.location.pathname);
+            }
 
-  fechar("change-pass-modal");
-  mostrarAlerta("Sucesso", "Senha do administrador alterada com sucesso localmente!");
-}
+            var cache = null;
+            try { cache = JSON.parse(localStorage.getItem("cm_dados")); } catch(e){}
+            DATA = cache || (apiOn() ? {categorias:[], comercios:[], carregando:true} : PADRAO);
+            desenhar();
+            
+            if(!apiOn()) return;
+            fetch(API + "?acao=listar").then(r => r.json()).then(d => {
+                if(d && d.comercios){
+                    DATA = {categorias: d.categorias, comercios: d.comercios};
+                    guardar(DATA);
+                    desenhar();
+                }
+            }).catch(() => {
+                if(DATA.carregando){
+                    DATA = PADRAO;
+                    desenhar();
+                }
+            });
+        }
 
-function carregarPainelAdmin(){
-  const selCat = $("admin-categoria");
-  selCat.innerHTML = (DATA.categorias || []).map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+        function selecionarCategoria(cat, registrarHistorico = true){
+            CAT_ATUAL = cat;
+            if(registrarHistorico && cat){
+                history.pushState({ home: false, categoria: cat }, "", "#cat=" + encodeURIComponent(cat));
+            }
+            desenhar();
+        }
 
-  const listaComercios = $("admin-lista-comercios");
-  listaComercios.innerHTML = (DATA.comercios || []).map(l => `
-    <div class="category-manage-item">
-      <span>${esc(l.nome)} (${esc(l.categoria)})</span>
-      <div class="cat-item-actions">
-        <button class="btn-cat-edit" onclick="editarComercio('${l.id}')">Editar</button>
-        <button class="btn-cat-delete" onclick="excluirComercio('${l.id}')">Excluir</button>
-      </div>
-    </div>
-  `).join('');
+        function voltarParaCategorias(registrarHistorico = true){
+            CAT_ATUAL = null;
+            if(registrarHistorico){
+                history.pushState({ home: true, categoria: null }, "", window.location.pathname);
+            }
+            desenhar();
+        }
 
-  const listaCategorias = $("admin-lista-categorias");
-  listaCategorias.innerHTML = (DATA.categorias || []).map(c => `
-    <div class="category-manage-item">
-      <span>${esc(c)}</span>
-      <div class="cat-item-actions">
-        <button class="btn-cat-delete" onclick="excluirCategoria('${esc(c)}')">Excluir</button>
-      </div>
-    </div>
-  `).join('');
-}
+        window.addEventListener("popstate", function(e) {
+            if (e.state && e.state.categoria) {
+                selecionarCategoria(e.state.categoria, false);
+            } else {
+                voltarParaCategorias(false);
+            }
+        });
 
-function salvarComercio(e){
-  e.preventDefault();
-  const item = {
-    id: EDIT_ID || String(Date.now()),
-    nome: $("admin-nome").value,
-    categoria: $("admin-categoria").value,
-    whatsapp: $("admin-whatsapp").value,
-    desc: $("admin-desc").value
-  };
+        function desenhar(){
+            if(!DATA) return;
+            
+            const containerGrid = $("categories-grid-container");
+            const containerLoja = $("stores-container");
+            const btnVoltar = $("btn-voltar-container");
+            const tituloSecao = $("main-section-title");
 
-  if(apiOn()){
-    chamar({acao:"salvarComercio",senha:SENHA_ADMIN,comercio:item}).then(res => {
-      if(res.sucesso){
-        mostrarAlerta("Sucesso", "Estabelecimento publicado com sucesso!");
-        limparForm();
+            const selCadastro = $("admin-categoria");
+            if(selCadastro && DATA.categorias){
+                selCadastro.innerHTML = DATA.categorias.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+            }
+
+            if(CAT_ATUAL) {
+                btnVoltar.style.display = "block";
+                containerGrid.style.display = "none";
+                tituloSecao.textContent = CAT_ATUAL;
+
+                const lojas = (DATA.comercios || []).filter(c => c.categoria === CAT_ATUAL);
+                if(lojas.length === 0) {
+                    containerLoja.innerHTML = '<div class="carregando">Nenhum estabelecimento nesta categoria.</div>';
+                } else {
+                    containerLoja.innerHTML = lojas.map(l => `
+                        <div class="store-card-featured">
+                            <span style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${esc(l.categoria)}</span>
+                            <div class="store-name-title" style="margin-top: 4px;">${esc(l.nome)}</div>
+                            <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; margin-bottom: 12px; white-space: pre-line;">${esc(l.desc)}</div>
+                            <a href="${zapLink(l.whatsapp)}" target="_blank" rel="noopener" class="btn-whatsapp">💬 Falar no WhatsApp</a>
+                        </div>
+                    `).join('');
+                }
+            } else {
+                btnVoltar.style.display = "none";
+                containerLoja.innerHTML = "";
+                containerGrid.style.display = "grid";
+                tituloSecao.textContent = "Navegue por Categorias";
+
+                if(DATA.carregando) {
+                    containerGrid.innerHTML = '<div class="carregando">Carregando dados...</div>';
+                    return;
+                }
+
+                containerGrid.innerHTML = (DATA.categorias || []).map(cat => {
+                    const esquemaCor = corDe(cat);
+                    const iconSvg = iconeDe(cat);
+                    return `
+                        <div class="cat-grid-card" onclick="selecionarCategoria('${esc(cat)}')">
+                            <div class="cat-grid-icon" style="background:${esquemaCor.bg}; color:${esquemaCor.text}">
+                                ${iconSvg}
+                            </div>
+                            <div class="cat-grid-title">${esc(cat)}</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        function abrirLogin(){
+            $("login-error-msg").style.display = "none";
+            $("admin-pass-input").value = "";
+            abrir("admin-login-modal");
+        }
+
+        function entrar(e){
+            e.preventDefault();
+            const pass = $("admin-pass-input").value.trim();
+            const SENHA_CORRETA = obterSenhaAtual();
+
+            if(apiOn()){
+                chamar({acao:"login", senha:pass}).then(res => {
+                    if(res.sucesso){
+                        SENHA_ADMIN = pass;
+                        fechar("admin-login-modal");
+                        carregarPainelAdmin();
+                        abrir("admin-modal");
+                    } else {
+                        if(pass === SENHA_CORRETA) {
+                            SENHA_ADMIN = pass;
+                            fechar("admin-login-modal");
+                            carregarPainelAdmin();
+                            abrir("admin-modal");
+                        } else {
+                            $("login-error-msg").textContent = "Senha incorreta!";
+                            $("login-error-msg").style.display = "block";
+                        }
+                    }
+                }).catch(() => {
+                    if(pass === SENHA_CORRETA) {
+                        SENHA_ADMIN = pass;
+                        fechar("admin-login-modal");
+                        carregarPainelAdmin();
+                        abrir("admin-modal");
+                    } else {
+                        $("login-error-msg").textContent = "Senha incorreta ou erro de conexão.";
+                        $("login-error-msg").style.display = "block";
+                    }
+                });
+            } else {
+                if(pass === SENHA_CORRETA){
+                    SENHA_ADMIN = pass;
+                    fechar("admin-login-modal");
+                    carregarPainelAdmin();
+                    abrir("admin-modal");
+                } else {
+                    $("login-error-msg").textContent = "Senha incorreta!";
+                    $("login-error-msg").style.display = "block";
+                }
+            }
+        }
+
+        function abrirModalTrocarSenha(){
+            $("new-pass-input").value = "";
+            $("confirm-pass-input").value = "";
+            abrir("change-pass-modal");
+        }
+
+        function salvarNovaSenha(e){
+            e.preventDefault();
+            const nova = $("new-pass-input").value.trim();
+            const confirma = $("confirm-pass-input").value.trim();
+
+            if(!nova){
+                mostrarAlerta("Erro", "A nova senha não pode estar em branco.");
+                return;
+            }
+
+            if(nova !== confirma){
+                mostrarAlerta("Erro", "As senhas digitadas não coincidem.");
+                return;
+            }
+
+            localStorage.setItem("cm_admin_pass", nova);
+            SENHA_ADMIN = nova;
+
+            if(apiOn()){
+                chamar({acao:"alterarSenha", senhaAntiga:SENHA_ADMIN, novaSenha:nova}).catch(() => {});
+            }
+
+            fechar("change-pass-modal");
+            mostrarAlerta("Sucesso", "Senha do administrador alterada com sucesso localmente!");
+        }
+
+        function carregarPainelAdmin(){
+            const selCat = $("admin-categoria");
+            selCat.innerHTML = (DATA.categorias || []).map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+
+            const listaComercios = $("admin-lista-comercios");
+            listaComercios.innerHTML = (DATA.comercios || []).map(l => `
+                <div class="category-manage-item">
+                    <span>${esc(l.nome)} (${esc(l.categoria)})</span>
+                    <div class="cat-item-actions">
+                        <button class="btn-cat-edit" onclick="editarComercio('${l.id}')">Editar</button>
+                        <button class="btn-cat-delete" onclick="excluirComercio('${l.id}')">Excluir</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const listaCategorias = $("admin-lista-categorias");
+            listaCategorias.innerHTML = (DATA.categorias || []).map(c => `
+                <div class="category-manage-item">
+                    <span>${esc(c)}</span>
+                    <div class="cat-item-actions">
+                        <button class="btn-cat-delete" onclick="excluirCategoria('${esc(c)}')">Excluir</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function salvarComercio(e){
+            e.preventDefault();
+            const item = {
+                id: EDIT_ID || String(Date.now()),
+                nome: $("admin-nome").value,
+                categoria: $("admin-categoria").value,
+                whatsapp: $("admin-whatsapp").value,
+                desc: $("admin-desc").value
+            };
+
+            if(apiOn()){
+                chamar({acao:"salvarComercio", senha:SENHA_ADMIN, comercio:item}).then(res => {
+                    if(res.sucesso){
+                        mostrarAlerta("Sucesso", "Estabelecimento publicado com sucesso!");
+                        limparForm();
+                        carregar();
+                        carregarPainelAdmin();
+                    }
+                });
+            } else {
+                if(EDIT_ID){
+                    const idx = DATA.comercios.findIndex(c => c.id === EDIT_ID);
+                    if(idx > -1) DATA.comercios[idx] = item;
+                } else {
+                    DATA.comercios.push(item);
+                }
+                guardar(DATA);
+                limparForm();
+                desenhar();
+                carregarPainelAdmin();
+            }
+        }
+
+        function editarComercio(id){
+            const l = DATA.comercios.find(c => c.id === id);
+            if(!l) return;
+            EDIT_ID = id;
+            $("admin-nome").value = l.nome;
+            $("admin-categoria").value = l.categoria;
+            $("admin-whatsapp").value = l.whatsapp;
+            $("admin-desc").value = l.desc;
+            $("admin-form-titulo").textContent = "Editar estabelecimento";
+            $("admin-btn-salvar").textContent = "💾 Salvar alterações";
+            $("admin-btn-cancelar-edicao").style.display = "block";
+        }
+
+        function limparForm(){
+            EDIT_ID = null;
+            $("admin-form").reset();
+            $("admin-form-titulo").textContent = "Publicar estabelecimento";
+            $("admin-btn-salvar").textContent = "➕ Publicar";
+            $("admin-btn-cancelar-edicao").style.display = "none";
+        }
+
+        function excluirComercio(id){
+            mostrarConfirmacao("Excluir", "Deseja remover este estabelecimento?", () => {
+                if(apiOn()){
+                    chamar({acao:"excluirComercio", senha:SENHA_ADMIN, id:id}).then(res => {
+                        if(res.sucesso){
+                            carregar();
+                            carregarPainelAdmin();
+                        }
+                    });
+                } else {
+                    DATA.comercios = DATA.comercios.filter(c => c.id !== id);
+                    guardar(DATA);
+                    desenhar();
+                    carregarPainelAdmin();
+                }
+            }, true);
+        }
+
+        function novaCategoria(e){
+            e.preventDefault();
+            const nova = $("admin-nova-categoria").value.trim();
+            if(!nova) return;
+
+            if(apiOn()){
+                chamar({acao:"salvarCategoria", senha:SENHA_ADMIN, categoria:nova}).then(res => {
+                    if(res.sucesso){
+                        $("admin-nova-categoria").value = "";
+                        carregar();
+                        carregarPainelAdmin();
+                    }
+                });
+            } else {
+                if(!DATA.categorias.includes(nova)) DATA.categorias.push(nova);
+                guardar(DATA);
+                $("admin-nova-categoria").value = "";
+                desenhar();
+                carregarPainelAdmin();
+            }
+        }
+
+        function excluirCategoria(cat){
+            mostrarConfirmacao("Excluir Categoria", `Deseja apagar a categoria "${cat}"?`, () => {
+                if(apiOn()){
+                    chamar({acao:"excluirCategoria", senha:SENHA_ADMIN, categoria:cat}).then(res => {
+                        if(res.sucesso){
+                            carregar();
+                            carregarPainelAdmin();
+                        }
+                    });
+                } else {
+                    DATA.categorias = DATA.categorias.filter(c => c !== cat);
+                    guardar(DATA);
+                    desenhar();
+                    carregarPainelAdmin();
+                }
+            }, true);
+        }
+
+        function sairAdmin(){
+            SENHA_ADMIN = null;
+            limparForm();
+            fechar("admin-modal");
+        }
+
         carregar();
-        carregarPainelAdmin();
-      }
-    });
-  } else {
-    if(EDIT_ID){
-      const idx = DATA.comercios.findIndex(c => c.id === EDIT_ID);
-      if(idx > -1) DATA.comercios[idx] = item;
-    } else {
-      DATA.comercios.push(item);
-    }
-    guardar(DATA);
-    limparForm();
-    desenhar();
-    carregarPainelAdmin();
-  }
-}
-
-function editarComercio(id){
-  const l = DATA.comercios.find(c => c.id === id);
-  if(!l) return;
-  EDIT_ID = id;
-  $("admin-nome").value = l.nome;
-  $("admin-categoria").value = l.categoria;
-  $("admin-whatsapp").value = l.whatsapp;
-  $("admin-desc").value = l.desc;
-  $("admin-form-titulo").textContent = "Editar estabelecimento";
-  $("admin-btn-salvar").textContent = "💾 Salvar alterações";
-  $("admin-btn-cancelar-edicao").style.display = "block";
-}
-
-function limparForm(){
-  EDIT_ID = null;
-  $("admin-form").reset();
-  $("admin-form-titulo").textContent = "Publicar estabelecimento";
-  $("admin-btn-salvar").textContent = "➕ Publicar";
-  $("admin-btn-cancelar-edicao").style.display = "none";
-}
-
-function excluirComercio(id){
-  mostrarConfirmacao("Excluir", "Deseja remover este estabelecimento?", () => {
-    if(apiOn()){
-      chamar({acao:"excluirComercio",senha:SENHA_ADMIN,id:id}).then(res => {
-        if(res.sucesso){
-          carregar();
-          carregarPainelAdmin();
-        }
-      });
-    } else {
-      DATA.comercios = DATA.comercios.filter(c => c.id !== id);
-      guardar(DATA);
-      desenhar();
-      carregarPainelAdmin();
-    }
-  }, true);
-}
-
-function novaCategoria(e){
-  e.preventDefault();
-  const nova = $("admin-nova-categoria").value.trim();
-  if(!nova) return;
-
-  if(apiOn()){
-    chamar({acao:"salvarCategoria",senha:SENHA_ADMIN,categoria:nova}).then(res => {
-      if(res.sucesso){
-        $("admin-nova-categoria").value = "";
-        carregar();
-        carregarPainelAdmin();
-      }
-    });
-  } else {
-    if(!DATA.categorias.includes(nova)) DATA.categorias.push(nova);
-    guardar(DATA);
-    $("admin-nova-categoria").value = "";
-    desenhar();
-    carregarPainelAdmin();
-  }
-}
-
-function excluirCategoria(cat){
-  mostrarConfirmacao("Excluir Categoria", `Deseja apagar a categoria "${cat}"?`, () => {
-    if(apiOn()){
-      chamar({acao:"excluirCategoria",senha:SENHA_ADMIN,categoria:cat}).then(res => {
-        if(res.sucesso){
-          carregar();
-          carregarPainelAdmin();
-        }
-      });
-    } else {
-      DATA.categorias = DATA.categorias.filter(c => c !== cat);
-      guardar(DATA);
-      desenhar();
-      carregarPainelAdmin();
-    }
-  }, true);
-}
-
-function sairAdmin(){
-  SENHA_ADMIN = null;
-  limparForm();
-  fechar("admin-modal");
-}
-
-carregar();
-</script>
+    </script>
 </body>
 </html>
