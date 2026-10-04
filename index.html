@@ -236,6 +236,11 @@
             color: var(--brand-blue);
             text-decoration: none;
             cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .see-all-btn:hover {
+            opacity: 0.8;
         }
 
         /* BARRA DE INSTALAÇÃO PWA */
@@ -263,7 +268,7 @@
         /* GRID DE CATEGORIAS DINÂMICAS E ESTÁTICAS */
         .categories-grid { 
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
             gap: 12px; 
             margin-bottom: 35px;
         }
@@ -294,11 +299,15 @@
             border-radius: 50%;
             display: grid;
             place-items: center;
-            font-size: 1.4rem;
+        }
+
+        .cat-grid-icon svg {
+            width: 24px;
+            height: 24px;
         }
 
         .cat-grid-title {
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: var(--text-dark);
         }
@@ -945,10 +954,10 @@
         <button class="btn-voltar-home" onclick="voltarParaCategorias()">⬅ Ver todas as categorias</button>
     </div>
 
-    <!-- SEÇÃO CATEGORIAS -->
+    <!-- SEÇÃO CATEGORIAS COM BOTÃO VER TODAS / RETRAÇÃO -->
     <div class="section-header-flex">
         <h2 class="section-title-main" id="main-section-title">Navegue por Categorias</h2>
-        <a class="see-all-btn" onclick="abrirCadastro()">Ver todas →</a>
+        <a class="see-all-btn" id="see-all-cats-btn" onclick="alternarExpansaoCategorias()">VER TODAS →</a>
     </div>
 
     <!-- GRID DE CATEGORIAS DINÂMICAS -->
@@ -1006,9 +1015,9 @@
                 </div>
             </div>
 
-            <!-- Card 4 -->
+            <!-- Card 4 (IMAGEM CORRIGIDA PARA AUTO CENTER) -->
             <div class="store-card-featured" onclick="abrirCadastro()">
-                <div class="store-img-wrapper" style="background-image: url('https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=500');">
+                <div class="store-img-wrapper" style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=500');">
                     <div class="store-logo-overlay">AUTO CENTER</div>
                 </div>
                 <div class="store-card-body">
@@ -1296,11 +1305,34 @@ var PADRAO = {categorias:["Alimentação","Beleza","Moda","Reforço Escolar","Sa
  {id:"8",nome:"Amadas Artigos Femininos, Fardamentos e Acessórios",categoria:"Moda",whatsapp:"85996482898",desc:"• Moda Feminina, Masculina e Infantil\n• Fardamentos\n• Acessórios"}]};
 
 var CORES_CAT=[["#f97316","#fbbf24"],["#ec4899","#f472b6"],["#6366f1","#818cf8"],["#10b981","#34d399"],["#0ea5e9","#38bdf8"],["#8b5cf6","#c084fc"],["#ef4444","#fb7185"],["#14b8a6","#2dd4bf"]];
-var ICONES_PALAVRAS=[["alimen","🍔"],["comida","🍔"],["restaur","🍽️"],["lanche","🍔"],["beleza","💅"],["salão","💅"],["estética","💅"],["eletr","📱"],["mercado","🛒"],["moda","👗"],["roupa","👗"],["padaria","🥖"],["pet","🐾"],["reforço","📚"],["escola","📚"],["curso","📚"],["saúde","💊"],["farm","💊"],["clínica","🩺"],["serviço","🛠️"],["automó","🚗"],["carro","🚗"],["casa","🏠"],["constru","🏗️"],["esporte","🏋️"],["academia","🏋"],["festa","🎉"],["evento","🎉"]];
-function iconeDe(n){var t=String(n).toLowerCase();for(var i=0;i<ICONES_PALAVRAS.length;i++){if(t.indexOf(ICONES_PALAVRAS[i][0])>-1)return ICONES_PALAVRAS[i][1]}return "🏪"}
+
+// ÍCONES VETORIAIS MODERNOS EM SVG SEGUROS CONTRA ERROS
+var SVGS = {
+    utensils: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v6a6 6 0 0 1-12 0V2"/><path d="M12 2v20"/><path d="M2 12h20"/></svg>',
+    sparkles: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z"/></svg>',
+    shoppingBag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
+    book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+    heartPulse: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>',
+    wrench: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+    car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>',
+    store: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2V7"/></svg>'
+};
+
+function iconeDe(n){
+    var t=String(n).toLowerCase();
+    if(t.includes("alimen") || t.includes("comida") || t.includes("restaur") || t.includes("lanche")) return SVGS.utensils;
+    if(t.includes("beleza") || t.includes("salão") || t.includes("estética")) return SVGS.sparkles;
+    if(t.includes("moda") || t.includes("roupa") || t.includes("mercado") || t.includes("loja")) return SVGS.shoppingBag;
+    if(t.includes("reforço") || t.includes("escola") || t.includes("curso")) return SVGS.book;
+    if(t.includes("saúde") || t.includes("farm") || t.includes("clínica")) return SVGS.heartPulse;
+    if(t.includes("automó") || t.includes("carro") || t.includes("auto")) return SVGS.car;
+    if(t.includes("serviço") || t.includes("oficina")) return SVGS.wrench;
+    return SVGS.store;
+}
+
 function corDe(n){var h=0;for(var i=0;i<n.length;i++)h+=n.charCodeAt(i);return CORES_CAT[h%CORES_CAT.length]}
 
-var DATA=null, SENHA_ADMIN=null, CAT_ATUAL=null, EDIT_ID=null;
+var DATA=null, SENHA_ADMIN=null, CAT_ATUAL=null, EDIT_ID=null, MOSTRAR_TODAS_CATS=false;
 function $(i){return document.getElementById(i)}
 function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function apiOn(){return API.indexOf("https://")===0}
@@ -1359,6 +1391,11 @@ function voltarParaCategorias(registrarHistorico = true){
   desenhar();
 }
 
+function alternarExpansaoCategorias() {
+    MOSTRAR_TODAS_CATS = !MOSTRAR_TODAS_CATS;
+    desenhar();
+}
+
 window.addEventListener("popstate", function(e) {
   if (e.state && e.state.categoria) {
     selecionarCategoria(e.state.categoria, false);
@@ -1375,6 +1412,7 @@ function desenhar(){
   const btnVoltar = $("btn-voltar-container");
   const tituloSecao = $("main-section-title");
   const secaoEstatica = $("static-featured-section");
+  const btnSeeAllCats = $("see-all-cats-btn");
 
   const selCadastro = $("loja-categoria");
   if(selCadastro && DATA.categorias){
@@ -1384,6 +1422,7 @@ function desenhar(){
   if(CAT_ATUAL) {
     btnVoltar.style.display = "block";
     containerGrid.style.display = "none";
+    if(btnSeeAllCats) btnSeeAllCats.style.display = "none";
     if(secaoEstatica) secaoEstatica.style.display = "none";
     tituloSecao.textContent = CAT_ATUAL;
 
@@ -1406,6 +1445,7 @@ function desenhar(){
     btnVoltar.style.display = "none";
     containerLoja.innerHTML = "";
     containerGrid.style.display = "grid";
+    if(btnSeeAllCats) btnSeeAllCats.style.display = "inline-block";
     if(secaoEstatica) secaoEstatica.style.display = "block";
     tituloSecao.textContent = "Navegue por Categorias";
 
@@ -1414,7 +1454,19 @@ function desenhar(){
       return;
     }
 
-    containerGrid.innerHTML = (DATA.categorias || []).map(cat => {
+    const todasCategorias = DATA.categorias || [];
+    const categoriasExibidas = MOSTRAR_TODAS_CATS ? todasCategorias : todasCategorias.slice(0, 3);
+
+    if (btnSeeAllCats) {
+        if (todasCategorias.length <= 3) {
+            btnSeeAllCats.style.display = "none";
+        } else {
+            btnSeeAllCats.style.display = "inline-block";
+            btnSeeAllCats.textContent = MOSTRAR_TODAS_CATS ? "VER MENOS ↑" : "VER TODAS →";
+        }
+    }
+
+    containerGrid.innerHTML = categoriasExibidas.map(cat => {
       const cores = corDe(cat);
       const icon = iconeDe(cat);
       return `
