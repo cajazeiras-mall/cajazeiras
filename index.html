@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cajazeiras Mall by Fortaleza - O comércio local num só lugar</title>
-    <link rel="manifest" href="manifest.json?v=8">
+    <meta name="description" content="O comércio de Cajazeiras reunido em um só lugar. Encontre lojas e serviços do bairro e fale direto pelo WhatsApp.">
+    <link rel="manifest" href="manifest.json?v=9">
     <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="theme-color" content="#0f172a">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Cajazeiras Mall">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -902,6 +908,29 @@
             .register-banner-cta { flex-direction: column; text-align: center; }
             .cta-content { flex-direction: column; }
             .app-download-banner { flex-direction: column; text-align: center; gap: 16px; }
+            
+            /* ADAPTAÇÃO DOS BOTÕES DE CATEGORIAS NO CELULAR */
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .cat-grid-card {
+                padding: 12px 6px;
+            }
+            .cat-grid-icon {
+                width: 40px;
+                height: 40px;
+            }
+            .cat-grid-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+            .cat-grid-title {
+                font-size: 0.75rem;
+            }
+            .cat-grid-count {
+                font-size: 0.68rem;
+            }
         }
     </style>
 </head>
@@ -918,14 +947,14 @@
 
   <nav class="nav-links">
     <a class="nav-link" onclick="voltarParaCategorias()">Início</a>
-    <a class="nav-link" onclick="abrirCadastro()">Categorias</a>
-    <a class="nav-link" onclick="abrirCadastro()">Lojas</a>
+    <a class="nav-link" onclick="voltarParaCategorias();irParaResultados()">Categorias</a>
+    <a class="nav-link" onclick="mostrarTodasLojas()">Lojas</a>
     <a class="nav-link" onclick="abrirCadastro()">Sobre</a>
-    <a class="nav-link" onclick="abrirCadastro()">Fale Conosco</a>
+    <a class="nav-link" onclick="abrirContato()">Fale Conosco</a>
   </nav>
 
   <div class="header-search">
-    <input type="text" placeholder="Buscar estabelecimentos..." onclick="abrirCadastro()">
+    <input type="text" id="busca-header" placeholder="Buscar estabelecimentos..." oninput="buscar(this.value)" onkeydown="if(event.key==='Enter'){irParaResultados()}" autocomplete="off">
   </div>
 </header>
 
@@ -940,14 +969,14 @@
         <h1 class="hero-title">Cajazeiras <span>Mall</span></h1>
         <p class="hero-subtitle">O comércio de Cajazeiras reunido em um só lugar.</p>
         
-        <div class="search-box" onclick="abrirCadastro()">
+        <div class="search-box">
             <span>🔍</span>
-            <input type="text" placeholder="O que você procura?" readonly>
+            <input type="text" id="busca-hero" placeholder="O que você procura?" oninput="buscar(this.value)" onkeydown="if(event.key==='Enter'){this.blur();irParaResultados()}" enterkeyhint="search" autocomplete="off">
         </div>
 
         <div class="hero-stamp">
             Compre local.<br>
-            <span>Fortaleza o nosso bairro.</span>
+            <span>Cajazeiras é o nosso bairro.</span>
         </div>
     </div>
 </section>
@@ -978,7 +1007,7 @@
     <div id="static-featured-section">
         <div class="section-header-flex">
             <h2 class="section-title-main">Destaques de Cajazeiras</h2>
-            <a class="see-all-btn" onclick="abrirCadastro()">Ver todos os estabelecimentos →</a>
+            <a class="see-all-btn" onclick="mostrarTodasLojas()">Ver todos os estabelecimentos →</a>
         </div>
 
         <div class="stores-grid">
@@ -990,7 +1019,7 @@
                 <div class="store-card-body">
                     <div class="store-name-title">Top Lanches</div>
                     <div class="store-cat-label">🍔 Alimentação</div>
-                    <div class="store-rating">⭐ 4.8 (124 avaliações)</div>
+                    <div class="store-rating">Exemplo ilustrativo</div>
                     <a class="btn-whatsapp" onclick="event.stopPropagation(); abrirCadastro();">💬 Falar no WhatsApp</a>
                 </div>
             </div>
@@ -1003,7 +1032,7 @@
                 <div class="store-card-body">
                     <div class="store-name-title">Bella Face Estética</div>
                     <div class="store-cat-label">💅 Beleza</div>
-                    <div class="store-rating">⭐ 4.9 (98 avaliações)</div>
+                    <div class="store-rating">Exemplo ilustrativo</div>
                     <a class="btn-whatsapp" onclick="event.stopPropagation(); abrirCadastro();">💬 Falar no WhatsApp</a>
                 </div>
             </div>
@@ -1016,7 +1045,7 @@
                 <div class="store-card-body">
                     <div class="store-name-title">Moda & Estilo</div>
                     <div class="store-cat-label">👗 Moda</div>
-                    <div class="store-rating">⭐ 4.7 (76 avaliações)</div>
+                    <div class="store-rating">Exemplo ilustrativo</div>
                     <a class="btn-whatsapp" onclick="event.stopPropagation(); abrirCadastro();">💬 Falar no WhatsApp</a>
                 </div>
             </div>
@@ -1029,7 +1058,7 @@
                 <div class="store-card-body">
                     <div class="store-name-title">Auto Center Cajazeiras</div>
                     <div class="store-cat-label">🛠️ Serviços</div>
-                    <div class="store-rating">⭐ 4.6 (61 avaliações)</div>
+                    <div class="store-rating">Exemplo ilustrativo</div>
                     <a class="btn-whatsapp" onclick="event.stopPropagation(); abrirCadastro();">💬 Falar no WhatsApp</a>
                 </div>
             </div>
@@ -1064,7 +1093,7 @@
                 <div class="step-number">2</div>
                 <div class="step-icon">🏪</div>
                 <div class="step-title">Escolha</div>
-                <div class="step-desc">Veja informações, fotos e avaliações dos comércios.</div>
+                <div class="step-desc">Veja informações e descrições dos comércios.</div>
             </div>
             <div class="step-card" onclick="abrirCadastro()">
                 <div class="step-number">3</div>
@@ -1088,8 +1117,8 @@
             <p>Baixe o aplicativo e tenha todos os estabelecimentos do bairro no seu celular.</p>
         </div>
         <div class="app-buttons">
-            <button class="app-btn-mock" onclick="instalarApp()">▶ Google Play</button>
-            <button class="app-btn-mock" onclick="instalarApp()">🍎 App Store</button>
+            <button class="app-btn-mock" onclick="instalarApp('android')">📲 Instalar no Android</button>
+            <button class="app-btn-mock" onclick="instalarApp('ios')">📲 Instalar no iPhone</button>
         </div>
     </section>
 
@@ -1103,9 +1132,10 @@
             <span>Cajazeiras Mall</span>
         </div>
         <div>📍 Cajazeiras - Fortaleza, CE • O comércio local mais perto de você.</div>
+        <a class="btn-whatsapp" onclick="abrirContato()" style="cursor:pointer;margin-top:0;padding:10px 18px">💬 Fale conosco pelo WhatsApp</a>
         <div class="footer-links">
-            <a onclick="abrirCadastro()">Termos de Uso</a>
-            <a onclick="abrirCadastro()">Política de Privacidade</a>
+            <a onclick="abrirTermos()">Termos de Uso</a>
+            <a onclick="abrirPrivacidade()">Política de Privacidade</a>
             <button class="btn-admin-trigger" onclick="abrirLogin()">⚙ Painel do Administrador</button>
         </div>
     </div>
@@ -1120,7 +1150,7 @@
     </div>
     <div class="modal-title">Cadastre seu Comércio</div>
     <div class="modal-text">Preencha os dados abaixo para enviar a solicitação.</div>
-    <form action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST">
+    <form id="form-cadastro" action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST" onsubmit="enviarCadastro(event)">
       <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
       <input type="hidden" name="_captcha" value="false">
       <div class="form-group"><label for="comerciante-nome">Seu Nome:</label><input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo"></div>
@@ -1128,7 +1158,7 @@
       <div class="form-group"><label for="loja-categoria">Categoria:</label><select name="Categoria" id="loja-categoria" required></select></div>
       <div class="form-group"><label for="loja-whatsapp">WhatsApp:</label><input type="tel" name="WhatsApp" id="loja-whatsapp" required placeholder="(85) 9XXXX-XXXX"></div>
       <div class="form-group"><label for="loja-desc">Descrição:</label><textarea name="Descricao" id="loja-desc" rows="2" required placeholder="Resumo dos produtos/serviços..."></textarea></div>
-      <button type="submit" class="btn-submit">Enviar Cadastro</button>
+      <button type="submit" class="btn-submit" id="btn-enviar-cadastro">Enviar Cadastro</button>
       <button type="button" class="modal-btn btn-close-modal" onclick="fechar('user-register-modal')">Cancelar</button>
     </form>
   </div>
@@ -1223,19 +1253,21 @@
 </div>
 
 <!-- SCRIPTS DE LÓGICA E INTEGRAÇÃO -->
-<script src="config.js?v=8"></script>
+<script src="config.js?v=9"></script>
 <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js?v=8').then(reg => {
+                navigator.serviceWorker.register('sw.js?v=9').then(reg => {
                     reg.update();
                 });
             });
         }
 
         let deferredPrompt;
-        if (window.matchMedia('(display-mode: standalone)').matches) document.getElementById('installContainer').style.display = 'none';
-        window.addEventListener('appinstalled', () => { document.getElementById('installContainer').style.display = 'none'; });
+        const ehIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        function jaInstalado() { return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true; }
+        if (jaInstalado()) document.getElementById('installContainer').style.display = 'none';
+        window.addEventListener('appinstalled', () => { deferredPrompt = null; document.getElementById('installContainer').style.display = 'none'; });
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -1246,6 +1278,8 @@
             const modal = document.getElementById('custom-dialog-modal');
             document.getElementById('custom-dialog-title').textContent = titulo;
             document.getElementById('custom-dialog-desc').textContent = mensagem;
+            document.getElementById('custom-dialog-desc').style.whiteSpace = '';
+            document.getElementById('custom-dialog-desc').style.textAlign = '';
             document.getElementById('custom-dialog-input-container').style.display = 'none';
 
             const btns = document.getElementById('custom-dialog-btns');
@@ -1263,6 +1297,8 @@
             const modal = document.getElementById('custom-dialog-modal');
             document.getElementById('custom-dialog-title').textContent = titulo;
             document.getElementById('custom-dialog-desc').textContent = mensagem;
+            document.getElementById('custom-dialog-desc').style.whiteSpace = '';
+            document.getElementById('custom-dialog-desc').style.textAlign = '';
             document.getElementById('custom-dialog-input-container').style.display = 'none';
 
             const btns = document.getElementById('custom-dialog-btns');
@@ -1284,7 +1320,15 @@
             };
         }
 
-        function instalarApp() {
+        function instalarApp(plataforma) {
+            if (jaInstalado()) {
+                mostrarAlerta("Aplicativo", "O aplicativo já está instalado neste aparelho.");
+                return;
+            }
+            if (plataforma === 'ios' || (!deferredPrompt && ehIOS)) {
+                mostrarAlerta("Instalar no iPhone", "Abra este site no Safari, toque no botão Compartilhar (quadrado com seta para cima) e escolha 'Adicionar à Tela de Início'.");
+                return;
+            }
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
@@ -1294,7 +1338,7 @@
                     deferredPrompt = null;
                 });
             } else {
-                mostrarAlerta("Instalação do Aplicativo", "Para instalar como app no celular, abra no Chrome (Android) ou Safari (iPhone) e clique no menu do navegador para selecionar 'Instalar aplicativo'.");
+                mostrarAlerta("Instalar o aplicativo", "Abra este site direto no Chrome (não pelo navegador do Instagram ou WhatsApp), toque no menu de três pontinhos e escolha 'Instalar aplicativo'.");
             }
         }
 
@@ -1359,15 +1403,12 @@ function alternarVisibilidadeSenha(inputId, btnElement){
   }
 }
 
-function obterSenhaAtual(){
-  return localStorage.getItem("cm_admin_pass") || "#Mall2026";
-}
-
 function chamar(obj){
   return fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(obj)}).then(function(r){return r.json()});
 }
 
-function carregar(){
+function carregar(aoFinal){
+  try{localStorage.removeItem("cm_admin_pass")}catch(e){}
   if (!history.state || !history.state.home) {
     history.replaceState({ home: true, categoria: null }, "", window.location.pathname);
   }
@@ -1376,13 +1417,41 @@ function carregar(){
   DATA=cache||(apiOn()?{categorias:[],comercios:[],carregando:true}:PADRAO);
   desenhar();
   if(!apiOn())return;
-  fetch(API+"?acao=listar").then(function(r){return r.json()}).then(function(d){
+  var ctrl = (typeof AbortController!=="undefined") ? new AbortController() : null;
+  var limite = (typeof CONFIG!=="undefined" && CONFIG.FETCH_TIMEOUT) ? CONFIG.FETCH_TIMEOUT : 12000;
+  var timer = setTimeout(function(){ if(ctrl) ctrl.abort() }, limite);
+  fetch(API+"?acao=listar", ctrl ? {signal:ctrl.signal} : {}).then(function(r){return r.json()}).then(function(d){
+    clearTimeout(timer);
     if(d&&d.comercios){DATA={categorias:d.categorias,comercios:d.comercios};guardar(DATA);desenhar()}
-  }).catch(function(){ if(DATA.carregando){DATA=PADRAO;desenhar()} });
+    if(aoFinal) aoFinal();
+  }).catch(function(){ clearTimeout(timer); if(DATA.carregando){DATA=PADRAO;desenhar()} });
+}
+
+var BUSCA = null;
+function norm(s){return String(s==null?"":s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function limparBusca(){BUSCA=null;["busca-hero","busca-header"].forEach(function(id){var el=$(id);if(el)el.value=""})}
+function buscar(v){
+  v = String(v||"");
+  ["busca-hero","busca-header"].forEach(function(id){var el=$(id);if(el && el.value!==v) el.value=v});
+  BUSCA = v.trim() ? v : null;
+  CAT_ATUAL = null;
+  desenhar();
+}
+function mostrarTodasLojas(){
+  CAT_ATUAL = null;
+  limparBusca();
+  BUSCA = "";
+  desenhar();
+  irParaResultados();
+}
+function irParaResultados(){
+  var t=$("main-section-title");
+  if(t && t.scrollIntoView){t.style.scrollMarginTop="90px";t.scrollIntoView({behavior:"smooth",block:"start"})}
 }
 
 function selecionarCategoria(cat, registrarHistorico = true){
   CAT_ATUAL = cat;
+  limparBusca();
   if(registrarHistorico && cat){
     history.pushState({ home: false, categoria: cat }, "", "#cat=" + encodeURIComponent(cat));
   }
@@ -1391,6 +1460,7 @@ function selecionarCategoria(cat, registrarHistorico = true){
 
 function voltarParaCategorias(registrarHistorico = true){
   CAT_ATUAL = null;
+  limparBusca();
   if(registrarHistorico){
     history.pushState({ home: true, categoria: null }, "", window.location.pathname);
   }
@@ -1425,16 +1495,28 @@ function desenhar(){
     selCadastro.innerHTML = DATA.categorias.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
   }
 
-  if(CAT_ATUAL) {
+  const emBusca = (BUSCA !== null);
+  if(CAT_ATUAL || emBusca) {
     btnVoltar.style.display = "block";
     containerGrid.style.display = "none";
     if(btnSeeAllCats) btnSeeAllCats.style.display = "none";
     if(secaoEstatica) secaoEstatica.style.display = "none";
-    tituloSecao.textContent = CAT_ATUAL;
 
-    const lojas = (DATA.comercios || []).filter(c => c.categoria === CAT_ATUAL);
+    let lojas, vazio;
+    if(emBusca){
+      const termo = norm(BUSCA).trim();
+      tituloSecao.textContent = termo ? 'Resultados para "' + BUSCA.trim() + '"' : "Todos os estabelecimentos";
+      lojas = (DATA.comercios || []).filter(c => !termo || norm(c.nome + " " + c.categoria + " " + c.desc).includes(termo));
+      vazio = "Nenhum estabelecimento encontrado.";
+    } else {
+      tituloSecao.textContent = CAT_ATUAL;
+      lojas = (DATA.comercios || []).filter(c => c.categoria === CAT_ATUAL);
+      vazio = "Nenhum estabelecimento nesta categoria.";
+    }
+    if(DATA.carregando) vazio = "Carregando dados...";
+
     if(lojas.length === 0) {
-      containerLoja.innerHTML = '<div class="carregando">Nenhum estabelecimento nesta categoria.</div>';
+      containerLoja.innerHTML = '<div class="carregando">' + vazio + '</div>';
     } else {
       containerLoja.innerHTML = lojas.map(l => `
         <div class="store-card-featured">
@@ -1478,7 +1560,7 @@ function desenhar(){
       const totalComercios = (DATA.comercios || []).filter(c => c.categoria === cat).length;
       const textoComercios = totalComercios === 1 ? '1 comércio' : `${totalComercios} comércios`;
       return `
-        <div class="cat-grid-card" onclick="selecionarCategoria('${esc(cat)}')">
+        <div class="cat-grid-card" data-cat="${esc(cat)}" onclick="selecionarCategoria(this.dataset.cat)">
           <div class="cat-grid-icon" style="background:${cores[0]}15; color:${cores[0]}">${icon}</div>
           <div class="cat-grid-title">${esc(cat)}</div>
           <div class="cat-grid-count">${textoComercios}</div>
@@ -1497,48 +1579,30 @@ function abrirLogin(){
 function entrar(e){
   e.preventDefault();
   const pass = $("admin-pass-input").value.trim();
-  const SENHA_CORRETA = obterSenhaAtual();
-
-  if(apiOn()){
-    chamar({acao:"login",senha:pass}).then(res => {
-      if(res.sucesso){
-        SENHA_ADMIN = pass;
-        fechar("admin-login-modal");
-        carregarPainelAdmin();
-        abrir("admin-modal");
-      } else {
-        if(pass === SENHA_CORRETA) {
-          SENHA_ADMIN = pass;
-          fechar("admin-login-modal");
-          carregarPainelAdmin();
-          abrir("admin-modal");
-        } else {
-          $("login-error-msg").textContent = "Senha incorreta!";
-          $("login-error-msg").style.display = "block";
-        }
-      }
-    }).catch(() => {
-      if(pass === SENHA_CORRETA) {
-        SENHA_ADMIN = pass;
-        fechar("admin-login-modal");
-        carregarPainelAdmin();
-        abrir("admin-modal");
-      } else {
-        $("login-error-msg").textContent = "Senha incorreta ou erro de conexão.";
-        $("login-error-msg").style.display = "block";
-      }
-    });
-  } else {
-    if(pass === SENHA_CORRETA){
+  const erro = $("login-error-msg");
+  if(!apiOn()){
+    erro.textContent = "Painel indisponível: servidor não configurado.";
+    erro.style.display = "block";
+    return;
+  }
+  const btn = $("btn-entrar");
+  btn.disabled = true;
+  chamar({acao:"login",senha:pass}).then(res => {
+    btn.disabled = false;
+    if(res && res.sucesso){
       SENHA_ADMIN = pass;
       fechar("admin-login-modal");
       carregarPainelAdmin();
       abrir("admin-modal");
     } else {
-      $("login-error-msg").textContent = "Senha incorreta!";
-      $("login-error-msg").style.display = "block";
+      erro.textContent = "Senha incorreta!";
+      erro.style.display = "block";
     }
-  }
+  }).catch(() => {
+    btn.disabled = false;
+    erro.textContent = "Erro de conexão. Tente novamente.";
+    erro.style.display = "block";
+  });
 }
 
 function abrirModalTrocarSenha(){
@@ -1552,25 +1616,31 @@ function salvarNovaSenha(e){
   const nova = $("new-pass-input").value.trim();
   const confirma = $("confirm-pass-input").value.trim();
 
-  if(!nova){
-    mostrarAlerta("Erro", "A nova senha não pode estar em branco.");
+  if(nova.length < 8){
+    mostrarAlerta("Erro", "A nova senha precisa ter pelo menos 8 caracteres.");
     return;
   }
-
   if(nova !== confirma){
     mostrarAlerta("Erro", "As senhas digitadas não coincidem.");
     return;
   }
-
-  localStorage.setItem("cm_admin_pass", nova);
-  SENHA_ADMIN = nova;
-
-  if(apiOn()){
-    chamar({acao:"alterarSenha",senhaAntiga:SENHA_ADMIN,novaSenha:nova}).catch(() => {});
+  if(!apiOn() || !SENHA_ADMIN){
+    mostrarAlerta("Erro", "Sessão expirada. Entre no painel novamente.");
+    return;
   }
 
-  fechar("change-pass-modal");
-  mostrarAlerta("Sucesso", "Senha do administrador alterada com sucesso localmente!");
+  const antiga = SENHA_ADMIN;
+  chamar({acao:"alterarSenha",senhaAntiga:antiga,novaSenha:nova}).then(res => {
+    if(res && res.sucesso){
+      SENHA_ADMIN = nova;
+      fechar("change-pass-modal");
+      mostrarAlerta("Sucesso", "Senha do administrador alterada com sucesso.");
+    } else {
+      mostrarAlerta("Erro", "O servidor não aceitou a alteração. Altere a senha direto no Google Apps Script.");
+    }
+  }).catch(() => {
+    mostrarAlerta("Erro", "Erro de conexão. Tente novamente.");
+  });
 }
 
 function carregarPainelAdmin(){
@@ -1593,7 +1663,7 @@ function carregarPainelAdmin(){
     <div class="category-manage-item">
       <span>${esc(c)}</span>
       <div class="cat-item-actions">
-        <button class="btn-cat-delete" onclick="excluirCategoria('${esc(c)}')">Excluir</button>
+        <button class="btn-cat-delete" data-cat="${esc(c)}" onclick="excluirCategoria(this.dataset.cat)">Excluir</button>
       </div>
     </div>
   `).join('');
@@ -1614,10 +1684,11 @@ function salvarComercio(e){
       if(res.sucesso){
         mostrarAlerta("Sucesso", "Estabelecimento publicado com sucesso!");
         limparForm();
-        carregar();
-        carregarPainelAdmin();
+        carregar(carregarPainelAdmin);
+      } else {
+        mostrarAlerta("Erro", "Não foi possível publicar. Entre no painel novamente.");
       }
-    });
+    }).catch(() => mostrarAlerta("Erro", "Erro de conexão. Tente novamente."));
   } else {
     if(EDIT_ID){
       const idx = DATA.comercios.findIndex(c => c.id === EDIT_ID);
@@ -1658,8 +1729,7 @@ function excluirComercio(id){
     if(apiOn()){
       chamar({acao:"excluirComercio",senha:SENHA_ADMIN,id:id}).then(res => {
         if(res.sucesso){
-          carregar();
-          carregarPainelAdmin();
+          carregar(carregarPainelAdmin);
         }
       });
     } else {
@@ -1680,8 +1750,7 @@ function novaCategoria(e){
     chamar({acao:"salvarCategoria",senha:SENHA_ADMIN,categoria:nova}).then(res => {
       if(res.sucesso){
         $("admin-nova-categoria").value = "";
-        carregar();
-        carregarPainelAdmin();
+        carregar(carregarPainelAdmin);
       }
     });
   } else {
@@ -1698,8 +1767,7 @@ function excluirCategoria(cat){
     if(apiOn()){
       chamar({acao:"excluirCategoria",senha:SENHA_ADMIN,categoria:cat}).then(res => {
         if(res.sucesso){
-          carregar();
-          carregarPainelAdmin();
+          carregar(carregarPainelAdmin);
         }
       });
     } else {
@@ -1715,6 +1783,50 @@ function sairAdmin(){
   SENHA_ADMIN = null;
   limparForm();
   fechar("admin-modal");
+}
+
+function abrirContato(){
+  var msg = "Olá! Vim pelo Cajazeiras Mall e gostaria de falar com você.";
+  window.open(zapLink("85996461047") + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+}
+
+function enviarCadastro(e){
+  e.preventDefault();
+  var form = e.target, btn = $("btn-enviar-cadastro");
+  if(!window.fetch || !window.FormData){ form.submit(); return; }
+  var txt = btn.textContent;
+  btn.disabled = true; btn.textContent = "Enviando...";
+  fetch(form.action.replace("formsubmit.co/", "formsubmit.co/ajax/"), {method:"POST", body:new FormData(form), headers:{"Accept":"application/json"}})
+    .then(function(r){return r.json()})
+    .then(function(res){
+      btn.disabled = false; btn.textContent = txt;
+      if(res && (res.success===true || res.success==="true")){
+        form.reset();
+        fechar("user-register-modal");
+        mostrarAlerta("Cadastro enviado", "Recebemos sua solicitação. Entraremos em contato pelo WhatsApp informado.");
+      } else {
+        mostrarAlerta("Não foi possível enviar", "Tente novamente em instantes.");
+      }
+    })
+    .catch(function(){
+      btn.disabled = false; btn.textContent = txt;
+      mostrarAlerta("Sem conexão", "Verifique sua internet e tente novamente.");
+    });
+}
+
+function mostrarTexto(titulo, texto){
+  mostrarAlerta(titulo, texto);
+  var d = $("custom-dialog-desc");
+  d.style.whiteSpace = "pre-line";
+  d.style.textAlign = "left";
+}
+
+function abrirTermos(){
+  mostrarTexto("Termos de Uso", "O Cajazeiras Mall é um catálogo gratuito que reúne comércios e serviços do bairro Cajazeiras, em Fortaleza.\n\n• As informações de cada comércio são fornecidas pelos próprios responsáveis. Confirme preços, horários e disponibilidade diretamente com o estabelecimento.\n• O Cajazeiras Mall não vende os produtos nem presta os serviços anunciados, e não se responsabiliza pelas negociações entre você e os comércios.\n• Cadastros com informações falsas ou conteúdo inadequado podem ser recusados, editados ou removidos.\n• O uso do catálogo é gratuito.");
+}
+
+function abrirPrivacidade(){
+  mostrarTexto("Política de Privacidade", "Dados coletados: ao cadastrar seu comércio pedimos seu nome, o nome do estabelecimento, a categoria, o WhatsApp e uma descrição.\n\nUso: analisar o pedido e, se aprovado, publicar no catálogo o nome, a categoria, a descrição e o WhatsApp do estabelecimento. Não vendemos seus dados.\n\nEnvio: o formulário é enviado por e-mail ao administrador por meio do serviço FormSubmit.\n\nNo seu aparelho: o aplicativo guarda uma cópia do catálogo para abrir mais rápido. Visitantes não precisam criar conta.\n\nSeus direitos (LGPD): você pode pedir correção ou exclusão dos seus dados a qualquer momento, usando o formulário Cadastre seu Comércio e informando o pedido.");
 }
 
 carregar();
