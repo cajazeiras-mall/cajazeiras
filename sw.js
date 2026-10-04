@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cajazeiras-v5';
+const CACHE_NAME = 'cajazeiras-v6';
 
 const ASSETS_TO_CACHE = [
   './',
