@@ -905,6 +905,8 @@ function abrirLogin(){
 function entrar(e){
   e.preventDefault();
   const pass = $("admin-pass-input").value;
+  const SENHA_CORRETA = "#Mall2026";
+
   if(apiOn()){
     chamar({acao:"login",senha:pass}).then(res => {
       if(res.sucesso){
@@ -921,10 +923,15 @@ function entrar(e){
       $("login-error-msg").style.display = "block";
     });
   } else {
-    SENHA_ADMIN = pass;
-    fechar("admin-login-modal");
-    carregarPainelAdmin();
-    abrir("admin-modal");
+    if(pass === SENHA_CORRETA){
+      SENHA_ADMIN = pass;
+      fechar("admin-login-modal");
+      carregarPainelAdmin();
+      abrir("admin-modal");
+    } else {
+      $("login-error-msg").textContent = "Senha incorreta!";
+      $("login-error-msg").style.display = "block";
+    }
   }
 }
 
