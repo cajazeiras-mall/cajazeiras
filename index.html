@@ -18,43 +18,58 @@
       color: #333;
     }
 
-    /* Topo / Header */
-    .site-header {
+    /* Cabeçalho do App */
+    .app-header {
       background-color: #0d1b2a;
       padding: 12px 16px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 12px;
     }
 
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-area img {
+    .app-header img {
       width: 32px;
       height: 32px;
       border-radius: 6px;
     }
 
-    .logo-area span {
-      color: #fff;
-      font-weight: bold;
-      font-size: 1.1rem;
+    .app-header h1 {
+      color: #ffffff;
+      font-size: 1.15rem;
     }
 
-    .logo-area span span {
+    .app-header h1 span {
       color: #fca311;
     }
 
-    /* Seção Hero Mantida (Com imagem de fundo e textos originais, porém mais compacta) */
+    /* Banner de Instalação do App */
+    .install-banner {
+      background-color: #ffffff;
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #e1e4e8;
+    }
+
+    .install-banner a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #f0f2f5;
+      color: #333;
+      padding: 6px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid #d0d7de;
+    }
+
+    /* Seção Hero Mantida (Com imagem de fundo, textos originais, levemente mais compacta) */
     .hero-section {
-      background: linear-gradient(rgba(13, 27, 42, 0.5), rgba(13, 27, 42, 0.5)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231b263b" width="100" height="100"/></svg>');
+      background: linear-gradient(rgba(13, 27, 42, 0.45), rgba(13, 27, 42, 0.45)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231b263b" width="100" height="100"/></svg>');
       background-size: cover;
       background-position: center;
-      padding: 24px 16px;
+      padding: 22px 16px;
       color: #fff;
     }
 
@@ -63,13 +78,13 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .hero-title {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: bold;
-      line-height: 1.2;
+      line-height: 1.1;
     }
 
     .hero-title span {
@@ -78,21 +93,21 @@
 
     .hero-subtitle {
       font-size: 0.85rem;
-      color: #e0e0e0;
+      color: #f1f1f1;
       margin-bottom: 4px;
     }
 
-    /* Botão no lugar da barra de pesquisa (mesmo formato arredondado, convidando para cadastro) */
+    /* Botão no mesmo estilo e local exato da antiga barra de pesquisa, chamando para cadastro */
     .hero-search-btn {
       background-color: #ffffff;
       border-radius: 30px;
-      padding: 12px 20px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
-      color: #777;
-      font-size: 0.95rem;
+      color: #555;
+      font-size: 0.9rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       transition: background-color 0.2s;
     }
@@ -105,21 +120,23 @@
       width: 20px;
       height: 20px;
       fill: #fca311;
+      flex-shrink: 0;
     }
 
     .hero-search-btn span {
-      color: #333;
+      color: #222;
       font-weight: bold;
     }
 
     .hero-footer-text {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-style: italic;
-      color: #f1f1f1;
-      margin-top: 2px;
+      color: #ffffff;
+      margin-top: 4px;
       border-bottom: 2px solid #fca311;
       display: inline-block;
       padding-bottom: 2px;
+      font-weight: 500;
     }
 
     /* Container de Categorias */
@@ -206,7 +223,7 @@
       }
 
       .hero-title {
-        font-size: 1.15rem;
+        font-size: 1.25rem;
       }
 
       .hero-subtitle {
@@ -215,8 +232,8 @@
       }
 
       .hero-search-btn {
-        padding: 10px 16px;
-        font-size: 0.85rem;
+        padding: 10px 14px;
+        font-size: 0.82rem;
       }
 
       .hero-search-btn svg {
@@ -257,13 +274,26 @@
 </head>
 <body>
 
-  <!-- Seção Hero Compacta mantendo todas as palavras originais e substituindo a pesquisa por chamada de cadastro -->
+  <!-- Cabeçalho -->
+  <header class="app-header">
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect fill='%23fca311' width='24' height='24' rx='4'/></svg>" alt="Logo">
+    <h1>Cajazeiras <span>Mall</span></h1>
+  </header>
+
+  <!-- Banner Baixar App -->
+  <div class="install-banner">
+    <a href="#">
+      📱 Baixar App no Celular
+    </a>
+  </div>
+
+  <!-- Seção Hero Compacta (Mantém layout, cores, imagem de fundo e textos exatos, substituindo a pesquisa pelo botão de cadastro) -->
   <section class="hero-section">
     <div class="hero-container">
       <div class="hero-title">Cajazeiras <span>Mall</span></div>
       <div class="hero-subtitle">O comércio de Cajazeiras reunido em um só lugar.</div>
       
-      <!-- Botão com formato da barra de pesquisa chamando para o cadastro -->
+      <!-- Botão com o mesmo estilo da barra de pesquisa chamando para o cadastro -->
       <a href="#" class="hero-search-btn">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
         <span>Clique aqui e cadastre seu negócio!</span>
