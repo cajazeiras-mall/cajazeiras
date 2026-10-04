@@ -49,73 +49,102 @@
       color: #fca311;
     }
 
-    /* Seção Hero mais compacta com Chamada para Cadastro */
+    /* Seção Hero Mantida (Com imagem de fundo e textos originais, porém mais compacta) */
     .hero-section {
-      background: linear-gradient(rgba(13, 27, 42, 0.75), rgba(13, 27, 42, 0.75)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231b263b" width="100" height="100"/></svg>');
+      background: linear-gradient(rgba(13, 27, 42, 0.5), rgba(13, 27, 42, 0.5)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231b263b" width="100" height="100"/></svg>');
       background-size: cover;
       background-position: center;
       padding: 24px 16px;
-      text-align: center;
       color: #fff;
     }
 
-    .hero-content h1 {
-      font-size: 1.25rem;
-      margin-bottom: 6px;
-      font-weight: bold;
+    .hero-container {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .hero-content h1 span {
+    .hero-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .hero-title span {
       color: #fca311;
     }
 
-    .hero-content p {
+    .hero-subtitle {
       font-size: 0.85rem;
-      margin-bottom: 16px;
       color: #e0e0e0;
+      margin-bottom: 4px;
     }
 
-    /* Botão de Cadastro no lugar da Pesquisa */
-    .btn-cadastro {
-      display: inline-block;
-      background-color: #fca311;
-      color: #0d1b2a;
-      padding: 10px 24px;
-      border-radius: 20px;
+    /* Botão no lugar da barra de pesquisa (mesmo formato arredondado, convidando para cadastro) */
+    .hero-search-btn {
+      background-color: #ffffff;
+      border-radius: 30px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       text-decoration: none;
-      font-weight: bold;
-      font-size: 0.9rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: background 0.2s;
+      color: #777;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: background-color 0.2s;
     }
 
-    .btn-cadastro:hover {
-      background-color: #e59400;
+    .hero-search-btn:hover {
+      background-color: #f8f9fa;
+    }
+
+    .hero-search-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: #fca311;
+    }
+
+    .hero-search-btn span {
+      color: #333;
+      font-weight: bold;
+    }
+
+    .hero-footer-text {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: #f1f1f1;
+      margin-top: 2px;
+      border-bottom: 2px solid #fca311;
+      display: inline-block;
+      padding-bottom: 2px;
     }
 
     /* Container de Categorias */
     .categories-section {
       max-width: 1200px;
-      margin: 16px auto;
-      padding: 0 12px;
+      margin: 20px auto;
+      padding: 0 16px;
     }
 
     .categories-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .categories-header h2 {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       color: #0d1b2a;
     }
 
     .categories-header a {
       color: #4a6fa5;
       text-decoration: none;
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       font-weight: bold;
     }
 
@@ -173,69 +202,78 @@
     /* RESPONSIVO PARA CELULAR (3 botões menores em 1 linha e Hero compacto) */
     @media (max-width: 768px) {
       .hero-section {
-        padding: 18px 12px;
+        padding: 16px 12px;
       }
 
-      .hero-content h1 {
-        font-size: 1.1rem;
+      .hero-title {
+        font-size: 1.15rem;
       }
 
-      .hero-content p {
-        font-size: 0.8rem;
-        margin-bottom: 12px;
+      .hero-subtitle {
+        font-size: 0.78rem;
+        margin-bottom: 2px;
       }
 
-      .btn-cadastro {
-        padding: 8px 20px;
+      .hero-search-btn {
+        padding: 10px 16px;
         font-size: 0.85rem;
+      }
+
+      .hero-search-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .hero-footer-text {
+        font-size: 0.75rem;
       }
 
       .categories-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
+        gap: 8px;
       }
 
       .category-card {
-        padding: 8px 2px;
+        padding: 10px 4px;
         border-radius: 8px;
       }
 
       .icon-wrapper {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         margin-bottom: 4px;
       }
 
       .icon-wrapper svg {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
       }
 
       .category-card span {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Topo -->
-  <header class="site-header">
-    <div class="logo-area">
-      <span>Cajazeiras <span>Mall</span></span>
-    </div>
-  </header>
-
-  <!-- Seção Hero Compacta com Chamada de Cadastro -->
+  <!-- Seção Hero Compacta mantendo todas as palavras originais e substituindo a pesquisa por chamada de cadastro -->
   <section class="hero-section">
-    <div class="hero-content">
-      <h1>Cajazeiras <span>Mall</span></h1>
-      <p>O comércio de Cajazeiras reunido em um só lugar.</p>
-      <a href="#" class="btn-cadastro">Cadastre seu Negócio</a>
+    <div class="hero-container">
+      <div class="hero-title">Cajazeiras <span>Mall</span></div>
+      <div class="hero-subtitle">O comércio de Cajazeiras reunido em um só lugar.</div>
+      
+      <!-- Botão com formato da barra de pesquisa chamando para o cadastro -->
+      <a href="#" class="hero-search-btn">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+        <span>Clique aqui e cadastre seu negócio!</span>
+      </a>
+
+      <div class="hero-footer-text">Compre local. Fortaleza o nosso bairro.</div>
     </div>
   </section>
 
-  <!-- Seção de Categorias (3 Primeiras no Celular) -->
+  <!-- Seção de Categorias -->
   <section class="categories-section">
     <div class="categories-header">
       <h2>Navegue por Categorias</h2>
