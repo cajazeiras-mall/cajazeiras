@@ -1003,6 +1003,14 @@
         <div id="stores-container" class="stores-grid"></div>
     </div>
 
+    <div id="secao-vizinho" style="margin:8px 0 28px">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <span id="selo-secao" style="display:flex"></span>
+        <div style="flex:1;min-width:200px"><div style="font-weight:700;font-size:1.05rem;color:#0f172a">Conhece um profissional de confiança no bairro?</div><div style="font-size:.85rem;color:#64748b;margin-top:4px">Indique um eletricista, diarista, pedreiro... e ajude seus vizinhos.</div></div>
+        <button type="button" onclick="abrirIndicacao()" style="background:#dcfce7;color:#166534;border:1px solid #86efac;border-radius:999px;padding:10px 20px;font-weight:700;cursor:pointer;font-family:inherit;font-size:.9rem">Indicar vizinho</button>
+      </div>
+    </div>
+
     <!-- SEÇÃO ESTÁTICA DE DESTAQUES -->
     <div id="static-featured-section">
         <div class="section-header-flex">
@@ -1164,6 +1172,29 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="indicar-modal">
+  <div class="modal-body">
+    <div class="modal-header-branding">
+      <img src="icon-192.png" alt="Logo" style="width:36px;height:36px">
+      <div class="header-title" style="color:#0f172a">Cajazeiras <span style="color:#f59e0b">Mall</span></div>
+    </div>
+    <div class="modal-title">Indicar um vizinho de confiança</div>
+    <div class="modal-text">Conte quem você recomenda. Vamos conferir antes de publicar.</div>
+    <form id="form-indicacao" onsubmit="enviarIndicacao(event)">
+      <div class="form-group"><label for="ind-nome">Nome do profissional:</label><input type="text" id="ind-nome" required maxlength="90" placeholder="Ex.: João Silva"></div>
+      <div class="form-group"><label for="ind-servico">Serviço:</label><input type="text" id="ind-servico" required maxlength="60" placeholder="Ex.: Eletricista"></div>
+      <div class="form-group"><label for="ind-zap">WhatsApp do profissional:</label><input type="tel" id="ind-zap" required placeholder="(85) 9XXXX-XXXX"></div>
+      <div class="form-group"><label for="ind-desc">Por que você recomenda? (opcional)</label><textarea id="ind-desc" rows="2" maxlength="300" placeholder="Ex.: Pontual, honesto e bom preço."></textarea></div>
+      <div class="form-group"><label for="ind-por">Seu nome:</label><input type="text" id="ind-por" required maxlength="60" placeholder="Seu nome"></div>
+      <label style="display:flex;gap:8px;align-items:flex-start;font-size:.85rem;margin:10px 0"><input type="checkbox" id="ind-mostrar" style="margin-top:3px"> Autorizo mostrar meu nome no site</label>
+      <label style="display:flex;gap:8px;align-items:flex-start;font-size:.85rem;margin:10px 0"><input type="checkbox" id="ind-ok" required style="margin-top:3px"> O profissional sabe e concordou em ser indicado</label>
+      <input type="text" id="ind-site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0">
+      <button type="submit" class="btn-submit" id="btn-enviar-ind">Enviar indicação</button>
+      <button type="button" class="modal-btn btn-close-modal" onclick="fechar('indicar-modal')">Cancelar</button>
+    </form>
+  </div>
+</div>
+
 <!-- MODAL LOGIN ADMIN -->
 <div class="modal-overlay" id="admin-login-modal">
   <div class="modal-body">
@@ -1209,6 +1240,9 @@
       <button type="submit" class="btn-submit" id="admin-btn-salvar">➕ Publicar</button>
       <button type="button" class="modal-btn btn-close-modal" id="admin-btn-cancelar-edicao" style="display:none" onclick="limparForm()">Cancelar edição</button>
     </form>
+    <div class="admin-section-divider"></div>
+    <div class="admin-tabs-title">Indicações pendentes</div>
+    <div class="category-manage-list" id="admin-lista-indicacoes"></div>
     <div class="admin-section-divider"></div>
     <div class="admin-tabs-title">Comércios publicados</div>
     <div class="category-manage-list" id="admin-lista-comercios"></div>
@@ -1505,6 +1539,7 @@ function desenhar(){
     containerGrid.style.display = "none";
     if(btnSeeAllCats) btnSeeAllCats.style.display = "none";
     if(secaoEstatica) secaoEstatica.style.display = "none";
+    {var sv=$("secao-vizinho"); if(sv) sv.style.display = "none";}
 
     let lojas, vazio;
     if(emBusca){
@@ -1526,6 +1561,7 @@ function desenhar(){
         const texto = `
             <span style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${esc(l.categoria)}</span>
             <div class="store-name-title" style="margin-top: 4px;">${esc(l.nome)}</div>
+            ${l.indicado ? `<div style="display:flex;align-items:center;gap:6px;margin:4px 0 6px">${seloSvg(20)}<span style="font-size:.75rem;font-weight:700;color:#92400e">Indicado por ${esc(l.indicado)}</span></div>` : ''}
             <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; white-space: pre-line;">${esc(l.desc)}</div>`;
         const topo = logoValida(l.logo)
           ? `<div style="display:flex;gap:12px;align-items:flex-start"><img src="${l.logo}" alt="Logo ${esc(l.nome)}" loading="lazy" style="width:76px;height:76px;object-fit:contain;border-radius:12px;border:1px solid var(--card-border);background:#fff;flex-shrink:0"><div style="min-width:0;flex:1">${texto}</div></div>`
@@ -1545,6 +1581,7 @@ function desenhar(){
     containerGrid.style.display = "grid";
     if(btnSeeAllCats) btnSeeAllCats.style.display = "inline-block";
     if(secaoEstatica) secaoEstatica.style.display = "block";
+    {var sv=$("secao-vizinho"); if(sv) sv.style.display = "block";}
     tituloSecao.textContent = "Navegue por Categorias";
 
     if(DATA.carregando) {
@@ -1650,7 +1687,9 @@ function escolherLogo(inp){
   rd.readAsDataURL(f);
 }
 
+var IND = [];
 function aplicarEstado(res){
+  if(res && res.indicacoes) IND = res.indicacoes;
   if(res && res.categorias && res.comercios){
     DATA = {categorias:res.categorias, comercios:res.comercios};
     guardar(DATA);
@@ -1678,7 +1717,23 @@ function salvarNovaSenha(e){
   abrirModalTrocarSenha();
 }
 
+function decidirIndicacao(id, acao){
+  if(acao==="ind_recusar" && !confirm("Recusar esta indicação?")) return;
+  chamar({acao:acao,senha:SENHA_ADMIN,id:id}).then(res => {
+    if(res && res.ok){ aplicarEstado(res); mostrarAlerta("Pronto", acao==="ind_aprovar" ? "Indicação aprovada e publicada em Vizinho de confiança." : "Indicação recusada."); }
+    else mostrarAlerta("Erro", msgErro(res));
+  }).catch(() => mostrarAlerta("Erro", "Erro de conexão. Tente novamente."));
+}
+
 function carregarPainelAdmin(){
+  $("admin-lista-indicacoes").innerHTML = IND.length ? IND.map(i => `
+    <div class="category-manage-item" style="flex-direction:column;align-items:flex-start;gap:8px">
+      <span><b>${esc(i.profissional)}</b> (${esc(i.servico)})<br>WhatsApp: ${esc(i.whatsapp)}<br>Indicado por: ${esc(i.indicadoPor)} (${i.mostrarNome ? "nome público" : "anônimo"})${i.desc ? "<br>" + esc(i.desc) : ""}</span>
+      <div class="cat-item-actions">
+        <button class="btn-cat-edit" data-id="${esc(i.id)}" onclick="decidirIndicacao(this.dataset.id,'ind_aprovar')">Aprovar</button>
+        <button class="btn-cat-delete" data-id="${esc(i.id)}" onclick="decidirIndicacao(this.dataset.id,'ind_recusar')">Recusar</button>
+      </div>
+    </div>`).join('') : '<div class="carregando">Nenhuma indicação pendente.</div>';
   const selCat = $("admin-categoria");
   selCat.innerHTML = (DATA.categorias || []).map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
 
@@ -1865,6 +1920,37 @@ function abrirTermos(){
 
 function abrirPrivacidade(){
   mostrarTexto("Política de Privacidade", "Dados coletados: ao cadastrar seu comércio pedimos seu nome, o nome do estabelecimento, a categoria, o WhatsApp e uma descrição.\n\nUso: analisar o pedido e, se aprovado, publicar no catálogo o nome, a categoria, a descrição e o WhatsApp do estabelecimento. Não vendemos seus dados.\n\nContato: ao se cadastrar, você concorda que entraremos em contato pelo WhatsApp informado para tratar de possíveis melhorias na divulgação do seu comércio.\n\nEnvio: o formulário é enviado por e-mail ao administrador por meio do serviço FormSubmit.\n\nNo seu aparelho: o aplicativo guarda uma cópia do catálogo para abrir mais rápido. Visitantes não precisam criar conta.\n\nSeus direitos (LGPD): você pode pedir correção ou exclusão dos seus dados a qualquer momento, usando o formulário Cadastre seu Comércio e informando o pedido.");
+}
+
+var SELO_D = "M96 50 L96 55 L93 59 L92 64 L88 67 L85 70 L86 76 L85 82 L81 84 L76 85 L71 87 L66 86 L62 87 L59 93 L55 96 L50 93 L46 92 L41 90 L38 87 L33 87 L27 90 L23 88 L20 83 L17 79 L16 75 L15 70 L10 68 L5 65 L5 60 L7 55 L7 50 L11 46 L12 42 L8 36 L8 31 L13 28 L16 25 L20 23 L24 21 L26 17 L27 10 L31 8 L36 8 L41 7 L46 9 L50 10 L55 6 L60 3 L64 6 L68 10 L71 13 L73 18 L76 21 L83 21 L87 23 L87 28 L89 33 L89 37 L88 42 L91 46Z";
+function seloSvg(t){
+  return '<svg width="'+t+'" height="'+t+'" viewBox="0 0 100 100" aria-hidden="true" style="flex-shrink:0"><defs><linearGradient id="sgr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFF1BC"/><stop offset=".3" stop-color="#E9AB3C"/><stop offset=".62" stop-color="#9E5F0E"/><stop offset=".85" stop-color="#E7A833"/><stop offset="1" stop-color="#FFE29A"/></linearGradient><linearGradient id="sgd" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE9A0"/><stop offset=".35" stop-color="#F2B947"/><stop offset=".7" stop-color="#C98A1E"/><stop offset="1" stop-color="#F6CF70"/></linearGradient></defs><path d="'+SELO_D+'" fill="url(#sgr)" stroke="#8E520A" stroke-width="1.2" stroke-linejoin="round"/><circle cx="50" cy="50" r="32" fill="url(#sgd)" stroke="#9A5A0B" stroke-width="1.5"/><path d="M36 51 L46 61 L65 40" fill="none" stroke="#5B3306" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+$("selo-secao").innerHTML = seloSvg(64);
+
+function abrirIndicacao(){ abrir("indicar-modal"); }
+function enviarIndicacao(e){
+  e.preventDefault();
+  if(!apiOn()){ mostrarAlerta("Indisponível", "Tente novamente mais tarde."); return; }
+  var btn = $("btn-enviar-ind"), txt = btn.textContent;
+  btn.disabled = true; btn.textContent = "Enviando...";
+  chamar({
+    acao:"indicar", profissional:$("ind-nome").value, servico:$("ind-servico").value,
+    whatsapp:$("ind-zap").value, desc:$("ind-desc").value, indicadoPor:$("ind-por").value,
+    mostrarNome:$("ind-mostrar").checked, concordou:$("ind-ok").checked, site:$("ind-site").value
+  }).then(function(res){
+    btn.disabled = false; btn.textContent = txt;
+    if(res && res.ok){
+      $("form-indicacao").reset();
+      fechar("indicar-modal");
+      mostrarAlerta("Obrigado!", "Recebemos a sua indicação. Vamos conferir antes de publicar.");
+    } else {
+      mostrarAlerta("Não foi possível enviar", (res && res.erro) ? res.erro : "Tente novamente em instantes.");
+    }
+  }).catch(function(){
+    btn.disabled = false; btn.textContent = txt;
+    mostrarAlerta("Sem conexão", "Verifique sua internet e tente novamente.");
+  });
 }
 
 carregar();
