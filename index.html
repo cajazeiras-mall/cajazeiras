@@ -1161,6 +1161,7 @@
     <form id="form-cadastro" action="https://formsubmit.co/carloshabarreto@gmail.com" method="POST" onsubmit="enviarCadastro(event)">
       <input type="hidden" name="_subject" value="Novo Cadastro - Cajazeiras Mall">
       <input type="hidden" name="_captcha" value="false">
+      <input type="text" id="cad-site" name="site_extra" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0">
       <div class="form-group"><label for="comerciante-nome">Seu Nome:</label><input type="text" name="Nome" id="comerciante-nome" required placeholder="Seu nome completo"></div>
       <div class="form-group"><label for="loja-nome">Nome do Estabelecimento:</label><input type="text" name="Estabelecimento" id="loja-nome" required placeholder="Nome da loja/serviço"></div>
       <div class="form-group"><label for="loja-categoria">Categoria:</label><select name="Categoria" id="loja-categoria" required></select></div>
@@ -1240,6 +1241,9 @@
       <button type="submit" class="btn-submit" id="admin-btn-salvar">➕ Publicar</button>
       <button type="button" class="modal-btn btn-close-modal" id="admin-btn-cancelar-edicao" style="display:none" onclick="limparForm()">Cancelar edição</button>
     </form>
+    <div class="admin-section-divider"></div>
+    <div class="admin-tabs-title" id="admin-cad-titulo">Cadastros para aprovar</div>
+    <div class="category-manage-list" id="admin-lista-cadastros"></div>
     <div class="admin-section-divider"></div>
     <div class="admin-tabs-title">Indicações pendentes</div>
     <div class="category-manage-list" id="admin-lista-indicacoes"></div>
@@ -1687,9 +1691,10 @@ function escolherLogo(inp){
   rd.readAsDataURL(f);
 }
 
-var IND = [];
+var IND = [], CAD = [], CAD_ID = null;
 function aplicarEstado(res){
   if(res && res.indicacoes) IND = res.indicacoes;
+  if(res && res.cadastros) CAD = res.cadastros;
   if(res && res.categorias && res.comercios){
     DATA = {categorias:res.categorias, comercios:res.comercios};
     guardar(DATA);
@@ -1726,6 +1731,7 @@ function decidirIndicacao(id, acao){
 }
 
 function carregarPainelAdmin(){
+  listaCadastros();
   $("admin-lista-indicacoes").innerHTML = IND.length ? IND.map(i => `
     <div class="category-manage-item" style="flex-direction:column;align-items:flex-start;gap:8px">
       <span><b>${esc(i.profissional)}</b> (${esc(i.servico)})<br>WhatsApp: ${esc(i.whatsapp)}<br>Indicado por: ${esc(i.indicadoPor)} (${i.mostrarNome ? "nome público" : "anônimo"})${i.desc ? "<br>" + esc(i.desc) : ""}</span>
@@ -1767,7 +1773,8 @@ function salvarComercio(e){
     categoria: $("admin-categoria").value,
     whatsapp: $("admin-whatsapp").value,
     desc: $("admin-desc").value,
-    logo: LOGO_ATUAL
+    logo: LOGO_ATUAL,
+    pend: CAD_ID || ""
   };
 
   if(apiOn()){
@@ -1811,6 +1818,7 @@ function editarComercio(id){
 
 function limparForm(){
   EDIT_ID = null;
+  CAD_ID = null;
   $("admin-form").reset();
   LOGO_ATUAL = "";
   mostrarPrevia();
@@ -1883,7 +1891,7 @@ function abrirContato(){
   window.open(zapLink("85996461047") + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
 }
 
-function enviarCadastro(e){
+function enviarCadastroEmail(e){
   e.preventDefault();
   var form = e.target, btn = $("btn-enviar-cadastro");
   if(!window.fetch || !window.FormData){ form.submit(); return; }
@@ -1905,6 +1913,51 @@ function enviarCadastro(e){
       btn.disabled = false; btn.textContent = txt;
       mostrarAlerta("Sem conexão", "Verifique sua internet e tente novamente.");
     });
+}
+
+function enviarCadastro(e){
+  e.preventDefault();
+  var form = e.target, btn = $("btn-enviar-cadastro");
+  if(!apiOn()){ enviarCadastroEmail(e); return; }
+  var txt = btn.textContent;
+  btn.disabled = true; btn.textContent = "Enviando...";
+  chamar({acao:"cadastrar", site:$("cad-site").value, cadastro:{comerciante:$("comerciante-nome").value, nome:$("loja-nome").value, categoria:$("loja-categoria").value, whatsapp:$("loja-whatsapp").value, desc:$("loja-desc").value}})
+    .then(function(res){
+      if(res && res.ok){
+        btn.disabled = false; btn.textContent = txt;
+        form.reset(); fechar("user-register-modal");
+        mostrarAlerta("Cadastro enviado", "Recebemos sua solicitação. Seu comércio aparece no app depois da aprovação.");
+      } else if(res && res.erro && res.erro.indexOf("desconhecida") < 0){
+        btn.disabled = false; btn.textContent = txt;
+        mostrarAlerta("Aviso", res.erro);
+      } else { btn.disabled = false; btn.textContent = txt; enviarCadastroEmail(e); }
+    })
+    .catch(function(){ btn.disabled = false; btn.textContent = txt; enviarCadastroEmail(e); });
+}
+
+function listaCadastros(){
+  var n = CAD.length;
+  $("admin-cad-titulo").textContent = "Cadastros para aprovar (" + n + ")";
+  $("admin-lista-cadastros").innerHTML = n ? CAD.map(function(c){
+    return '<div class="category-manage-item" style="flex-direction:column;align-items:flex-start;gap:8px"><span><b>'+esc(c.nome)+'</b> ('+esc(c.categoria)+')<br>WhatsApp: '+esc(c.whatsapp)+'<br>Responsável: '+esc(c.comerciante)+'<br>'+esc(c.desc)+'</span><div class="cat-item-actions"><button class="btn-cat-edit" data-id="'+esc(c.id)+'" onclick="decidirCadastro(this.dataset.id,\'cad_aprovar\')">Aprovar</button><button class="btn-cat-edit" data-id="'+esc(c.id)+'" onclick="editarCadastro(this.dataset.id)">Editar</button><button class="btn-cat-delete" data-id="'+esc(c.id)+'" onclick="decidirCadastro(this.dataset.id,\'cad_recusar\')">Recusar</button></div></div>';
+  }).join('') : '<div class="carregando">Nenhum cadastro novo.</div>';
+}
+function decidirCadastro(id, acao){
+  if(acao==="cad_recusar" && !confirm("Recusar este cadastro?")) return;
+  chamar({acao:acao,senha:SENHA_ADMIN,id:id}).then(function(res){
+    if(res && res.ok){ aplicarEstado(res); mostrarAlerta("Pronto", acao==="cad_aprovar" ? "Cadastro aprovado e publicado para todos." : "Cadastro recusado."); }
+    else mostrarAlerta("Erro", msgErro(res));
+  }).catch(function(){ mostrarAlerta("Erro", "Erro de conexão. Tente novamente."); });
+}
+function editarCadastro(id){
+  var c = CAD.filter(function(x){return x.id===id})[0]; if(!c) return;
+  limparForm();
+  CAD_ID = c.id;
+  $("admin-nome").value = c.nome; $("admin-categoria").value = c.categoria; $("admin-whatsapp").value = c.whatsapp; $("admin-desc").value = c.desc;
+  $("admin-form-titulo").textContent = "Aprovando cadastro";
+  $("admin-btn-salvar").textContent = "✅ Aprovar e publicar";
+  $("admin-btn-cancelar-edicao").style.display = "block";
+  $("admin-nome").scrollIntoView({block:"center"});
 }
 
 function mostrarTexto(titulo, texto){
