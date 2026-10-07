@@ -1565,10 +1565,12 @@ function desenhar(){
       const termo = norm(BUSCA).trim();
       tituloSecao.textContent = termo ? 'Resultados para "' + BUSCA.trim() + '"' : "Todos os estabelecimentos";
       lojas = (DATA.comercios || []).filter(c => !termo || norm(c.nome + " " + c.categoria + " " + c.desc).includes(termo));
+      lojas.sort((x, y) => String(x.nome).localeCompare(String(y.nome), "pt-BR", {sensitivity: "base"}));
       vazio = "Nenhum estabelecimento encontrado.";
     } else {
       tituloSecao.textContent = CAT_ATUAL;
       lojas = (DATA.comercios || []).filter(c => c.categoria === CAT_ATUAL);
+      lojas.sort((x, y) => String(x.nome).localeCompare(String(y.nome), "pt-BR", {sensitivity: "base"}));
       vazio = "Nenhum estabelecimento nesta categoria.";
     }
     if(DATA.carregando) vazio = "Carregando dados...";
